@@ -7,31 +7,28 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Machine 1 (Code: A1)</h1>
+    <h1>Sanitary Products - Machine 1</h1>
     <div class="product-list">
         <div class="product">
             <img src="images/tissue.jpg" alt="Tissue">
             <h2>Tissue</h2>
             <p>Price: ₱20.00</p>
-            <label for="quantity-tissue">Quantity:</label>
-            <input type="number" id="quantity-tissue" value="1" min="1">
-            <button onclick="addToCart('Tissue', 20.00, document.getElementById('quantity-tissue').value)">Add to Cart</button>
+            <input type="number" value="1" min="1" id="tissue-quantity">
+            <button onclick="addToCart('Tissue', 20.00, document.getElementById('tissue-quantity').value)">Add to Cart</button>
         </div>
         <div class="product">
             <img src="images/soap.jpg" alt="Soap">
             <h2>Soap</h2>
             <p>Price: ₱20.00</p>
-            <label for="quantity-soap">Quantity:</label>
-            <input type="number" id="quantity-soap" value="1" min="1">
-            <button onclick="addToCart('Soap', 20.00, document.getElementById('quantity-soap').value)">Add to Cart</button>
+            <input type="number" value="1" min="1" id="soap-quantity">
+            <button onclick="addToCart('Soap', 20.00, document.getElementById('soap-quantity').value)">Add to Cart</button>
         </div>
         <div class="product">
             <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
             <h2>Sanitary Pad</h2>
             <p>Price: ₱20.00</p>
-            <label for="quantity-pad">Quantity:</label>
-            <input type="number" id="quantity-pad" value="1" min="1">
-            <button onclick="addToCart('Sanitary Pad', 20.00, document.getElementById('quantity-pad').value)">Add to Cart</button>
+            <input type="number" value="1" min="1" id="sanitary-pad-quantity">
+            <button onclick="addToCart('Sanitary Pad', 20.00, document.getElementById('sanitary-pad-quantity').value)">Add to Cart</button>
         </div>
     </div>
     <div class="cart">
@@ -43,4 +40,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
