@@ -13,14 +13,14 @@ header, section {
     margin: 20px;
 }
 
-.product-list {
+.machine-list {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 20px;
 }
 
-.product {
+.machine {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -31,75 +31,36 @@ header, section {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.product img {
+.machine img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
 }
 
-.product h2 {
+.machine h3 {
     font-size: 18px;
     margin: 10px 0;
 }
 
-.product p {
+.machine p {
     font-size: 16px;
     color: #333;
 }
 
-.product button {
+.machine a {
+    display: inline-block;
     background-color: #007bff;
     color: white;
-    border: none;
     padding: 10px;
     border-radius: 5px;
-    cursor: pointer;
+    text-decoration: none;
     margin-top: 10px;
 }
 
-.product button:hover {
+.machine a:hover {
     background-color: #0056b3;
 }
 
-.cart {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 20px;
-    width: calc(100% - 40px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.cart h2 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.cart ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.cart li {
-    margin: 5px 0;
-}
-
-.cart button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.cart button:hover {
-    background-color: #218838;
-}
-
-/* New styles for footer and contact info */
 footer {
     margin-top: auto; /* Push the footer to the bottom */
     background-color: #fff;
