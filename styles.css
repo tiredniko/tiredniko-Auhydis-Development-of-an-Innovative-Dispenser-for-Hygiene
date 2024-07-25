@@ -35,7 +35,7 @@ h1 {
     width: 100%; /* Full width of the container */
     height: auto; /* Maintain aspect ratio */
     max-height: 150px; /* Optional: limit height to prevent excessively large images */
-    object-fit: contain; /* Ensure the entire image fits within the container */
+    object-fit: scale-down; /* Scale down the image without cropping */
     border-radius: 5px;
 }
 
@@ -106,3 +106,4 @@ h1 {
 .cart button:hover {
     background-color: #218838;
 }
+
