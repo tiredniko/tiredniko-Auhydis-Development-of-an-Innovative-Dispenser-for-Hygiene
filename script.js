@@ -1,12 +1,11 @@
 let cart = [];
 
 function addToCart(product, price, quantity) {
-    quantity = parseInt(quantity);
-    let existingItem = cart.find(item => item.product === product);
-    if (existingItem) {
-        existingItem.quantity += quantity;
+    const existingProductIndex = cart.findIndex(item => item.product === product);
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].quantity += parseInt(quantity, 10);
     } else {
-        cart.push({ product, price, quantity });
+        cart.push({ product, price, quantity: parseInt(quantity, 10) });
     }
     displayCart();
 }
@@ -18,7 +17,7 @@ function displayCart() {
     let total = 0;
     cart.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = `${item.product} (x${item.quantity}) - ₱${(item.price * item.quantity).toFixed(2)}`;
+        li.textContent = `${item.product} - ₱${(item.price * item.quantity).toFixed(2)} (x${item.quantity})`;
         cartItems.appendChild(li);
         total += item.price * item.quantity;
     });
