@@ -23,6 +23,15 @@ h1 {
     width: 200px;
 }
 
+.cart {
+    margin-top: 20px;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+}
+
 button {
     background-color: #4CAF50;
     color: white;
