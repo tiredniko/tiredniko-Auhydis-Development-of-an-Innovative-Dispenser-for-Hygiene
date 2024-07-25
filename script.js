@@ -8,7 +8,6 @@ function addToCart(product, price, quantity) {
         return;
     }
 
-    // Check if the product is already in the cart
     const existingProductIndex = cart.findIndex(item => item.product === product);
     if (existingProductIndex > -1) {
         // Update quantity and total if product is already in the cart
@@ -18,7 +17,7 @@ function addToCart(product, price, quantity) {
         cart.push({ product, price, quantity });
     }
 
-    // Update the total
+    // Update the total price
     total += price * quantity;
     displayCart();
 }
