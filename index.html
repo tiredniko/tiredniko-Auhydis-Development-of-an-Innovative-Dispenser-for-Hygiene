@@ -7,18 +7,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Welcome to the Sanitary Product Vending Machine</h1>
-    <form id="productForm">
-        <label for="product">Select Product:</label>
-        <select id="product" name="product">
-            <option value="1">Sanitary Pad</option>
-            <option value="2">Tampon</option>
-        </select>
-        <button type="submit">Dispense Product</button>
-    </form>
-    <div id="message"></div>
+    <h1>Sanitary Product Vending Machine</h1>
+    <div class="product-list">
+        <div class="product">
+            <h2>Sanitary Pads</h2>
+            <p>Price: $1.00</p>
+            <button onclick="purchase('Sanitary Pads')">Buy Now</button>
+        </div>
+        <div class="product">
+            <h2>Tampons</h2>
+            <p>Price: $1.50</p>
+            <button onclick="purchase('Tampons')">Buy Now</button>
+        </div>
+    </div>
     <script src="script.js"></script>
-
-
-
-
+</body>
+</html>
