@@ -32,9 +32,10 @@ h1 {
 }
 
 .product img {
-    width: 150px; /* Fixed width for images */
-    height: 150px; /* Fixed height for images */
-    object-fit: cover; /* Ensure the image covers the area without distortion */
+    width: 100%; /* Full width of the container */
+    height: auto; /* Maintain aspect ratio */
+    max-height: 150px; /* Optional: limit height to prevent excessively large images */
+    object-fit: contain; /* Ensure the entire image fits within the container */
     border-radius: 5px;
 }
 
