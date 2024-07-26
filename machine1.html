@@ -7,30 +7,34 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Auhydis - Machine 1</h1>
-    <div class="product-list">
-        <div class="product">
-            <img src="images/tissue.jpg" alt="Tissue">
-            <h2>Tissue</h2>
-            <p>Price: ₱20.00</p>
-            <input type="number" value="1" min="1" id="tissue-quantity">
-            <button onclick="addToCart('Tissue', 20.00, document.getElementById('tissue-quantity').value)">Add to Cart</button>
+    <header>
+        <h1>Auhydis - Machine 1</h1>
+    </header>
+    <section>
+        <div class="product-list">
+            <div class="product">
+                <img src="images/tissue.jpg" alt="Tissue">
+                <h2>Tissue</h2>
+                <p>Price: ₱20.00</p>
+                <input type="number" value="1" min="1" id="tissue-quantity">
+                <button onclick="addToCart('Tissue', 20.00, document.getElementById('tissue-quantity').value)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/soap.jpg" alt="Soap">
+                <h2>Soap</h2>
+                <p>Price: ₱20.00</p>
+                <input type="number" value="1" min="1" id="soap-quantity">
+                <button onclick="addToCart('Soap', 20.00, document.getElementById('soap-quantity').value)">Add to Cart</button>
+            </div>
+            <div class="product">
+                <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
+                <h2>Sanitary Pad</h2>
+                <p>Price: ₱20.00</p>
+                <input type="number" value="1" min="1" id="sanitary-pad-quantity">
+                <button onclick="addToCart('Sanitary Pad', 20.00, document.getElementById('sanitary-pad-quantity').value)">Add to Cart</button>
+            </div>
         </div>
-        <div class="product">
-            <img src="images/soap.jpg" alt="Soap">
-            <h2>Soap</h2>
-            <p>Price: ₱20.00</p>
-            <input type="number" value="1" min="1" id="soap-quantity">
-            <button onclick="addToCart('Soap', 20.00, document.getElementById('soap-quantity').value)">Add to Cart</button>
-        </div>
-        <div class="product">
-            <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
-            <h2>Sanitary Pad</h2>
-            <p>Price: ₱20.00</p>
-            <input type="number" value="1" min="1" id="sanitary-pad-quantity">
-            <button onclick="addToCart('Sanitary Pad', 20.00, document.getElementById('sanitary-pad-quantity').value)">Add to Cart</button>
-        </div>
-    </div>
+    </section>
     <div class="cart">
         <h2>Shopping Cart</h2>
         <ul id="cart-items"></ul>
@@ -40,3 +44,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
