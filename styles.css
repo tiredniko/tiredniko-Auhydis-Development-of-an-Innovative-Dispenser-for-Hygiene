@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #e0e0e0; /* Gray background for the entire page */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -21,61 +21,64 @@ header, section {
 }
 
 .machine {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 10px;
+    background-color: #ffffff; /* White background for machine boxes */
+    border: 1px solid #d0d0d0; /* Light gray border */
+    border-radius: 15px; /* Smooth, rounded edges */
+    padding: 15px;
     margin: 10px;
-    width: 200px;
+    width: 220px; /* Slightly wider for better content fit */
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Slightly more pronounced shadow */
 }
 
 .machine img {
     max-width: 100%;
     height: auto;
-    border-radius: 5px;
+    border-radius: 10px; /* Smooth edges for images */
 }
 
 .machine h3 {
-    font-size: 18px;
+    font-size: 20px; /* Larger font size for better readability */
     margin: 10px 0;
 }
 
 .machine p {
-    font-size: 16px;
-    color: #333;
+    font-size: 18px;
+    color: #555; /* Slightly darker gray text */
 }
 
 .machine a {
     display: inline-block;
-    background-color: #007bff;
+    background-color: #007bff; /* Blue background for buttons */
     color: white;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 8px; /* Smooth button edges */
     text-decoration: none;
     margin-top: 10px;
+    font-weight: bold;
 }
 
 .machine a:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Darker blue on hover */
 }
 
 footer {
     margin-top: auto; /* Push the footer to the bottom */
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    background-color: #ffffff; /* White background for the footer */
+    border: 1px solid #d0d0d0; /* Light gray border */
+    border-radius: 15px; /* Smooth edges for the footer */
     padding: 20px;
     width: calc(100% - 40px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Slightly more pronounced shadow */
     text-align: center;
 }
 
 .contact-info h2 {
     margin: 0 0 10px;
+    font-size: 22px; /* Larger font size for headings */
 }
 
 .contact-info p {
     margin: 5px 0;
+    font-size: 16px;
 }
