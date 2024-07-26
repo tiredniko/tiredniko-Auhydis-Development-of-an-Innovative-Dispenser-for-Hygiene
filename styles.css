@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e0e0e0; /* Gray background for the entire page */
+    background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -26,59 +26,79 @@ header, section {
     border-radius: 15px; /* Smooth, rounded edges */
     padding: 15px;
     margin: 10px;
-    width: 220px; /* Slightly wider for better content fit */
+    width: 220px; /* Adjusted width for better fit */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Slightly more pronounced shadow */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+    overflow: hidden; /* Ensures content does not overflow the box */
 }
 
 .machine img {
-    max-width: 100%;
-    height: auto;
+    max-width: 100%; /* Ensures image fits within its container */
+    height: auto; /* Maintains aspect ratio */
     border-radius: 10px; /* Smooth edges for images */
+    display: block; /* Removes extra space below the image */
+    margin-bottom: 10px; /* Space between image and other content */
 }
 
 .machine h3 {
-    font-size: 20px; /* Larger font size for better readability */
+    font-size: 18px;
     margin: 10px 0;
 }
 
 .machine p {
-    font-size: 18px;
-    color: #555; /* Slightly darker gray text */
+    font-size: 16px;
+    color: #333;
 }
 
 .machine a {
     display: inline-block;
-    background-color: #007bff; /* Blue background for buttons */
+    background-color: #007bff;
     color: white;
-    padding: 12px 20px;
-    border-radius: 8px; /* Smooth button edges */
+    padding: 10px;
+    border-radius: 5px;
     text-decoration: none;
     margin-top: 10px;
-    font-weight: bold;
 }
 
 .machine a:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
 }
 
 footer {
     margin-top: auto; /* Push the footer to the bottom */
     background-color: #ffffff; /* White background for the footer */
     border: 1px solid #d0d0d0; /* Light gray border */
-    border-radius: 15px; /* Smooth edges for the footer */
+    border-radius: 15px; /* Smooth, rounded edges */
     padding: 20px;
     width: calc(100% - 40px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Slightly more pronounced shadow */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
     text-align: center;
 }
 
 .contact-info h2 {
     margin: 0 0 10px;
-    font-size: 22px; /* Larger font size for headings */
 }
 
 .contact-info p {
     margin: 5px 0;
-    font-size: 16px;
+}
+
+.product {
+    background-color: #ffffff; /* White background for product boxes */
+    border: 1px solid #d0d0d0; /* Light gray border */
+    border-radius: 15px; /* Smooth, rounded edges */
+    padding: 15px;
+    margin: 10px;
+    width: 220px; /* Adjusted width for better fit */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+    overflow: hidden; /* Ensures content does not overflow the box */
+}
+
+.product img {
+    max-width: 100%; /* Ensures image fits within its container */
+    height: auto; /* Maintains aspect ratio */
+    border-radius: 10px; /* Smooth edges for images */
+    display: block; /* Removes extra space below the image */
+    margin-bottom: 10px; /* Space between image and other content */
 }
