@@ -13,15 +13,15 @@ header, section {
     margin: 20px;
 }
 
-.product-list {
+.machine-list {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     margin: 20px;
 }
 
-.product {
-    background-color: #ffffff; /* White background for product boxes */
+.machine {
+    background-color: #ffffff; /* White background for machine boxes */
     border: 1px solid #d0d0d0; /* Light gray border */
     border-radius: 15px; /* Smooth, rounded edges */
     padding: 15px;
@@ -32,7 +32,7 @@ header, section {
     overflow: hidden; /* Ensures content does not overflow the box */
 }
 
-.product img {
+.machine img {
     max-width: 100%; /* Ensures image fits within its container */
     height: auto; /* Maintains aspect ratio */
     border-radius: 10px; /* Smooth edges for images */
@@ -41,70 +41,28 @@ header, section {
     max-height: 150px; /* Limits height to prevent overflow */
 }
 
-.product h2 {
+.machine h3 {
     font-size: 18px;
     margin: 10px 0;
 }
 
-.product p {
+.machine p {
     font-size: 16px;
     color: #333;
 }
 
-.product input {
-    margin: 10px 0;
-    padding: 5px;
-    width: 60px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-.product button {
+.machine a {
+    display: inline-block;
     background-color: #007bff;
     color: white;
     padding: 10px;
     border-radius: 5px;
-    border: none;
-    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
 }
 
-.product button:hover {
+.machine a:hover {
     background-color: #0056b3;
-}
-
-.cart {
-    margin: 20px;
-    padding: 20px;
-    background-color: #ffffff; /* White background for cart */
-    border: 1px solid #d0d0d0; /* Light gray border */
-    border-radius: 15px; /* Smooth, rounded edges */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
-}
-
-.cart h2 {
-    margin: 0 0 10px;
-}
-
-.cart ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.cart li {
-    margin: 5px 0;
-}
-
-.cart button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-
-.cart button:hover {
-    background-color: #218838;
 }
 
 footer {
@@ -125,4 +83,3 @@ footer {
 .contact-info p {
     margin: 5px 0;
 }
-
