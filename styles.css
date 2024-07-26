@@ -111,3 +111,15 @@ footer {
 .contact-info p {
     margin: 5px 0;
 }
+
+.cart {
+    background-color: #ffffff; /* White background for cart box */
+    border: 1px solid #d0d0d0; /* Light gray border */
+    border-radius: 15px; /* Smooth, rounded edges */
+    padding: 15px;
+    margin: 20px;
+    width: calc(100% - 40px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+    text-align: center;
+}
+
