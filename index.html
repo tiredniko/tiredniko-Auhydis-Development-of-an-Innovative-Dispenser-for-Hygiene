@@ -1,39 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auhydis</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Vending Machine Homepage</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
     <header>
-        <h1>Welcome to Auhydis Website</h1>
+        <h1>Welcome to the Vending Machine</h1>
+        <button class="cart-button" onclick="goToCheckout()">Cart</button> <!-- Checkout button on top right -->
     </header>
-    <section>
-        <h2>Select a Machine</h2>
+
+    <section id="machines">
+        <h2>Machines</h2>
         <div class="machine-list">
+            <!-- Machine 1 -->
             <div class="machine">
-                <img src="images/machine1.jpg" alt="Machine 1">
+                <img src="machine1.jpg" alt="Machine 1 Image">
                 <h3>Machine 1</h3>
-                <a href="machine1.html">View Machine</a>
+                <p>Location: Building A</p>
+                <a href="#">View Products</a>
             </div>
+
+            <!-- Machine 2 -->
             <div class="machine">
-                <img src="images/machine2.jpg" alt="Machine 2">
+                <img src="machine2.jpg" alt="Machine 2 Image">
                 <h3>Machine 2</h3>
-                <a href="offline.html" class="offline">Machine Offline</a>
+                <p>Location: Building B</p>
+                <a href="#">View Products</a>
             </div>
-            <!-- Add more machines as needed -->
         </div>
     </section>
-    <footer>
-        <div class="contact-info">
-            <h2>Contact Information</h2>
-            <p>Phone: (63+)9266132050</p>
-            <p>Email: nikopaned.official+auhydis@gmail.com</p>
+
+    <!-- Checkout Section -->
+    <section id="checkout-section" style="display: none;">
+        <h2>Select Payment Method</h2>
+        <div class="payment-buttons">
+            <button class="payment-button" id="paymaya">Pay with PayMaya</button>
+            <button class="payment-button" id="gcash">Pay with GCash</button>
+            <button class="payment-button" id="qrph">Pay with QR Ph</button>
         </div>
+
+        <hr class="payment-divider">
+
+        <div id="bank-details-section">
+            <h3>Bank Details</h3>
+            <form id="bank-details-form">
+                <label for="bank-name">Bank Name:</label>
+                <input type="text" id="bank-name" name="bank-name" placeholder="Enter bank name">
+
+                <label for="account-number">Account Number:</label>
+                <input type="text" id="account-number" name="account-number" placeholder="Enter account number">
+
+                <button type="submit">Add Bank Details</button>
+            </form>
+        </div>
+
+        <button onclick="checkout()">Proceed to Checkout</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Vending Machine</p>
     </footer>
 </body>
+
 </html>
 
 
