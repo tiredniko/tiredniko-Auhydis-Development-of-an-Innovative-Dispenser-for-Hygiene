@@ -65,13 +65,14 @@ header, section {
     background-color: #0056b3;
 }
 
-.machine a.offline {
-    background-color: #ff4d4d;
-    color: white;
+/* Increased specificity to ensure offline styling */
+.machine-list .machine a.offline {
+    background-color: #ff4d4d !important; /* Red background for offline machines */
+    color: white !important; /* White text color for better contrast */
 }
 
-.machine a.offline:hover {
-    background-color: #cc0000;
+.machine-list .machine a.offline:hover {
+    background-color: #cc0000 !important; /* Darker red on hover */
 }
 
 .product-list {
@@ -131,4 +132,3 @@ footer {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
 }
-
