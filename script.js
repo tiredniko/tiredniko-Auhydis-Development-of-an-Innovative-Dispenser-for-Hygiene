@@ -60,8 +60,8 @@ if (bankDetailsForm) {
 // JavaScript for handling checkout process
 
 function checkout() {
-    alert('Proceeding to checkout');
-    // Add further functionality here if needed
+    // Redirect to checkout.html
+    window.location.href = 'checkout.html';
 }
 
 // You can add more functionality here related to checkout or cart if required
