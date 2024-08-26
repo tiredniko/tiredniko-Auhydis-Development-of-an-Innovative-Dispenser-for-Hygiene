@@ -131,3 +131,13 @@ footer {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
     text-align: center;
 }
+/* Other styles remain unchanged */
+
+.machine a.offline {
+    background-color: #ff4d4d; /* Red background for offline machines */
+    color: white; /* White text color for better contrast */
+}
+
+.machine a.offline:hover {
+    background-color: #cc0000; /* Darker red on hover */
+}
