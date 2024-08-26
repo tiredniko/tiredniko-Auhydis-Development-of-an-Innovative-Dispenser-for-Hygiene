@@ -57,6 +57,19 @@ if (bankDetailsForm) {
     });
 }
 
-// Additional new code or logic if needed
+// JavaScript for handling checkout process
+
+function checkout() {
+    alert('Proceeding to checkout');
+    // Add further functionality here if needed
+}
+
+// You can add more functionality here related to checkout or cart if required
+document.getElementById('checkout-section').style.display = 'none'; // Hide checkout section initially
+document.getElementById('cart-button').addEventListener('click', function() {
+    // Scroll to the checkout section or show it if hidden
+    document.getElementById('checkout-section').scrollIntoView({ behavior: 'smooth' });
+});
+
 
 
