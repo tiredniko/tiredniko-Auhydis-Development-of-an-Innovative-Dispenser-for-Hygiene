@@ -1,3 +1,5 @@
+/* Existing CSS */
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -181,5 +183,69 @@ footer {
 
 #payment-form button:hover {
     background-color: #0056b3;
+}
+
+/* New CSS */
+.payment-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.payment-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.payment-button:hover {
+    background-color: #0056b3;
+}
+
+.payment-divider {
+    border: 0;
+    height: 2px;
+    background: #e0e0e0;
+    margin: 20px 0;
+}
+
+#bank-details-section {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#bank-details-form {
+    display: inline-block;
+    text-align: left;
+}
+
+#bank-details-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+#bank-details-form input {
+    width: 200px;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+}
+
+#bank-details-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#bank-details-form button:hover {
+    background-color: #218838;
 }
 
