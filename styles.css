@@ -185,7 +185,7 @@ footer {
     background-color: #0056b3;
 }
 
-/* New CSS */
+/* New CSS for Checkout Section and Cart Button */
 .payment-buttons {
     display: flex;
     justify-content: space-around;
@@ -247,5 +247,22 @@ footer {
 
 #bank-details-form button:hover {
     background-color: #218838;
+}
+
+#cart-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    display: inline-block;
+}
+
+#cart-button:hover {
+    background-color: #0056b3;
 }
 
