@@ -2,10 +2,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f4f4f4; /* Light gray background for the whole page */
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure the body takes up at least the full viewport height */
+    min-height: 100vh;
 }
 
 header, section {
@@ -21,7 +21,7 @@ header, section {
 }
 
 .machine {
-    background-color: #ffffff;
+    background-color: #eeeeee; /* Lighter gray for the machine boxes */
     border: 1px solid #d0d0d0;
     border-radius: 15px;
     padding: 15px;
@@ -103,8 +103,9 @@ header, section {
 }
 
 footer {
-    background-color: #ffffff;
-    border: 1px solid #d0d0d0;
+    background-color: #333333; /* Dark background for the footer */
+    color: white; /* White text for contrast */
+    border-top: 1px solid #d0d0d0;
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -134,3 +135,4 @@ footer {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
 }
+
