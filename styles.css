@@ -65,6 +65,14 @@ header, section {
     background-color: #0056b3;
 }
 
+/* New CSS rule for offline status */
+.machine.offline a {
+    color: red;
+    font-weight: bold;
+    background-color: #ffffff; /* Ensures background is white if needed */
+    border: 1px solid red; /* Optional: Adds a red border for emphasis */
+}
+
 .product-list {
     display: flex;
     flex-wrap: wrap;
@@ -122,4 +130,3 @@ footer {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
     text-align: center;
 }
-
