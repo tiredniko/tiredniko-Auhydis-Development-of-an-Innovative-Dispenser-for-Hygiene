@@ -1,75 +1,45 @@
-// Existing JavaScript
+let cart = [];
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Your existing code to initialize the page or handle events
-
-    // Example: Event listener for machine links
-    const machineLinks = document.querySelectorAll('.machine a');
-    machineLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            // Your existing logic for machine link clicks
-        });
-    });
-
-    // Example: Event listener for product items
-    const products = document.querySelectorAll('.product');
-    products.forEach(product => {
-        product.addEventListener('click', function() {
-            // Your existing logic for product clicks
-        });
-    });
-
-    // Additional existing code
-});
-
-// New JavaScript
-
-// Event listener for payment buttons
-const paymentButtons = document.querySelectorAll('.payment-button');
-paymentButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        alert('Payment button clicked!');
-        // Replace this with actual payment handling logic
-    });
-});
-
-// Handling form submission for bank details
-const bankDetailsForm = document.getElementById('bank-details-form');
-if (bankDetailsForm) {
-    bankDetailsForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        // Example of getting form data
-        const formData = new FormData(bankDetailsForm);
-        const bankDetails = {
-            accountName: formData.get('account-name'),
-            accountNumber: formData.get('account-number'),
-            bankName: formData.get('bank-name'),
-        };
-
-        // Handle form submission (e.g., send to server or process locally)
-        console.log('Bank Details:', bankDetails);
-
-        alert('Bank details submitted!');
-        // Clear form fields if needed
-        bankDetailsForm.reset();
-    });
+function addToCart(product, price, quantity) {
+    // Find if the product already exists in the cart
+    const existingProductIndex = cart.findIndex(item => item.product === product);
+    
+    // Update quantity if product exists, otherwise add new product
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].quantity += parseInt(quantity, 10);
+    } else {
+        cart.push({ product, price, quantity: parseInt(quantity, 10) });
+    }
+    
+    // Update cart display
+    displayCart();
 }
 
-// JavaScript for handling checkout process
+function displayCart() {
+    const cartItems = document.getElementById('cart-items');
+    const totalPrice = document.getElementById('total-price');
+    
+    // Clear previous cart items
+    cartItems.innerHTML = '';
+    
+    // Calculate total price
+    let total = 0;
+    
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.product} - ₱${(item.price * item.quantity).toFixed(2)} (x${item.quantity})`;
+        cartItems.appendChild(li);
+        total += item.price * item.quantity;
+    });
+    
+    // Display total price
+    totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
+}
 
 function checkout() {
-    // Redirect to checkout.html
-    window.location.href = 'checkout.html';
+    window.location.href = 'checkout.html'; // Redirect to checkout page
 }
 
-// You can add more functionality here related to checkout or cart if required
-document.getElementById('checkout-section').style.display = 'none'; // Hide checkout section initially
-document.getElementById('cart-button').addEventListener('click', function() {
-    // Scroll to the checkout section or show it if hidden
-    document.getElementById('checkout-section').scrollIntoView({ behavior: 'smooth' });
-});
 
 
 
