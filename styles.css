@@ -5,7 +5,7 @@ body {
     background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 120vh; /* Increase the height to allow for more scrolling space */
 }
 
 header, section {
@@ -109,17 +109,12 @@ footer {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
-    margin-top: auto;
+    margin-top: 40px; /* Adds space above the footer */
     position: relative;
-    min-height: 150px; /* Ensure enough space for content */
 }
 
 .contact-info {
-    position: absolute;
-    bottom: 40px; /* Adjust this value to move the contact info higher or lower */
-    left: 0;
-    right: 0;
-    margin: 0 auto;
+    margin-top: 20px; /* Adjust this to position the contact info higher or lower */
 }
 
 .contact-info h2 {
