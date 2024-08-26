@@ -1,4 +1,3 @@
-/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -9,29 +8,9 @@ body {
     min-height: 100vh;
 }
 
-header {
-    background-color: #e0e0e0;
-    padding: 20px;
-    border-bottom: 1px solid #d0d0d0;
+header, section {
     text-align: center;
-    position: relative;
-}
-
-.cart-button {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.cart-button:hover {
-    background-color: #0056b3;
+    margin: 20px;
 }
 
 .machine-list {
@@ -42,7 +21,7 @@ header {
 }
 
 .machine {
-    background-color: #eeeeee;
+    background-color: #ffffff;
     border: 1px solid #d0d0d0;
     border-radius: 15px;
     padding: 15px;
@@ -50,86 +29,108 @@ header {
     width: 220px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 .machine img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    max-height: 150px;
+}
+
+.machine h3 {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.machine p {
+    font-size: 16px;
+    color: #333;
+}
+
+.machine a {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.machine a:hover {
+    background-color: #0056b3;
+}
+
+/* Increased specificity to ensure offline styling */
+.machine-list .machine a.offline {
+    background-color: #ff4d4d !important; /* Red background for offline machines */
+    color: white !important; /* White text color for better contrast */
+}
+
+.machine-list .machine a.offline:hover {
+    background-color: #cc0000 !important; /* Darker red on hover */
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.product {
+    background-color: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 10px;
+    width: 220px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.product img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
     max-height: 150px;
 }
 
 footer {
-    background-color: #333333;
-    color: white;
-    padding: 20px;
-    text-align: center;
     margin-top: auto;
-}
-
-/* Checkout Section */
-#checkout-section {
     background-color: #ffffff;
     border: 1px solid #d0d0d0;
     border-radius: 15px;
     padding: 20px;
-    margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
+    width: calc(100% - 40px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
-.payment-buttons {
-    display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
+.contact-info h2 {
+    margin: 0 0 10px;
 }
 
-.payment-button {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
+.contact-info p {
+    margin: 5px 0;
 }
 
-.payment-button:hover {
-    background-color: #0056b3;
-}
-
-.payment-divider {
-    border: 0;
-    height: 2px;
-    background: #e0e0e0;
-    margin: 20px 0;
-}
-
-#bank-details-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#bank-details-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+.cart {
+    background-color: #ffffff;
     border: 1px solid #d0d0d0;
-    border-radius: 5px;
-}
-
-#bank-details-form button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#bank-details-form button:hover {
-    background-color: #218838;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 20px;
+    width: calc(100% - 40px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 
