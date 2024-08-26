@@ -65,14 +65,13 @@ header, section {
     background-color: #0056b3;
 }
 
-/* Increased specificity to ensure offline styling */
-.machine-list .machine a.offline {
-    background-color: #ff4d4d !important; /* Red background for offline machines */
-    color: white !important; /* White text color for better contrast */
+.machine a.offline {
+    background-color: #ff4d4d;
+    color: white;
 }
 
-.machine-list .machine a.offline:hover {
-    background-color: #cc0000 !important; /* Darker red on hover */
+.machine a.offline:hover {
+    background-color: #cc0000;
 }
 
 .product-list {
@@ -104,14 +103,22 @@ header, section {
 }
 
 footer {
-    margin-top: auto;
     background-color: #ffffff;
     border: 1px solid #d0d0d0;
     border-radius: 15px;
     padding: 20px;
-    width: calc(100% - 40px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
+    position: relative; /* Allows for absolute positioning of inner elements */
+    margin-top: auto;
+}
+
+.contact-info {
+    position: absolute;
+    bottom: 10px; /* Pushes contact info down */
+    left: 0;
+    right: 0;
+    margin-top: 50px; /* Adds extra space above contact info */
 }
 
 .contact-info h2 {
