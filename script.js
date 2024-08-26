@@ -37,7 +37,7 @@ function displayCart() {
 }
 
 function checkout() {
-    alert('Proceeding to checkout...');
-    // Implement checkout logic here
+    window.location.href = 'checkout.html'; // Redirect to checkout page
 }
+
 
