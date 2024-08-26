@@ -1,45 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>Checkout</h1>
-    </header>
-    <section>
-        <h2>Payment Details</h2>
-        <p>Please enter your payment details below:</p>
-        <form id="payment-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="phone">Phone:</label>
-            <input type="text" id="phone" name="phone" required><br><br>
-            <label for="amount">Amount (PHP):</label>
-            <input type="number" id="amount" name="amount" required><br><br>
-            <label for="payment-method">Payment Method:</label>
-            <select id="payment-method" name="payment-method">
-                <option value="gcash">GCash</option>
-                <option value="paymaya">PayMaya</option>
-                <option value="qrph">QRPH</option>
-            </select><br><br>
-            <label for="details">Bank Details:</label>
-            <textarea id="details" name="details" rows="4" required></textarea><br><br>
-            <button type="submit">Submit Payment</button>
+<section id="checkout-section">
+    <h2>Select Payment Method</h2>
+    <div class="payment-buttons">
+        <button class="payment-button" id="paymaya">Pay with PayMaya</button>
+        <button class="payment-button" id="gcash">Pay with GCash</button>
+        <button class="payment-button" id="qrph">Pay with QR Ph</button>
+    </div>
+    
+    <hr class="payment-divider">
+
+    <div id="bank-details-section">
+        <h3>Bank Details</h3>
+        <form id="bank-details-form">
+            <label for="bank-name">Bank Name:</label>
+            <input type="text" id="bank-name" name="bank-name" placeholder="Enter bank name">
+            
+            <label for="account-number">Account Number:</label>
+            <input type="text" id="account-number" name="account-number" placeholder="Enter account number">
+            
+            <button type="submit">Add Bank Details</button>
         </form>
-    </section>
-    <footer>
-        <div class="contact-info">
-            <h2>Contact Information</h2>
-            <p>Phone: (63+)9266132050</p>
-            <p>Email: nikopaned.official+auhydis@gmail.com</p>
-        </div>
-    </footer>
-</body>
-</html>
+    </div>
+    
+    <button onclick="checkout()">Proceed to Checkout</button>
+</section>
+
 
