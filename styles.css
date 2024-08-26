@@ -13,6 +13,12 @@ header, section {
     margin: 20px;
 }
 
+header {
+    background-color: #e0e0e0; /* Gray background for the header */
+    padding: 20px;
+    border-bottom: 1px solid #d0d0d0;
+}
+
 .machine-list {
     display: flex;
     justify-content: space-around;
