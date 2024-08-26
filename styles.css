@@ -21,24 +21,24 @@ header, section {
 }
 
 .machine {
-    background-color: #ffffff; /* White background for machine boxes */
-    border: 1px solid #d0d0d0; /* Light gray border */
-    border-radius: 15px; /* Smooth, rounded edges */
+    background-color: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 15px;
     padding: 15px;
     margin: 10px;
-    width: 220px; /* Adjusted width for better fit */
+    width: 220px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
-    overflow: hidden; /* Ensures content does not overflow the box */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 .machine img {
-    max-width: 100%; /* Ensures image fits within its container */
-    height: auto; /* Maintains aspect ratio */
-    border-radius: 10px; /* Smooth edges for images */
-    display: block; /* Removes extra space below the image */
-    margin: 0 auto; /* Centers image horizontally */
-    max-height: 150px; /* Limits height to prevent overflow */
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    max-height: 150px;
 }
 
 .machine h3 {
@@ -66,12 +66,12 @@ header, section {
 }
 
 .machine a.offline {
-    background-color: #ff4d4d; /* Red background for offline machines */
-    color: white; /* White text color for better contrast */
+    background-color: #ff4d4d;
+    color: white;
 }
 
 .machine a.offline:hover {
-    background-color: #cc0000; /* Darker red on hover */
+    background-color: #cc0000;
 }
 
 .product-list {
@@ -82,34 +82,34 @@ header, section {
 }
 
 .product {
-    background-color: #ffffff; /* White background for product boxes */
-    border: 1px solid #d0d0d0; /* Light gray border */
-    border-radius: 15px; /* Smooth, rounded edges */
+    background-color: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 15px;
     padding: 15px;
     margin: 10px;
-    width: 220px; /* Adjusted width for better fit */
+    width: 220px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
-    overflow: hidden; /* Ensures content does not overflow the box */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 .product img {
-    max-width: 100%; /* Ensures image fits within its container */
-    height: auto; /* Maintains aspect ratio */
-    border-radius: 10px; /* Smooth edges for images */
-    display: block; /* Removes extra space below the image */
-    margin: 0 auto; /* Centers image horizontally */
-    max-height: 150px; /* Limits height to prevent overflow */
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+    max-height: 150px;
 }
 
 footer {
-    margin-top: auto; /* Push the footer to the bottom */
-    background-color: #ffffff; /* White background for the footer */
-    border: 1px solid #d0d0d0; /* Light gray border */
-    border-radius: 15px; /* Smooth, rounded edges */
+    margin-top: auto;
+    background-color: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 15px;
     padding: 20px;
     width: calc(100% - 40px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
 }
 
@@ -122,23 +122,13 @@ footer {
 }
 
 .cart {
-    background-color: #ffffff; /* White background for cart box */
-    border: 1px solid #d0d0d0; /* Light gray border */
-    border-radius: 15px; /* Smooth, rounded edges */
+    background-color: #ffffff;
+    border: 1px solid #d0d0d0;
+    border-radius: 15px;
     padding: 15px;
     margin: 20px;
     width: calc(100% - 40px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
 }
-/* Simplified CSS for testing */
-.machine a.offline {
-    background-color: #ff4d4d !important; /* Red background for offline machines */
-    color: white !important; /* White text color for better contrast */
-    padding: 10px;
-    border-radius: 5px;
-}
 
-.machine a.offline:hover {
-    background-color: #cc0000 !important; /* Darker red on hover */
-}
