@@ -109,16 +109,17 @@ footer {
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
-    position: relative; /* Allows for absolute positioning of inner elements */
     margin-top: auto;
+    position: relative;
+    min-height: 150px; /* Ensure enough space for content */
 }
 
 .contact-info {
     position: absolute;
-    bottom: 10px; /* Pushes contact info down */
+    bottom: 20px; /* Adjust to push contact info further down */
     left: 0;
     right: 0;
-    margin-top: 50px; /* Adds extra space above contact info */
+    margin: 0 auto;
 }
 
 .contact-info h2 {
