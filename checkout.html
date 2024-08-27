@@ -57,6 +57,7 @@
 
         /* Style for the card details section */
         #card-details {
+            display: block; /* Always visible */
             margin: 20px auto;
             max-width: 600px;
             background-color: #fff;
@@ -153,6 +154,7 @@
             <button class="payment-button offline" onclick="alert('GCash is offline and not available')">GCash</button>
             <button class="payment-button offline" onclick="alert('PayMaya is offline and not available')">PayMaya</button>
             <button class="payment-button offline" onclick="alert('QRPH is offline and not available')">QRPH</button>
+            <button class="payment-button" onclick="showBankDetails()">Bank Details</button>
         </div>
 
         <div id="card-details">
@@ -212,7 +214,16 @@
             totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
         }
 
-        window.addEventListener('load', loadCart);
+        function showBankDetails() {
+            // Show card details form
+            document.getElementById('card-details').style.display = 'block';
+        }
+
+        window.addEventListener('load', () => {
+            loadCart();
+            // Ensure card details are always shown
+            document.getElementById('card-details').style.display = 'block';
+        });
     </script>
 </body>
 
