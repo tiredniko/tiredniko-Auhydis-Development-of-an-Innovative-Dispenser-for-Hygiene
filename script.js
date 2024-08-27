@@ -78,3 +78,33 @@ function updateQuantity(product, change) {
 
 // Initialize cart on page load
 document.addEventListener('DOMContentLoaded', loadCart);
+
+function sendPaymentSignal() {
+    fetch('https://your-server-url.com/dispense', { // Replace with your server URL
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            action: 'dispense',
+            cart: JSON.parse(localStorage.getItem('cart')) // Adjust based on how you store cart data
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        // Optionally, you can show a confirmation message to the user here
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        // Optionally, handle errors here (e.g., show an error message to the user)
+    });
+}
+
+function checkout() {
+    // Call sendPaymentSignal function before redirecting to checkout page
+    sendPaymentSignal();
+
+    // Redirect to checkout page
+    window.location.href = 'checkout.html';
+}
