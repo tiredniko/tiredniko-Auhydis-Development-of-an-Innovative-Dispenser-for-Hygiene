@@ -15,8 +15,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    position: sticky;
+    position: fixed; /* Fixed position to keep it always on top */
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -27,14 +29,17 @@ body {
     cursor: pointer; /* Add pointer cursor to indicate it's clickable */
 }
 
-/* Push the header down to add space for the gray bar */
-header {
+/* Push the content down to accommodate the fixed top-bar */
+body > *:not(.top-bar) {
     margin-top: 60px; /* Adjust according to the height of the top-bar */
-    text-align: center; /* Center-align text */
+}
+
+header {
+    text-align: center;
 }
 
 header h1 {
-    margin: 20px 0; /* Adjust margin to move heading up */
+    margin: 20px 0; /* Adjust margin to position heading correctly */
     font-size: 32px;
     color: #333;
 }
@@ -135,7 +140,6 @@ section {
 }
 
 footer {
-    margin-top: auto;
     background-color: #ffffff;
     border: 1px solid #d0d0d0;
     border-radius: 15px;
@@ -145,15 +149,7 @@ footer {
     text-align: center;
 }
 
-.contact-info h2 {
-    margin: 0 0 10px;
-}
-
-.contact-info p {
-    margin: 5px 0;
-}
-
-.cart {
+.contact-info {
     background-color: #ffffff;
     border: 1px solid #d0d0d0;
     border-radius: 15px;
@@ -164,6 +160,7 @@ footer {
     text-align: center;
 }
 
-
-
-
+/* Ensure contact-info is pushed down */
+.contact-info {
+    margin-top: 20px; /* Adjust as needed */
+}
