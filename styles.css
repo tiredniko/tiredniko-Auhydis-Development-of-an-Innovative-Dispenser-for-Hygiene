@@ -65,7 +65,7 @@ section {
     margin: 10px;
     width: 220px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
@@ -127,7 +127,7 @@ section {
     margin: 10px;
     width: 220px;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
@@ -140,14 +140,11 @@ section {
     max-height: 150px;
 }
 
-/* Ensure footer spans the entire width and is positioned at the bottom */
+/* Style for the footer */
 footer {
     background-color: #000000; /* Black background for the footer */
-    border: 1px solid #d0d0d0;
-    border-radius: 15px;
-    padding: 20px;
+    padding: 10px; /* Reduced padding */
     width: 100%; /* Ensure full width */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
     margin-top: auto; /* Pushes footer to the bottom */
     color: #ffffff; /* White text color for contrast */
@@ -155,13 +152,10 @@ footer {
 
 /* Ensure contact-info is centered in the footer */
 .contact-info {
-    background-color: #000000; /* Black background for the contact-info box */
-    border: 1px solid #d0d0d0;
-    border-radius: 15px;
-    padding: 15px;
+    font-size: 12px; /* Smaller font size for contact info */
     margin: 0 auto; /* Center the contact info box */
     max-width: 800px; /* Max width for better alignment */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px; /* Reduced padding */
 }
 
