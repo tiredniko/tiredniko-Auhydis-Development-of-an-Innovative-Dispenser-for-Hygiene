@@ -43,13 +43,13 @@ This project is a vending machine system that allows users to select and purchas
 
 4. **Run the Application**
 
-   Instructions on how to start or run the project (e.g., local server setup).
+   Instructions on how to start or run the project (Cloudflare).
 
 ## Usage
 
 1. **Access the Web Interface**
 
-   Open your web browser and navigate to the local server URL (e.g., `http://localhost:8000`).
+   Open your web browser and navigate to the local server URL (e.g., `Cloudflare (setting up late)`).
 
 2. **Interact with the Vending Machine**
 
@@ -74,18 +74,12 @@ Contributions to this project are welcome. If you would like to contribute, plea
 3. **Make Your Changes**
 4. **Submit a Pull Request**
 
-Please ensure that your code adheres to the project's coding standards and includes appropriate tests.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
-
 ## Contact
 
 For any questions or issues, please contact:
 
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
-- **GitHub**: [your-github-profile](https://github.com/your-github-profile)
+- **Email**: [your-email@example.com](mailto:nikopaned.official@gmail.com)
+- **GitHub**: [your-github-profile](https://github.com/tiredniko)
 
 ## Acknowledgements
 
@@ -93,6 +87,3 @@ For any questions or issues, please contact:
 - [CSS Tricks](https://css-tricks.com/) for styling inspiration.
 - [GitHub](https://github.com/) for version control.
 
-```
-
-Feel free to modify the sections to fit your project's details and requirements. If you have specific instructions or additional features, make sure to include those as well.
