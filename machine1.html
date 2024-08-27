@@ -20,50 +20,52 @@
         <h1>Auhydis Machine 1</h1>
     </header>
 
-    <section>
-        <div class="product-list">
-            <div class="product">
-                <img src="images/tissue.jpg" alt="Tissue">
-                <h2>Tissue</h2>
-                <p>Price: ₱20.00</p>
-                <div class="quantity-control">
-                    <button onclick="updateQuantity('tissue', -1)">-</button>
-                    <span id="tissue-quantity-display">1</span>
-                    <button onclick="updateQuantity('tissue', 1)">+</button>
+    <main>
+        <section>
+            <div class="product-list">
+                <div class="product">
+                    <img src="images/tissue.jpg" alt="Tissue">
+                    <h2>Tissue</h2>
+                    <p>Price: ₱20.00</p>
+                    <div class="quantity-control">
+                        <button onclick="updateQuantity('tissue', -1)">-</button>
+                        <span id="tissue-quantity-display">1</span>
+                        <button onclick="updateQuantity('tissue', 1)">+</button>
+                    </div>
+                    <button onclick="addToCart('Tissue', 20.00, getQuantity('tissue'))">Add to Cart</button>
                 </div>
-                <button onclick="addToCart('Tissue', 20.00, getQuantity('tissue'))">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="images/soap.jpg" alt="Soap">
-                <h2>Soap</h2>
-                <p>Price: ₱20.00</p>
-                <div class="quantity-control">
-                    <button onclick="updateQuantity('soap', -1)">-</button>
-                    <span id="soap-quantity-display">1</span>
-                    <button onclick="updateQuantity('soap', 1)">+</button>
+                <div class="product">
+                    <img src="images/soap.jpg" alt="Soap">
+                    <h2>Soap</h2>
+                    <p>Price: ₱20.00</p>
+                    <div class="quantity-control">
+                        <button onclick="updateQuantity('soap', -1)">-</button>
+                        <span id="soap-quantity-display">1</span>
+                        <button onclick="updateQuantity('soap', 1)">+</button>
+                    </div>
+                    <button onclick="addToCart('Soap', 20.00, getQuantity('soap'))">Add to Cart</button>
                 </div>
-                <button onclick="addToCart('Soap', 20.00, getQuantity('soap'))">Add to Cart</button>
-            </div>
-            <div class="product">
-                <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
-                <h2>Sanitary Pad</h2>
-                <p>Price: ₱20.00</p>
-                <div class="quantity-control">
-                    <button onclick="updateQuantity('sanitary-pad', -1)">-</button>
-                    <span id="sanitary-pad-quantity-display">1</span>
-                    <button onclick="updateQuantity('sanitary-pad', 1)">+</button>
+                <div class="product">
+                    <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
+                    <h2>Sanitary Pad</h2>
+                    <p>Price: ₱20.00</p>
+                    <div class="quantity-control">
+                        <button onclick="updateQuantity('sanitary-pad', -1)">-</button>
+                        <span id="sanitary-pad-quantity-display">1</span>
+                        <button onclick="updateQuantity('sanitary-pad', 1)">+</button>
+                    </div>
+                    <button onclick="addToCart('Sanitary Pad', 20.00, getQuantity('sanitary-pad'))">Add to Cart</button>
                 </div>
-                <button onclick="addToCart('Sanitary Pad', 20.00, getQuantity('sanitary-pad'))">Add to Cart</button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="cart">
-        <h2>Shopping Cart</h2>
-        <ul id="cart-items"></ul>
-        <p id="total-price"></p>
-        <button onclick="checkout()">Checkout</button>
-    </div>
+        <div class="cart">
+            <h2>Shopping Cart</h2>
+            <ul id="cart-items"></ul>
+            <p id="total-price"></p>
+            <button onclick="checkout()">Checkout</button>
+        </div>
+    </main>
 
     <script src="script.js"></script>
     <script>
@@ -78,7 +80,7 @@
         };
 
         function updateQuantity(product, change) {
-            const display = document.getElementById(`₱{product}-quantity-display`);
+            const display = document.getElementById(`${product}-quantity-display`);
             let currentQuantity = parseInt(display.textContent, 10);
             currentQuantity += change;
             if (currentQuantity < 1) currentQuantity = 1; // Prevent quantity from going below 1
