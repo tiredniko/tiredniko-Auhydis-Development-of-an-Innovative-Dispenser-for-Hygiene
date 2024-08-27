@@ -1,6 +1,3 @@
-Certainly! Here's a basic `README.md` template for your project. You can adjust the details based on the specifics of your project:
-
-```markdown
 # Vending Machine Project
 
 ## Overview
@@ -59,11 +56,6 @@ This project is a vending machine system that allows users to select and purchas
 
    The machine list and product list sections will display available items and their statuses.
 
-## Configuration
-
-- **Payment Methods**: Configure available payment methods in the `payment-buttons` section.
-- **Card Details**: Ensure that the `#card-details` section is set up for your payment processing needs.
-- **Machine and Product Data**: Update the machine list and product list as required.
 
 ## Contributing
 
