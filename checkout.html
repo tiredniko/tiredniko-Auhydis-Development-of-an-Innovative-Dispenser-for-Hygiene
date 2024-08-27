@@ -51,35 +51,26 @@
             display: block;
         }
 
-        .payment-button[data-method="gcash"]::after {
-            content: "Offline"; /* Replace with actual status if needed */
-        }
-
-        .payment-button[data-method="paymaya"]::after {
-            content: "Offline"; /* Replace with actual status if needed */
-        }
-
-        .payment-button[data-method="qrph"]::after {
-            content: "Offline"; /* Replace with actual status if needed */
-        }
-
         /* Style for the card details section */
         #card-details {
             display: none; /* Initially hidden */
-        }
-
-        #payment-form.card-details {
-            display: block; /* Show card details section when applicable */
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         #payment-form label {
             display: block;
             margin-bottom: 5px;
+            font-weight: bold;
         }
 
         #payment-form input,
         #payment-form textarea {
-            width: 100%;
+            width: calc(100% - 16px);
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
@@ -93,10 +84,20 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
         }
 
         #payment-form button:hover {
             background-color: #0056b3;
+        }
+
+        #payment-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        #payment-form input[type="text"],
+        #payment-form input[type="number"] {
+            width: 100%;
         }
     </style>
 </head>
@@ -125,20 +126,34 @@
         <p id="form-description">Please enter your card details below:</p>
         <form id="payment-form">
             <div id="card-details">
-                <label for="card-number">Card Number:</label>
-                <input type="text" id="card-number" name="card-number" required><br><br>
-                <label for="card-expiry">Expiry Date:</label>
-                <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required><br><br>
-                <label for="card-cvc">CVC:</label>
-                <input type="text" id="card-cvc" name="card-cvc" required><br><br>
-                <label for="billing-address">Billing Address:</label>
-                <input type="text" id="billing-address" name="billing-address" required><br><br>
-                <label for="billing-city">City:</label>
-                <input type="text" id="billing-city" name="billing-city" required><br><br>
-                <label for="billing-zip">ZIP Code:</label>
-                <input type="text" id="billing-zip" name="billing-zip" required><br><br>
-                <label for="billing-country">Country:</label>
-                <input type="text" id="billing-country" name="billing-country" required><br><br>
+                <div class="form-group">
+                    <label for="card-number">Card Number:</label>
+                    <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-expiry">Expiry Date:</label>
+                    <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-cvc">CVC:</label>
+                    <input type="text" id="card-cvc" name="card-cvc" placeholder="123" required>
+                </div>
+                <div class="form-group">
+                    <label for="billing-address">Billing Address:</label>
+                    <input type="text" id="billing-address" name="billing-address" placeholder="123 Street Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="billing-city">City:</label>
+                    <input type="text" id="billing-city" name="billing-city" required>
+                </div>
+                <div class="form-group">
+                    <label for="billing-zip">ZIP Code:</label>
+                    <input type="text" id="billing-zip" name="billing-zip" required>
+                </div>
+                <div class="form-group">
+                    <label for="billing-country">Country:</label>
+                    <input type="text" id="billing-country" name="billing-country" required>
+                </div>
                 <button type="submit">Submit Payment</button>
             </div>
         </form>
@@ -165,12 +180,10 @@
                     document.getElementById('form-header').textContent = 'Payment Details';
                     document.getElementById('form-description').textContent = 'Please enter your payment details below:';
                     document.getElementById('card-details').style.display = 'none';
-                    document.getElementById('payment-form').classList.remove('card-details');
                 } else {
                     document.getElementById('form-header').textContent = 'Card Details';
                     document.getElementById('form-description').textContent = 'Please enter your card details below:';
                     document.getElementById('card-details').style.display = 'block';
-                    document.getElementById('payment-form').classList.add('card-details');
                 }
             });
         });
