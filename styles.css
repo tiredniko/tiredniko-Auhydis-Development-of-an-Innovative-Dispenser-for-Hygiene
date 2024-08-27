@@ -230,6 +230,36 @@ section {
     max-height: 150px;
 }
 
+/* Quantity control styles */
+.quantity-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.quantity-control button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.quantity-control button:hover {
+    background-color: #0056b3;
+}
+
+.quantity-control span {
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+    font-size: 18px;
+    margin: 0 10px;
+}
+
 /* Style for the footer */
 footer {
     background-color: #000000; /* Black background for the footer */
