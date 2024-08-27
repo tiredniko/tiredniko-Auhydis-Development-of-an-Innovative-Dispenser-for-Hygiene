@@ -8,13 +8,12 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Add styles for the payment buttons and tooltips */
-        
         .payment-buttons {
             display: flex;
             justify-content: center;
             margin: 20px;
         }
-        
+
         .payment-button {
             background-color: #007bff;
             color: white;
@@ -100,6 +99,35 @@
         #payment-form input[type="number"] {
             width: 100%;
         }
+
+        /* Style for cart summary */
+        .cart-summary {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .cart-summary h2 {
+            margin-top: 0;
+        }
+
+        .cart-summary ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .cart-summary ul li {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-summary ul li:last-child {
+            border-bottom: none;
+        }
     </style>
 </head>
 
@@ -116,6 +144,13 @@
     </header>
 
     <section>
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+            <h2>Your Cart</h2>
+            <ul id="cart-items"></ul>
+            <p id="total-price"></p>
+        </div>
+
         <!-- Payment Method Buttons -->
         <div class="payment-buttons">
             <button class="payment-button" data-method="gcash">GCash</button>
@@ -189,9 +224,49 @@
                 }
             });
         });
+
+        // Function to display cart items
+        function displayCart() {
+            const cartItems = document.getElementById('cart-items');
+            const totalPrice = document.getElementById('total-price');
+            
+            cartItems.innerHTML = '';
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.product} - ₱${(item.price * item.quantity).toFixed(2)} (x${item.quantity})`;
+                cartItems.appendChild(li);
+                total += item.price * item.quantity;
+            });
+            
+            totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
+        }
+
+        // Function to complete the purchase
+        function completePurchase() {
+            localStorage.removeItem('cart'); // Clear cart from local storage
+            alert('Thank you for your purchase!');
+            window.location.href = 'index.html'; // Redirect to home page
+        }
+
+        // Load cart when the page is loaded
+        window.addEventListener('load', () => {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                displayCart();
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('payment-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            completePurchase();
+        });
     </script>
 </body>
 
 </html>
-
 
