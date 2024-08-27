@@ -196,6 +196,33 @@
     </section>
 
     <script>
+        // Load cart data from localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                const cart = JSON.parse(savedCart);
+                displayCart(cart);
+            }
+        }
+
+        function displayCart(cart) {
+            const cartItems = document.getElementById('cart-items');
+            const totalPrice = document.getElementById('total-price');
+            
+            cartItems.innerHTML = '';
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
+                cartItems.appendChild(li);
+                total += item.price * item.quantity;
+            });
+            
+            totalPrice.textContent = `Total: ₱${total}`;
+        }
+
         const paymentStatus = {
             gcash: 'offline',
             paymaya: 'offline',
@@ -213,7 +240,10 @@
             });
         }
 
-        window.addEventListener('load', updatePaymentButtonStatus);
+        window.addEventListener('load', function() {
+            updatePaymentButtonStatus();
+            loadCart();
+        });
 
         document.querySelectorAll('.payment-button').forEach(button => {
             button.addEventListener('click', function() {
