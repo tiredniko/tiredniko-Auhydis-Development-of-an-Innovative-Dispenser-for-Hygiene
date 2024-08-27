@@ -147,20 +147,18 @@ footer {
     width: calc(100% - 40px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
+    margin: 20px auto; /* Center the footer */
 }
 
+/* Ensure contact-info is centered in the footer */
 .contact-info {
     background-color: #ffffff;
     border: 1px solid #d0d0d0;
     border-radius: 15px;
     padding: 15px;
-    margin: 20px;
-    width: calc(100% - 40px);
+    margin: 0 auto; /* Center the contact info box */
+    max-width: 800px; /* Max width for better alignment */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
 }
 
-/* Ensure contact-info is pushed down */
-.contact-info {
-    margin-top: 20px; /* Adjust as needed */
-}
