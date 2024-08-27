@@ -39,13 +39,13 @@ function displayCart() {
     
     cart.forEach(item => {
         const li = document.createElement('li');
-        li.textContent = `${item.product} - ${item.quantity} pcs - $${item.price * item.quantity}`;
+        li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
         cartItems.appendChild(li);
         
         total += item.price * item.quantity;
     });
     
-    totalPrice.textContent = `Total: $${total}`;
+    totalPrice.textContent = `Total: ₱${total}`;
 }
 
 // Function to remove items from cart
@@ -54,6 +54,11 @@ function removeFromCart(product) {
     
     saveCart(); // Save updated cart to local storage
     displayCart();
+}
+
+// Function to handle checkout (could include form submission or payment integration)
+function checkout() {
+    alert("Checkout functionality not yet implemented.");
 }
 
 // Initialize cart on page load
