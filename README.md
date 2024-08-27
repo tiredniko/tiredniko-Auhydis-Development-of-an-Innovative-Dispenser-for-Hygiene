@@ -78,8 +78,8 @@ Contributions to this project are welcome. If you would like to contribute, plea
 
 For any questions or issues, please contact:
 
-- **Email**: [your-email@example.com](mailto:nikopaned.official@gmail.com)
-- **GitHub**: [your-github-profile](https://github.com/tiredniko)
+- **Email**: [mailto:nikopaned.official@gmail.com]
+- **GitHub**: [https://github.com/tiredniko]
 
 ## Acknowledgements
 
