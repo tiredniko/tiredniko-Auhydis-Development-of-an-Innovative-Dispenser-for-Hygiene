@@ -62,6 +62,19 @@ function removeFromCart(product) {
     displayCart();
 }
 
+// Function to update quantity of items in the cart
+function updateQuantity(product, change) {
+    const existingProductIndex = cart.findIndex(item => item.product === product);
+    if (existingProductIndex !== -1) {
+        cart[existingProductIndex].quantity += change;
+        if (cart[existingProductIndex].quantity < 1) {
+            removeFromCart(product);
+        } else {
+            saveCart(); // Save updated cart to local storage
+            displayCart();
+        }
+    }
+}
+
 // Initialize cart on page load
 document.addEventListener('DOMContentLoaded', loadCart);
-
