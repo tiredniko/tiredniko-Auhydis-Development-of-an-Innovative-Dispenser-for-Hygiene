@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <!-- Gray bar with the logo that will disappear on scroll -->
+    <div class="top-bar" id="top-bar">
+        <a href="https://auhydis.com/">
+            <img src="images/logo.png" alt="Auhydis Logo">
+        </a>
+    </div>
+
     <header>
         <h1>Checkout</h1>
     </header>
+
     <section>
         <h2>Payment Details</h2>
         <p>Please enter your payment details below:</p>
@@ -33,6 +43,7 @@
             <button type="submit">Submit Payment</button>
         </form>
     </section>
+
     <footer>
         <div class="contact-info">
             <h2>Contact Information</h2>
@@ -40,5 +51,19 @@
             <p>Email: nikopaned.official+auhydis@gmail.com</p>
         </div>
     </footer>
+
+    <script>
+        // JavaScript to hide the top bar on scroll
+        window.onscroll = function () {
+            const topBar = document.getElementById('top-bar');
+            if (window.scrollY > 100) {
+                topBar.style.display = 'none';
+            } else {
+                topBar.style.display = 'flex';
+            }
+        };
+    </script>
 </body>
+
 </html>
+
