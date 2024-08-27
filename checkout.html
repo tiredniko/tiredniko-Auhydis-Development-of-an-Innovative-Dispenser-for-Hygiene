@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,18 +21,18 @@
             padding: 10px 20px;
             border-radius: 5px;
             margin: 0 10px;
-            cursor: pointer;
+            cursor: not-allowed; /* Disabled cursor for offline buttons */
             position: relative;
             font-size: 16px;
-        }
-
-        .payment-button:hover {
-            background-color: #0056b3;
         }
 
         .payment-button.offline {
             background-color: red;
             color: white;
+        }
+
+        .payment-button.offline:hover::after {
+            display: block;
         }
 
         .payment-button::after {
@@ -64,14 +65,20 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        #payment-form label {
+        #card-details h2 {
+            margin: 0 0 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        #card-details label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
 
-        #payment-form input,
-        #payment-form textarea {
+        #card-details input,
+        #card-details textarea {
             width: calc(100% - 16px);
             padding: 8px;
             margin-bottom: 10px;
@@ -79,7 +86,7 @@
             border-radius: 5px;
         }
 
-        #payment-form button {
+        #card-details button {
             background-color: #007bff;
             color: white;
             border: none;
@@ -89,17 +96,8 @@
             font-size: 16px;
         }
 
-        #payment-form button:hover {
+        #card-details button:hover {
             background-color: #0056b3;
-        }
-
-        #payment-form .form-group {
-            margin-bottom: 15px;
-        }
-
-        #payment-form input[type="text"],
-        #payment-form input[type="number"] {
-            width: 100%;
         }
 
         /* Style for cart summary */
@@ -132,6 +130,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="top-bar" id="top-bar">
         <a href="https://auhydis.com/">
@@ -151,15 +150,15 @@
         </div>
 
         <div class="payment-buttons">
-            <button class="payment-button" onclick="redirectToPayment('gcash')">GCash</button>
-            <button class="payment-button" onclick="redirectToPayment('paymaya')">PayMaya</button>
-            <button class="payment-button" onclick="redirectToPayment('qrph')">QRPH</button>
+            <button class="payment-button offline" onclick="alert('GCash is offline and not available')">GCash</button>
+            <button class="payment-button offline" onclick="alert('PayMaya is offline and not available')">PayMaya</button>
+            <button class="payment-button offline" onclick="alert('QRPH is offline and not available')">QRPH</button>
         </div>
-        
-        <h2>Card Details</h2>
-        <p>Please enter your card details below:</p>
-        <form id="payment-form">
-            <div id="card-details">
+
+        <div id="card-details">
+            <h2>Card Details</h2>
+            <p>Please enter your card details below:</p>
+            <form id="payment-form">
                 <div class="form-group">
                     <label for="card-number">Card Number:</label>
                     <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
@@ -189,39 +188,34 @@
                     <input type="text" id="billing-country" name="billing-country" required>
                 </div>
                 <button type="submit">Submit Payment</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </section>
 
     <script>
-        const paymentStatus = {
-            gcash: 'offline',
-            paymaya: 'offline',
-            qrph: 'offline'
-        };
+        // Load cart items and total price
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItems = document.getElementById('cart-items');
+            const totalPrice = document.getElementById('total-price');
 
-        function updatePaymentButtonStatus() {
-            document.querySelectorAll('.payment-button').forEach(button => {
-                const method = button.getAttribute('data-method');
-                if (paymentStatus[method] === 'offline') {
-                    button.classList.add('offline');
-                } else {
-                    button.classList.remove('offline');
-                }
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.product} - ${item.quantity} pcs - ₱${(item.price * item.quantity).toFixed(2)}`;
+                cartItems.appendChild(li);
+                total += item.price * item.quantity;
             });
+
+            totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
         }
 
-        function redirectToPayment(method) {
-            const urls = {
-                gcash: 'https://gcash.example.com',
-                paymaya: 'https://paymaya.example.com',
-                qrph: 'https://qrph.example.com'
-            };
-            window.location.href = urls[method];
-        }
-
-        window.addEventListener('load', updatePaymentButtonStatus);
+        window.addEventListener('load', loadCart);
     </script>
 </body>
+
 </html>
+
 
