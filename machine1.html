@@ -78,7 +78,7 @@
         };
 
         function updateQuantity(product, change) {
-            const display = document.getElementById(`${product}-quantity-display`);
+            const display = document.getElementById(`₱{product}-quantity-display`);
             let currentQuantity = parseInt(display.textContent, 10);
             currentQuantity += change;
             if (currentQuantity < 1) currentQuantity = 1; // Prevent quantity from going below 1
