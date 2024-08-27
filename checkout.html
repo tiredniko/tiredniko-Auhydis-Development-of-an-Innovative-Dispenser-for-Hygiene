@@ -61,10 +61,16 @@
                 topBar.style.display = 'flex';
             }
         };
+
+        // JavaScript for payment buttons
+        document.querySelectorAll('.payment-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const method = this.getAttribute('data-method');
+                document.getElementById('payment-method').value = method;
+            });
+        });
     </script>
 </body>
 
 </html>
 
-
-</html>
