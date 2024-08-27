@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -131,7 +130,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="top-bar" id="top-bar">
         <a href="https://auhydis.com/">
@@ -154,7 +152,7 @@
             <button class="payment-button offline" onclick="alert('GCash is offline and not available')">GCash</button>
             <button class="payment-button offline" onclick="alert('PayMaya is offline and not available')">PayMaya</button>
             <button class="payment-button offline" onclick="alert('QRPH is offline and not available')">QRPH</button>
-            <button class="payment-button" onclick="showBankDetails()">Bank Details</button>
+            <button class="payment-button" onclick="submitPayment()">Bank Details</button>
         </div>
 
         <div id="card-details">
@@ -214,9 +212,37 @@
             totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
         }
 
-        function showBankDetails() {
-            // Show card details form
-            document.getElementById('card-details').style.display = 'block';
+        function submitPayment() {
+            // Send payment details to Arduino
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0).toFixed(2);
+
+            // Create an object to send to Arduino
+            const paymentData = {
+                cart: cart,
+                total: total,
+                method: 'bank-details' // Hardcoded for this example
+            };
+
+            fetch('https://example.com/arduino-api', { // Replace with your Arduino API endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(paymentData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Payment successful. Product will be dispensed.');
+                } else {
+                    alert('Payment failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Payment failed. Please try again.');
+            });
         }
 
         window.addEventListener('load', () => {
@@ -226,7 +252,5 @@
         });
     </script>
 </body>
-
 </html>
-
 
