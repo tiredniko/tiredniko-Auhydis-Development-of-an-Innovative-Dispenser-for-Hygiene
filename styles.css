@@ -44,10 +44,13 @@ header h1 {
     color: #333; /* Dark gray color for the heading */
 }
 
+main {
+    flex: 1; /* Allow main content to expand and fill space between header and footer */
+}
+
 section {
     text-align: center;
     margin: 20px;
-    flex: 1; /* Allow section to expand and fill space between header and footer */
 }
 
 /* Payment Method Buttons */
@@ -283,4 +286,5 @@ footer {
     background-color: red;
     color: white;
 }
+
 
