@@ -151,15 +151,14 @@
         </div>
 
         <div class="payment-buttons">
-            <button class="payment-button" data-method="gcash">GCash</button>
-            <button class="payment-button" data-method="paymaya">PayMaya</button>
-            <button class="payment-button" data-method="qrph">QRPH</button>
+            <button class="payment-button" onclick="redirectToPayment('gcash')">GCash</button>
+            <button class="payment-button" onclick="redirectToPayment('paymaya')">PayMaya</button>
+            <button class="payment-button" onclick="redirectToPayment('qrph')">QRPH</button>
         </div>
         
-        <h2 id="form-header">Card Details</h2>
-        <p id="form-description">Please enter your card details below:</p>
+        <h2>Card Details</h2>
+        <p>Please enter your card details below:</p>
         <form id="payment-form">
-            <input type="hidden" id="payment-method" name="payment-method">
             <div id="card-details">
                 <div class="form-group">
                     <label for="card-number">Card Number:</label>
@@ -195,33 +194,6 @@
     </section>
 
     <script>
-        // Load cart data from localStorage
-        function loadCart() {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                const cart = JSON.parse(savedCart);
-                displayCart(cart);
-            }
-        }
-
-        function displayCart(cart) {
-            const cartItems = document.getElementById('cart-items');
-            const totalPrice = document.getElementById('total-price');
-            
-            cartItems.innerHTML = '';
-            
-            let total = 0;
-            
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
-                cartItems.appendChild(li);
-                total += item.price * item.quantity;
-            });
-            
-            totalPrice.textContent = `Total: ₱${total}`;
-        }
-
         const paymentStatus = {
             gcash: 'offline',
             paymaya: 'offline',
@@ -239,22 +211,16 @@
             });
         }
 
-        window.addEventListener('load', function() {
-            updatePaymentButtonStatus();
-            loadCart();
-        });
+        function redirectToPayment(method) {
+            const urls = {
+                gcash: 'https://gcash.example.com',
+                paymaya: 'https://paymaya.example.com',
+                qrph: 'https://qrph.example.com'
+            };
+            window.location.href = urls[method];
+        }
 
-        document.querySelectorAll('.payment-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const method = this.getAttribute('data-method');
-                document.getElementById('payment-method').value = method;
-
-                // Display card details by default
-                document.getElementById('form-header').textContent = 'Card Details';
-                document.getElementById('form-description').textContent = 'Please enter your card details below:';
-                document.getElementById('card-details').style.display = 'block';
-            });
-        });
+        window.addEventListener('load', updatePaymentButtonStatus);
     </script>
 </body>
 </html>
