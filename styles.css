@@ -47,6 +47,7 @@ header h1 {
 section {
     text-align: center;
     margin: 20px;
+    flex: 1; /* Allow section to expand and fill space between header and footer */
 }
 
 .machine-list {
@@ -139,15 +140,16 @@ section {
     max-height: 150px;
 }
 
+/* Ensure footer spans the entire width and is positioned at the bottom */
 footer {
     background-color: #000000; /* Black background for the footer */
     border: 1px solid #d0d0d0;
     border-radius: 15px;
     padding: 20px;
-    width: calc(100% - 40px);
+    width: 100%; /* Ensure full width */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
-    margin: 20px auto; /* Center the footer */
+    margin-top: auto; /* Pushes footer to the bottom */
     color: #ffffff; /* White text color for contrast */
 }
 
@@ -162,3 +164,4 @@ footer {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     text-align: center;
 }
+
