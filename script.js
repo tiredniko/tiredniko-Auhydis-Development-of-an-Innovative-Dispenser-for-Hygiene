@@ -40,6 +40,12 @@ function displayCart() {
     cart.forEach(item => {
         const li = document.createElement('li');
         li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
+        
+        const removeButton = document.createElement('button');
+        removeButton.textContent = 'Remove';
+        removeButton.onclick = () => removeFromCart(item.product);
+        li.appendChild(removeButton);
+        
         cartItems.appendChild(li);
         
         total += item.price * item.quantity;
@@ -56,10 +62,6 @@ function removeFromCart(product) {
     displayCart();
 }
 
-// Function to handle checkout (could include form submission or payment integration)
-function checkout() {
-    alert("Checkout functionality not yet implemented.");
-}
-
 // Initialize cart on page load
 document.addEventListener('DOMContentLoaded', loadCart);
+
