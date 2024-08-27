@@ -56,7 +56,6 @@
 
         /* Style for the card details section */
         #card-details {
-            display: none; /* Initially hidden */
             margin: 20px auto;
             max-width: 600px;
             background-color: #fff;
@@ -250,15 +249,10 @@
                 const method = this.getAttribute('data-method');
                 document.getElementById('payment-method').value = method;
 
-                if (method === 'gcash' || method === 'paymaya' || method === 'qrph') {
-                    document.getElementById('form-header').textContent = 'Payment Details';
-                    document.getElementById('form-description').textContent = 'Please enter your payment details below:';
-                    document.getElementById('card-details').style.display = 'none';
-                } else {
-                    document.getElementById('form-header').textContent = 'Card Details';
-                    document.getElementById('form-description').textContent = 'Please enter your card details below:';
-                    document.getElementById('card-details').style.display = 'block';
-                }
+                // Always display card details
+                document.getElementById('form-header').textContent = 'Card Details';
+                document.getElementById('form-description').textContent = 'Please enter your card details below:';
+                document.getElementById('card-details').style.display = 'block';
             });
         });
     </script>
