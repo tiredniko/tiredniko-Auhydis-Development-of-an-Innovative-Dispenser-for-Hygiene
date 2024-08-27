@@ -50,6 +50,28 @@ section {
     flex: 1; /* Allow section to expand and fill space between header and footer */
 }
 
+/* Payment Method Buttons */
+.payment-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Space below the buttons */
+}
+
+.payment-button {
+    background-color: #007bff; /* Blue background */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.payment-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
 .machine-list {
     display: flex;
     justify-content: space-around;
