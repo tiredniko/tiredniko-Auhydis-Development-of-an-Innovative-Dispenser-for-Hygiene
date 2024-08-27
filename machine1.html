@@ -26,22 +26,34 @@
                 <img src="images/tissue.jpg" alt="Tissue">
                 <h2>Tissue</h2>
                 <p>Price: ₱20.00</p>
-                <input type="number" value="1" min="1" id="tissue-quantity">
-                <button onclick="addToCart('Tissue', 20.00, document.getElementById('tissue-quantity').value)">Add to Cart</button>
+                <div class="quantity-control">
+                    <button onclick="updateQuantity('tissue', -1)">-</button>
+                    <span id="tissue-quantity-display">1</span>
+                    <button onclick="updateQuantity('tissue', 1)">+</button>
+                </div>
+                <button onclick="addToCart('Tissue', 20.00, getQuantity('tissue'))">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="images/soap.jpg" alt="Soap">
                 <h2>Soap</h2>
                 <p>Price: ₱20.00</p>
-                <input type="number" value="1" min="1" id="soap-quantity">
-                <button onclick="addToCart('Soap', 20.00, document.getElementById('soap-quantity').value)">Add to Cart</button>
+                <div class="quantity-control">
+                    <button onclick="updateQuantity('soap', -1)">-</button>
+                    <span id="soap-quantity-display">1</span>
+                    <button onclick="updateQuantity('soap', 1)">+</button>
+                </div>
+                <button onclick="addToCart('Soap', 20.00, getQuantity('soap'))">Add to Cart</button>
             </div>
             <div class="product">
                 <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
                 <h2>Sanitary Pad</h2>
                 <p>Price: ₱20.00</p>
-                <input type="number" value="1" min="1" id="sanitary-pad-quantity">
-                <button onclick="addToCart('Sanitary Pad', 20.00, document.getElementById('sanitary-pad-quantity').value)">Add to Cart</button>
+                <div class="quantity-control">
+                    <button onclick="updateQuantity('sanitary-pad', -1)">-</button>
+                    <span id="sanitary-pad-quantity-display">1</span>
+                    <button onclick="updateQuantity('sanitary-pad', 1)">+</button>
+                </div>
+                <button onclick="addToCart('Sanitary Pad', 20.00, getQuantity('sanitary-pad'))">Add to Cart</button>
             </div>
         </div>
     </section>
@@ -64,9 +76,20 @@
                 topBar.style.display = 'flex';
             }
         };
+
+        function updateQuantity(product, change) {
+            const display = document.getElementById(`${product}-quantity-display`);
+            let currentQuantity = parseInt(display.textContent, 10);
+            currentQuantity += change;
+            if (currentQuantity < 1) currentQuantity = 1; // Prevent quantity from going below 1
+            display.textContent = currentQuantity;
+        }
+
+        function getQuantity(product) {
+            return parseInt(document.getElementById(`${product}-quantity-display`).textContent, 10);
+        }
     </script>
 </body>
 
 </html>
-
 
