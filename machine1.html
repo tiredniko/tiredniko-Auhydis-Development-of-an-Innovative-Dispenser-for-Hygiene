@@ -23,6 +23,7 @@
     <main>
         <section>
             <div class="product-list">
+                <!-- Product 1 -->
                 <div class="product">
                     <img src="images/tissue.jpg" alt="Tissue">
                     <h2>Tissue</h2>
@@ -34,6 +35,7 @@
                     </div>
                     <button onclick="addToCart('Tissue', 20.00, getQuantity('tissue'))">Add to Cart</button>
                 </div>
+                <!-- Product 2 -->
                 <div class="product">
                     <img src="images/soap.jpg" alt="Soap">
                     <h2>Soap</h2>
@@ -45,6 +47,7 @@
                     </div>
                     <button onclick="addToCart('Soap', 20.00, getQuantity('soap'))">Add to Cart</button>
                 </div>
+                <!-- Product 3 -->
                 <div class="product">
                     <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
                     <h2>Sanitary Pad</h2>
@@ -91,12 +94,73 @@
             return parseInt(document.getElementById(`${product}-quantity-display`).textContent, 10);
         }
 
+        function addToCart(product, price, quantity) {
+            const existingProductIndex = cart.findIndex(item => item.product === product);
+            
+            if (existingProductIndex !== -1) {
+                cart[existingProductIndex].quantity += quantity;
+            } else {
+                cart.push({ product, price, quantity });
+            }
+            
+            saveCart(); // Save cart to local storage
+            displayCart();
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function loadCart() {
+            const savedCart = localStorage.getItem('cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                displayCart(); // Update the cart display
+            }
+        }
+
+        function displayCart() {
+            const cartItems = document.getElementById('cart-items');
+            const totalPrice = document.getElementById('total-price');
+            
+            cartItems.innerHTML = '';
+            
+            let total = 0;
+            
+            cart.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
+                
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.onclick = () => removeFromCart(item.product);
+                li.appendChild(removeButton);
+                
+                cartItems.appendChild(li);
+                
+                total += item.price * item.quantity;
+            });
+            
+            totalPrice.textContent = `Total: ₱${total}`;
+        }
+
+        function removeFromCart(product) {
+            cart = cart.filter(item => item.product !== product);
+            
+            saveCart(); // Save updated cart to local storage
+            displayCart();
+        }
+
         function checkout() {
             window.location.href = 'checkout.html'; // Redirect to checkout page
         }
+
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', loadCart);
     </script>
 </body>
 
 </html>
+
 
 
