@@ -8,9 +8,9 @@ body {
     min-height: 100vh;
 }
 
-/* Gray bar at the top for the logo */
+/* Darker gray bar at the top for the logo */
 .top-bar {
-    background-color: #e0e0e0; /* Light gray color */
+    background-color: #b0b0b0; /* Darker gray color */
     padding: 10px 20px;
     display: flex;
     align-items: center;
@@ -20,7 +20,7 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
 }
 
 .top-bar img {
