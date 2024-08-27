@@ -66,12 +66,80 @@ section {
     margin: 0 10px;
     cursor: pointer;
     font-size: 16px;
+    position: relative; /* Ensure tooltip positioning works */
 }
 
 .payment-button:hover {
     background-color: #0056b3; /* Darker blue on hover */
 }
 
+.payment-button::after {
+    content: "Offline";
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    display: none; /* Hide by default */
+    opacity: 0.8;
+}
+
+.payment-button:hover::after {
+    display: block; /* Show on hover */
+}
+
+/* Style for the card details section */
+#card-details {
+    display: none; /* Initially hidden */
+    margin: 20px auto;
+    max-width: 600px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#card-details h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+#card-details label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#card-details input,
+#card-details textarea {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#card-details button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#card-details button:hover {
+    background-color: #0056b3;
+}
+
+/* Machine List */
 .machine-list {
     display: flex;
     justify-content: space-around;
@@ -180,4 +248,3 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 10px; /* Reduced padding */
 }
-
