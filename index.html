@@ -9,9 +9,11 @@
 </head>
 
 <body>
-    <!-- Gray bar with the logo -->
-    <div class="top-bar">
-        <img src="images/logo.png" alt="Auhydis Logo">
+    <!-- Gray bar with the logo that will disappear on scroll -->
+    <div class="top-bar" id="top-bar">
+        <a href="<!-- PUT YOUR MAIN WEBSITE URL HERE -->">
+            <img src="images/logo.png" alt="Auhydis Logo">
+        </a>
     </div>
 
     <header>
@@ -42,6 +44,18 @@
             <p>Email: nikopaned.official+auhydis@gmail.com</p>
         </div>
     </footer>
+
+    <script>
+        // JavaScript to hide the top bar on scroll
+        window.onscroll = function () {
+            const topBar = document.getElementById('top-bar');
+            if (window.scrollY > 100) {
+                topBar.style.display = 'none';
+            } else {
+                topBar.style.display = 'flex';
+            }
+        };
+    </script>
 </body>
 
 </html>
