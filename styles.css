@@ -279,3 +279,8 @@ footer {
     padding: 10px; /* Reduced padding */
 }
 
+.payment-button.offline {
+    background-color: red;
+    color: white;
+}
+
