@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +29,11 @@
             background-color: #0056b3;
         }
 
+        .payment-button.offline {
+            background-color: red;
+            color: white;
+        }
+
         .payment-button::after {
             content: "Offline";
             position: absolute;
@@ -46,8 +50,7 @@
             opacity: 0.8;
         }
 
-        .payment-button:hover::after,
-        .payment-button:focus::after {
+        .payment-button.offline:hover::after {
             display: block;
         }
 
@@ -130,9 +133,7 @@
         }
     </style>
 </head>
-
 <body>
-    <!-- Gray bar with the logo that will disappear on scroll -->
     <div class="top-bar" id="top-bar">
         <a href="https://auhydis.com/">
             <img src="images/logo.png" alt="Auhydis Logo">
@@ -144,14 +145,12 @@
     </header>
 
     <section>
-        <!-- Cart Summary -->
         <div class="cart-summary">
             <h2>Your Cart</h2>
             <ul id="cart-items"></ul>
             <p id="total-price"></p>
         </div>
 
-        <!-- Payment Method Buttons -->
         <div class="payment-buttons">
             <button class="payment-button" data-method="gcash">GCash</button>
             <button class="payment-button" data-method="paymaya">PayMaya</button>
@@ -197,22 +196,30 @@
     </section>
 
     <script>
-        // JavaScript to hide the top bar on scroll
-        window.onscroll = function () {
-            const topBar = document.getElementById('top-bar');
-            if (window.scrollY > 100) {
-                topBar.style.display = 'none';
-            } else {
-                topBar.style.display = 'flex';
-            }
+        const paymentStatus = {
+            gcash: 'offline',
+            paymaya: 'online',
+            qrph: 'offline'
         };
 
-        // JavaScript for payment buttons
+        function updatePaymentButtonStatus() {
+            document.querySelectorAll('.payment-button').forEach(button => {
+                const method = button.getAttribute('data-method');
+                if (paymentStatus[method] === 'offline') {
+                    button.classList.add('offline');
+                } else {
+                    button.classList.remove('offline');
+                }
+            });
+        }
+
+        window.addEventListener('load', updatePaymentButtonStatus);
+
         document.querySelectorAll('.payment-button').forEach(button => {
             button.addEventListener('click', function() {
                 const method = this.getAttribute('data-method');
                 document.getElementById('payment-method').value = method;
-                // Update form header and description based on payment method
+
                 if (method === 'gcash' || method === 'paymaya' || method === 'qrph') {
                     document.getElementById('form-header').textContent = 'Payment Details';
                     document.getElementById('form-description').textContent = 'Please enter your payment details below:';
@@ -224,49 +231,7 @@
                 }
             });
         });
-
-        // Function to display cart items
-        function displayCart() {
-            const cartItems = document.getElementById('cart-items');
-            const totalPrice = document.getElementById('total-price');
-            
-            cartItems.innerHTML = '';
-            
-            let total = 0;
-            
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.product} - ₱${(item.price * item.quantity).toFixed(2)} (x${item.quantity})`;
-                cartItems.appendChild(li);
-                total += item.price * item.quantity;
-            });
-            
-            totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
-        }
-
-        // Function to complete the purchase
-        function completePurchase() {
-            localStorage.removeItem('cart'); // Clear cart from local storage
-            alert('Thank you for your purchase!');
-            window.location.href = 'index.html'; // Redirect to home page
-        }
-
-        // Load cart when the page is loaded
-        window.addEventListener('load', () => {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
-                displayCart();
-            }
-        });
-
-        // Handle form submission
-        document.getElementById('payment-form').addEventListener('submit', (event) => {
-            event.preventDefault();
-            completePurchase();
-        });
     </script>
 </body>
-
 </html>
 
