@@ -7,68 +7,51 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Gray bar with the logo that will disappear on scroll -->
-    <div class="top-bar" id="top-bar">
-        <a href="https://auhydis.com/">
-            <img src="images/logo.png" alt="Auhydis Logo">
-        </a>
-    </div>
-
     <header>
-        <h1>Checkout</h1>
+        <h1>Checkout Page</h1>
     </header>
-
     <main>
-        <section>
-            <h2>Your Cart</h2>
+        <section id="cart-summary">
+            <h2>Cart Summary</h2>
             <ul id="cart-items"></ul>
             <p id="total-price">Total: ₱0</p>
         </section>
 
         <!-- Payment Method Buttons -->
-        <section class="payment-methods">
-            <h2>Payment Methods</h2>
+        <section id="payment-methods">
+            <h2>Select Payment Method</h2>
             <div class="payment-buttons">
-                <button class="payment-button offline" disabled>GCash (Offline)</button>
-                <button class="payment-button offline" disabled>PayMaya (Offline)</button>
-                <button class="payment-button offline" disabled>QRPH (Offline)</button>
-            </div>
-            <div id="card-details">
-                <h2>Enter Your Card Details</h2>
-                <form id="payment-form">
-                    <label for="card-number">Card Number</label>
-                    <input type="text" id="card-number" name="card-number" required>
-                    <label for="card-expiry">Expiry Date</label>
-                    <input type="text" id="card-expiry" name="card-expiry" required>
-                    <label for="card-cvc">CVC</label>
-                    <input type="text" id="card-cvc" name="card-cvc" required>
-                    <button type="submit">Submit Payment</button>
-                </form>
+                <button class="payment-button" onclick="showCardDetails()">Bank Card</button>
+                <button class="payment-button offline" disabled>GCash</button>
+                <button class="payment-button offline" disabled>PayMaya</button>
+                <button class="payment-button offline" disabled>QRPH</button>
             </div>
         </section>
-    </main>
 
+        <!-- Card Details Section -->
+        <section id="card-details">
+            <h2>Enter Card Details</h2>
+            <form id="payment-form" onsubmit="submitPayment(event)">
+                <label for="card-number">Card Number</label>
+                <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
+
+                <label for="card-expiry">Expiry Date</label>
+                <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
+
+                <label for="card-cvc">CVC</label>
+                <input type="text" id="card-cvc" name="card-cvc" placeholder="123" required>
+
+                <button type="submit">Submit Payment</button>
+            </form>
+        </section>
+    </main>
     <footer>
         <div class="contact-info">
-            <p>Contact us at: support@auhydis.com</p>
+            <p>Contact us: support@auhydis.com</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
-    <script>
-        // Initialize cart on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadCart();
-        });
-
-        // Handle form submission
-        document.getElementById('payment-form').addEventListener('submit', (event) => {
-            event.preventDefault();
-            // Call sendPaymentSignal function before redirecting
-            sendPaymentSignal();
-            // Redirect to the home page
-            window.location.href = 'index.html';
-        });
-    </script>
 </body>
 </html>
+
