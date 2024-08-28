@@ -1,138 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Add styles for the payment buttons and tooltips */
-        .payment-buttons {
-            display: flex;
-            justify-content: center;
-            margin: 20px;
-        }
-
-        .payment-button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin: 0 10px;
-            cursor: not-allowed; /* Disabled cursor for offline buttons */
-            position: relative;
-            font-size: 16px;
-        }
-
-        .payment-button.offline {
-            background-color: red;
-            color: white;
-        }
-
-        .payment-button.offline:hover::after {
-            display: block;
-        }
-
-        .payment-button::after {
-            content: "Offline";
-            position: absolute;
-            bottom: -30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #333;
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 12px;
-            white-space: nowrap;
-            display: none;
-            opacity: 0.8;
-        }
-
-        .payment-button.offline:hover::after {
-            display: block;
-        }
-
-        /* Style for the card details section */
-        #card-details {
-            display: block; /* Always visible */
-            margin: 20px auto;
-            max-width: 600px;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        #card-details h2 {
-            margin: 0 0 20px;
-            font-size: 24px;
-            color: #333;
-        }
-
-        #card-details label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        #card-details input,
-        #card-details textarea {
-            width: calc(100% - 16px);
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        #card-details button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        #card-details button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Style for cart summary */
-        .cart-summary {
-            margin: 20px auto;
-            max-width: 600px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            background-color: #fff;
-        }
-
-        .cart-summary h2 {
-            margin-top: 0;
-        }
-
-        .cart-summary ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .cart-summary ul li {
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .cart-summary ul li:last-child {
-            border-bottom: none;
-        }
-    </style>
 </head>
-
 <body>
+    <!-- Gray bar with the logo that will disappear on scroll -->
     <div class="top-bar" id="top-bar">
         <a href="https://auhydis.com/">
             <img src="images/logo.png" alt="Auhydis Logo">
@@ -143,134 +18,57 @@
         <h1>Checkout</h1>
     </header>
 
-    <section>
-        <div class="cart-summary">
+    <main>
+        <section>
             <h2>Your Cart</h2>
             <ul id="cart-items"></ul>
-            <p id="total-price"></p>
-        </div>
+            <p id="total-price">Total: ₱0</p>
+        </section>
 
-        <div class="payment-buttons">
-            <button class="payment-button offline" onclick="alert('GCash is offline and not available')">GCash</button>
-            <button class="payment-button offline" onclick="alert('PayMaya is offline and not available')">PayMaya</button>
-            <button class="payment-button offline" onclick="alert('QRPH is offline and not available')">QRPH</button>
-            <button class="payment-button" onclick="showBankDetails()">Bank Details</button>
-        </div>
+        <!-- Payment Method Buttons -->
+        <section class="payment-methods">
+            <h2>Payment Methods</h2>
+            <div class="payment-buttons">
+                <button class="payment-button offline" disabled>GCash (Offline)</button>
+                <button class="payment-button offline" disabled>PayMaya (Offline)</button>
+                <button class="payment-button offline" disabled>QRPH (Offline)</button>
+            </div>
+            <div id="card-details">
+                <h2>Enter Your Card Details</h2>
+                <form id="payment-form">
+                    <label for="card-number">Card Number</label>
+                    <input type="text" id="card-number" name="card-number" required>
+                    <label for="card-expiry">Expiry Date</label>
+                    <input type="text" id="card-expiry" name="card-expiry" required>
+                    <label for="card-cvc">CVC</label>
+                    <input type="text" id="card-cvc" name="card-cvc" required>
+                    <button type="submit">Submit Payment</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
-        <div id="card-details">
-            <h2>Card Details</h2>
-            <p>Please enter your card details below:</p>
-            <form id="payment-form">
-                <div class="form-group">
-                    <label for="card-number">Card Number:</label>
-                    <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
-                </div>
-                <div class="form-group">
-                    <label for="card-expiry">Expiry Date:</label>
-                    <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
-                </div>
-                <div class="form-group">
-                    <label for="card-cvc">CVC:</label>
-                    <input type="text" id="card-cvc" name="card-cvc" placeholder="123" required>
-                </div>
-                <div class="form-group">
-                    <label for="billing-address">Billing Address:</label>
-                    <input type="text" id="billing-address" name="billing-address" placeholder="123 Street Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="billing-city">City:</label>
-                    <input type="text" id="billing-city" name="billing-city" required>
-                </div>
-                <div class="form-group">
-                    <label for="billing-zip">ZIP Code:</label>
-                    <input type="text" id="billing-zip" name="billing-zip" required>
-                </div>
-                <div class="form-group">
-                    <label for="billing-country">Country:</label>
-                    <input type="text" id="billing-country" name="billing-country" required>
-                </div>
-                <button type="submit">Submit Payment</button>
-            </form>
+    <footer>
+        <div class="contact-info">
+            <p>Contact us at: support@auhydis.com</p>
         </div>
-    </section>
+    </footer>
 
+    <script src="script.js"></script>
     <script>
-        // Load cart items and total price
-        function loadCart() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const cartItems = document.getElementById('cart-items');
-            const totalPrice = document.getElementById('total-price');
-
-            cartItems.innerHTML = '';
-            let total = 0;
-
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.product} - ${item.quantity} pcs - ₱${(item.price * item.quantity).toFixed(2)}`;
-                cartItems.appendChild(li);
-                total += item.price * item.quantity;
-            });
-
-            totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
-        }
-
-        function showBankDetails() {
-            // Show card details form
-            document.getElementById('card-details').style.display = 'block';
-        }
-
-        function submitPayment(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            const form = document.getElementById('payment-form');
-            const formData = new FormData(form);
-
-            // Create a payload to send to the Worker
-            const payload = {
-                product: 'Product Name', // Replace with actual product info
-                cardNumber: formData.get('card-number'),
-                expiryDate: formData.get('card-expiry'),
-                cvc: formData.get('card-cvc'),
-                billingAddress: formData.get('billing-address'),
-                billingCity: formData.get('billing-city'),
-                billingZip: formData.get('billing-zip'),
-                billingCountry: formData.get('billing-country')
-            };
-
-            // Send the payment signal to the Cloudflare Worker
-            fetch('https://arduino.nikopaned-official.workers.dev/dispense', { // Update to your Worker URL
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Payment successful. Product will be dispensed.');
-                    // Redirect to success page or show a confirmation
-                    window.location.href = 'success.html'; // Adjust this as needed
-                } else {
-                    alert('Payment failed. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Payment failed. Please try again.');
-            });
-        }
-
-        window.addEventListener('load', () => {
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', () => {
             loadCart();
-            // Ensure card details are always shown
-            document.getElementById('card-details').style.display = 'block';
+        });
 
-            // Attach event listener to the form
-            const paymentForm = document.getElementById('payment-form');
-            paymentForm.addEventListener('submit', submitPayment);
+        // Handle form submission
+        document.getElementById('payment-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            // Call sendPaymentSignal function before redirecting
+            sendPaymentSignal();
+            // Redirect to the home page
+            window.location.href = 'index.html';
         });
     </script>
 </body>
-
 </html>
