@@ -8,6 +8,11 @@
 </head>
 <body>
     <header>
+        <div class="top-bar" id="top-bar">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Auhydis Logo">
+            </a>
+        </div>
         <h1>Checkout Page</h1>
     </header>
     <main>
@@ -29,7 +34,7 @@
         </section>
 
         <!-- Card Details Section -->
-        <section id="card-details">
+        <section id="card-details" style="display: none;">
             <h2>Enter Card Details</h2>
             <form id="payment-form" onsubmit="submitPayment(event)">
                 <label for="card-number">Card Number</label>
@@ -43,6 +48,11 @@
 
                 <button type="submit">Submit Payment</button>
             </form>
+        </section>
+
+        <!-- Back to Machine Page Button -->
+        <section id="back-to-machine">
+            <button onclick="window.location.href='machine1.html'">Back to Machine</button>
         </section>
     </main>
     <footer>
