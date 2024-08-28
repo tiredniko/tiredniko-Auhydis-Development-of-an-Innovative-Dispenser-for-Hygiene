@@ -70,12 +70,9 @@
         </div>
     </main>
 
-    <script src="script.js"></script>
     <script>
-        // Declare the cart variable
         let cart = [];
 
-        // JavaScript to hide the top bar on scroll
         window.onscroll = function () {
             const topBar = document.getElementById('top-bar');
             if (window.scrollY > 100) {
@@ -89,7 +86,7 @@
             const display = document.getElementById(`${product}-quantity-display`);
             let currentQuantity = parseInt(display.textContent, 10);
             currentQuantity += change;
-            if (currentQuantity < 1) currentQuantity = 1; // Prevent quantity from going below 1
+            if (currentQuantity < 1) currentQuantity = 1;
             display.textContent = currentQuantity;
         }
 
@@ -98,19 +95,21 @@
         }
 
         function addToCart(product, price, quantity) {
+            console.log(`Adding to cart: ${product}, ${price}, ${quantity}`);
             const existingProductIndex = cart.findIndex(item => item.product === product);
-            
+
             if (existingProductIndex !== -1) {
                 cart[existingProductIndex].quantity += quantity;
             } else {
                 cart.push({ product, price, quantity });
             }
-            
-            saveCart(); // Save cart to local storage
+
+            saveCart();
             displayCart();
         }
 
         function saveCart() {
+            console.log('Saving cart:', cart);
             localStorage.setItem('cart', JSON.stringify(cart));
         }
 
@@ -118,51 +117,51 @@
             const savedCart = localStorage.getItem('cart');
             if (savedCart) {
                 cart = JSON.parse(savedCart);
-                displayCart(); // Update the cart display
+                console.log('Loaded cart:', cart);
+                displayCart();
             }
         }
 
         function displayCart() {
             const cartItems = document.getElementById('cart-items');
             const totalPrice = document.getElementById('total-price');
-            
+
             cartItems.innerHTML = '';
-            
             let total = 0;
-            
+
             cart.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
-                
+
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remove';
                 removeButton.onclick = () => removeFromCart(item.product);
                 li.appendChild(removeButton);
-                
+
                 cartItems.appendChild(li);
-                
+
                 total += item.price * item.quantity;
             });
-            
+
             totalPrice.textContent = `Total: ₱${total}`;
         }
 
         function removeFromCart(product) {
             cart = cart.filter(item => item.product !== product);
-            
-            saveCart(); // Save updated cart to local storage
+
+            saveCart();
             displayCart();
         }
 
         function checkout() {
-            window.location.href = 'checkout.html'; // Redirect to checkout page
+            window.location.href = 'checkout.html';
         }
 
-        // Initialize cart on page load
         document.addEventListener('DOMContentLoaded', loadCart);
     </script>
 </body>
 
 </html>
+
 
 
