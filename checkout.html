@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <!-- Gray bar with the logo that will disappear on scroll -->
+    <div class="top-bar" id="top-bar">
+        <a href="https://auhydis.com/">
+            <img src="images/logo.png" alt="Auhydis Logo">
+        </a>
+    </div>
+
     <header>
-        <div class="top-bar" id="top-bar">
-            <a href="index.html">
-                <img src="images/logo.png" alt="Auhydis Logo">
-            </a>
-        </div>
-        <h1>Checkout Page</h1>
+        <h1>Checkout</h1>
     </header>
+
     <main>
         <section id="cart-summary">
             <h2>Cart Summary</h2>
@@ -49,12 +54,8 @@
                 <button type="submit">Submit Payment</button>
             </form>
         </section>
-
-        <!-- Back to Machine Page Button -->
-        <section id="back-to-machine">
-            <button onclick="window.location.href='machine1.html'">Back to Machine</button>
-        </section>
     </main>
+
     <footer>
         <div class="contact-info">
             <p>Contact us: support@auhydis.com</p>
@@ -98,7 +99,6 @@
 
         function removeFromCart(product) {
             cart = cart.filter(item => item.product !== product);
-
             localStorage.setItem('cart', JSON.stringify(cart));
             displayCart();
         }
@@ -109,12 +109,51 @@
 
         function submitPayment(event) {
             event.preventDefault();
-            // Handle payment processing here
+
+            const formData = new FormData(event.target);
+            const paymentData = {
+                cardNumber: formData.get('card-number'),
+                cardExpiry: formData.get('card-expiry'),
+                cardCvc: formData.get('card-cvc'),
+                cart: JSON.parse(localStorage.getItem('cart')) || []
+            };
+
+            fetch('https://your-cloudflare-worker-url', { // Replace with your actual Cloudflare Worker URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(paymentData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Payment successful');
+                    // Redirect or handle success
+                } else {
+                    alert('Payment failed: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred');
+            });
         }
 
         document.addEventListener('DOMContentLoaded', loadCart);
+
+        window.onscroll = function () {
+            const topBar = document.getElementById('top-bar');
+            if (window.scrollY > 100) {
+                topBar.style.display = 'none';
+            } else {
+                topBar.style.display = 'flex';
+            }
+        };
     </script>
 </body>
+
 </html>
+
 
 
