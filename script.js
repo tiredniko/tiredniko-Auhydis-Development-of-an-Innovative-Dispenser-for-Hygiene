@@ -80,14 +80,14 @@ function updateQuantity(product, change) {
 document.addEventListener('DOMContentLoaded', loadCart);
 
 function sendPaymentSignal() {
-    fetch('https://your-server-url.com/dispense', { // Replace with your server URL
+    fetch('https://arduino.nikopaned-official.workers.dev/', { // Use the actual URL of your Cloudflare Worker
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             action: 'dispense',
-            cart: JSON.parse(localStorage.getItem('cart')) // Adjust based on how you store cart data
+            cart: JSON.parse(localStorage.getItem('cart')) // Send the cart data
         })
     })
     .then(response => response.json())
@@ -108,3 +108,4 @@ function checkout() {
     // Redirect to checkout page
     window.location.href = 'checkout.html';
 }
+
