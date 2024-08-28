@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,6 +131,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="top-bar" id="top-bar">
         <a href="https://auhydis.com/">
@@ -235,7 +237,8 @@
                 billingCountry: formData.get('billing-country')
             };
 
-            fetch('https://arduino.nikopaned-official.workers.dev/', { // This is your Worker route
+            // Send the payment signal to the Cloudflare Worker
+            fetch('https://arduino.nikopaned-official.workers.dev/dispense', { // Update to your Worker URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -246,6 +249,8 @@
             .then(data => {
                 if (data.success) {
                     alert('Payment successful. Product will be dispensed.');
+                    // Redirect to success page or show a confirmation
+                    window.location.href = 'success.html'; // Adjust this as needed
                 } else {
                     alert('Payment failed. Please try again.');
                 }
@@ -267,4 +272,6 @@
         });
     </script>
 </body>
+
 </html>
+
