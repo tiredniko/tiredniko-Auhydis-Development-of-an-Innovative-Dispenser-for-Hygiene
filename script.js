@@ -1,50 +1,91 @@
-// Function to show card details section
-function showCardDetails() {
-    document.getElementById('card-details').style.display = 'block';
-}
+<script>
+    let cart = [];
 
-// Function to handle form submission
-function submitPayment(event) {
-    event.preventDefault(); // Prevent default form submission
+    window.onscroll = function () {
+        const topBar = document.getElementById('top-bar');
+        if (window.scrollY > 100) {
+            topBar.style.display = 'none';
+        } else {
+            topBar.style.display = 'flex';
+        }
+    };
 
-    // Collect card details
-    const cardNumber = document.getElementById('card-number').value;
-    const cardExpiry = document.getElementById('card-expiry').value;
-    const cardCvc = document.getElementById('card-cvc').value;
+    function updateQuantity(product, change) {
+        const display = document.getElementById(`${product}-quantity-display`);
+        let currentQuantity = parseInt(display.textContent, 10);
+        currentQuantity += change;
+        if (currentQuantity < 1) currentQuantity = 1;
+        display.textContent = currentQuantity;
+    }
 
-    // You can log these details to verify if they are being captured correctly
-    console.log(`Card Number: ${cardNumber}, Expiry Date: ${cardExpiry}, CVC: ${cardCvc}`);
+    function getQuantity(product) {
+        return parseInt(document.getElementById(`${product}-quantity-display`).textContent, 10);
+    }
 
-    // Send payment signal to the Cloudflare Worker
-    sendPaymentSignal();
+    function addToCart(product, price, quantity) {
+        console.log(`Adding to cart: ${product}, ${price}, ${quantity}`);
+        const existingProductIndex = cart.findIndex(item => item.product === product);
 
-    // Optionally, redirect or show a confirmation message
-    window.location.href = 'thank-you.html'; // Redirect to a thank you page or show a confirmation message
-}
+        if (existingProductIndex !== -1) {
+            cart[existingProductIndex].quantity += quantity;
+        } else {
+            cart.push({ product, price, quantity });
+        }
 
-// Function to send payment signal
-function sendPaymentSignal() {
-    fetch('https://arduino.nikopaned-official.workers.dev/', { // Use the Worker URL
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            action: 'dispense',
-            cart: JSON.parse(localStorage.getItem('cart')) // Adjust based on how you store cart data
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        // Optionally, show a confirmation message to the user here
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        // Optionally, handle errors here (e.g., show an error message to the user)
-    });
-}
+        saveCart();
+        displayCart();
+    }
 
-// Initialize cart display
-document.addEventListener('DOMContentLoaded', loadCart);
+    function saveCart() {
+        console.log('Saving cart:', cart);
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function loadCart() {
+        const savedCart = localStorage.getItem('cart');
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+            console.log('Loaded cart:', cart);
+            displayCart();
+        }
+    }
+
+    function displayCart() {
+        const cartItems = document.getElementById('cart-items');
+        const totalPrice = document.getElementById('total-price');
+
+        cartItems.innerHTML = '';
+        let total = 0;
+
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = () => removeFromCart(item.product);
+            li.appendChild(removeButton);
+
+            cartItems.appendChild(li);
+
+            total += item.price * item.quantity;
+        });
+
+        totalPrice.textContent = `Total: ₱${total}`;
+    }
+
+    function removeFromCart(product) {
+        cart = cart.filter(item => item.product !== product);
+
+        saveCart();
+        displayCart();
+    }
+
+    function checkout() {
+        window.location.href = 'checkout.html';
+    }
+
+    document.addEventListener('DOMContentLoaded', loadCart);
+</script>
+
 
