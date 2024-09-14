@@ -1,159 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <!-- Gray bar with the logo that will disappear on scroll -->
-    <div class="top-bar" id="top-bar">
-        <a href="https://auhydis.com/">
-            <img src="images/logo.png" alt="Auhydis Logo">
-        </a>
-    </div>
-
     <header>
         <h1>Checkout</h1>
+        <a href="index.html">Back to Home</a>
     </header>
-
+    
     <main>
-        <section id="cart-summary">
+        <section>
             <h2>Cart Summary</h2>
-            <ul id="cart-items"></ul>
-            <p id="total-price">Total: ₱0</p>
+            <!-- Display cart items here -->
         </section>
-
-        <!-- Payment Method Buttons -->
-        <section id="payment-methods">
-            <h2>Select Payment Method</h2>
-            <div class="payment-buttons">
-                <button class="payment-button" onclick="showCardDetails()">Bank Card</button>
-                <button class="payment-button offline" disabled>GCash</button>
-                <button class="payment-button offline" disabled>PayMaya</button>
-                <button class="payment-button offline" disabled>QRPH</button>
-            </div>
-        </section>
-
-        <!-- Card Details Section -->
-        <section id="card-details" style="display: none;">
-            <h2>Enter Card Details</h2>
-            <form id="payment-form" onsubmit="submitPayment(event)">
-                <label for="card-number">Card Number</label>
-                <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
-
-                <label for="card-expiry">Expiry Date</label>
-                <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY" required>
-
-                <label for="card-cvc">CVC</label>
-                <input type="text" id="card-cvc" name="card-cvc" placeholder="123" required>
-
-                <button type="submit">Submit Payment</button>
-            </form>
+        
+        <section>
+            <button id="submitPayment">Submit Payment</button>
         </section>
     </main>
-
-    <footer>
-        <div class="contact-info">
-            <p>Contact us: support@auhydis.com</p>
-        </div>
-    </footer>
-
+    
     <script>
-        let cart = [];
+        document.getElementById('submitPayment').addEventListener('click', function() {
+            // Send a signal to the Arduino
+            fetch('https://arduino-api.nikopaned-official.workers.dev/update?motor=on')
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Arduino response:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
 
-        function loadCart() {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
-                displayCart();
-            }
-        }
-
-        function displayCart() {
-            const cartItems = document.getElementById('cart-items');
-            const totalPrice = document.getElementById('total-price');
-
-            cartItems.innerHTML = '';
-            let total = 0;
-
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
-
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.onclick = () => removeFromCart(item.product);
-                li.appendChild(removeButton);
-
-                cartItems.appendChild(li);
-
-                total += item.price * item.quantity;
-            });
-
-            totalPrice.textContent = `Total: ₱${total}`;
-        }
-
-        function removeFromCart(product) {
-            cart = cart.filter(item => item.product !== product);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            displayCart();
-        }
-
-        function showCardDetails() {
-            document.getElementById('card-details').style.display = 'block';
-        }
-
-        function submitPayment(event) {
-            event.preventDefault();
-
-            const formData = new FormData(event.target);
-            const paymentData = {
-                cardNumber: formData.get('card-number'),
-                cardExpiry: formData.get('card-expiry'),
-                cardCvc: formData.get('card-cvc'),
-                cart: JSON.parse(localStorage.getItem('cart')) || []
-            };
-
-            fetch('https://your-cloudflare-worker-url', { // Replace with your actual Cloudflare Worker URL
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(paymentData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Payment successful');
-                    // Redirect or handle success
-                } else {
-                    alert('Payment failed: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('An error occurred');
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', loadCart);
-
-        window.onscroll = function () {
-            const topBar = document.getElementById('top-bar');
-            if (window.scrollY > 100) {
-                topBar.style.display = 'none';
-            } else {
-                topBar.style.display = 'flex';
-            }
-        };
+            // Redirect to success page after 5 seconds
+            setTimeout(() => {
+                window.location.href = 'success.html';
+            }, 5000);
+        });
     </script>
 </body>
-
 </html>
-
-
 
