@@ -35,7 +35,32 @@
                     <button onclick="addToCart('Tissue', 20.00, getQuantity('tissue'))">Add to Cart</button>
                 </div>
 
+                <div class="product">
+                    <img src="images/soap.jpg" alt="Soap">
+                    <h2>Soap</h2>
+                    <p>Price: ₱20.00</p>
+                    <p>Description: Gentle hand soap for clean and healthy hands.</p>
+                    <div class="quantity-control">
+                        <button onclick="updateQuantity('soap', -1)">-</button>
+                        <span id="soap-quantity-display">1</span>
+                        <button onclick="updateQuantity('soap', 1)">+</button>
+                    </div>
+                    <button onclick="addToCart('Soap', 20.00, getQuantity('soap'))">Add to Cart</button>
                 </div>
+
+                <div class="product">
+                    <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
+                    <h2>Sanitary Pad</h2>
+                    <p>Price: ₱20.00</p>
+                    <p>Description: Comfortable and absorbent sanitary pads for women.</p>
+                    <div class="quantity-control">
+                        <button onclick="updateQuantity('sanitary-pad', -1)">-</button>
+                        <span id="sanitary-pad-quantity-display">1</span>
+                        <button onclick="updateQuantity('sanitary-pad', 1)">+</button>
+                    </div>
+                    <button onclick="addToCart('Sanitary Pad', 20.00, getQuantity('sanitary-pad'))">Add to Cart</button>
+                </div>
+            </div>
         </section>
 
         <div class="cart">
@@ -50,4 +75,3 @@
 </body>
 
 </html>
-
