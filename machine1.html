@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auhydis 1</title>
+    <title>Auhydis Machine 1</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <!-- Gray bar with the logo that will disappear on scroll -->
     <div class="top-bar" id="top-bar">
         <a href="https://auhydis.com/">
             <img src="images/logo.png" alt="Auhydis Logo">
@@ -23,11 +22,11 @@
     <main>
         <section>
             <div class="product-list">
-                <!-- Product 1 -->
                 <div class="product">
                     <img src="images/tissue.jpg" alt="Tissue">
                     <h2>Tissue</h2>
                     <p>Price: ₱20.00</p>
+                    <p>Description: High-quality facial tissues for everyday use.</p>
                     <div class="quantity-control">
                         <button onclick="updateQuantity('tissue', -1)">-</button>
                         <span id="tissue-quantity-display">1</span>
@@ -35,31 +34,8 @@
                     </div>
                     <button onclick="addToCart('Tissue', 20.00, getQuantity('tissue'))">Add to Cart</button>
                 </div>
-                <!-- Product 2 -->
-                <div class="product">
-                    <img src="images/soap.jpg" alt="Soap">
-                    <h2>Soap</h2>
-                    <p>Price: ₱20.00</p>
-                    <div class="quantity-control">
-                        <button onclick="updateQuantity('soap', -1)">-</button>
-                        <span id="soap-quantity-display">1</span>
-                        <button onclick="updateQuantity('soap', 1)">+</button>
-                    </div>
-                    <button onclick="addToCart('Soap', 20.00, getQuantity('soap'))">Add to Cart</button>
+
                 </div>
-                <!-- Product 3 -->
-                <div class="product">
-                    <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
-                    <h2>Sanitary Pad</h2>
-                    <p>Price: ₱20.00</p>
-                    <div class="quantity-control">
-                        <button onclick="updateQuantity('sanitary-pad', -1)">-</button>
-                        <span id="sanitary-pad-quantity-display">1</span>
-                        <button onclick="updateQuantity('sanitary-pad', 1)">+</button>
-                    </div>
-                    <button onclick="addToCart('Sanitary Pad', 20.00, getQuantity('sanitary-pad'))">Add to Cart</button>
-                </div>
-            </div>
         </section>
 
         <div class="cart">
@@ -70,98 +46,8 @@
         </div>
     </main>
 
-    <script>
-        let cart = [];
-
-        window.onscroll = function () {
-            const topBar = document.getElementById('top-bar');
-            if (window.scrollY > 100) {
-                topBar.style.display = 'none';
-            } else {
-                topBar.style.display = 'flex';
-            }
-        };
-
-        function updateQuantity(product, change) {
-            const display = document.getElementById(`${product}-quantity-display`);
-            let currentQuantity = parseInt(display.textContent, 10);
-            currentQuantity += change;
-            if (currentQuantity < 1) currentQuantity = 1;
-            display.textContent = currentQuantity;
-        }
-
-        function getQuantity(product) {
-            return parseInt(document.getElementById(`${product}-quantity-display`).textContent, 10);
-        }
-
-        function addToCart(product, price, quantity) {
-            console.log(`Adding to cart: ${product}, ${price}, ${quantity}`);
-            const existingProductIndex = cart.findIndex(item => item.product === product);
-
-            if (existingProductIndex !== -1) {
-                cart[existingProductIndex].quantity += quantity;
-            } else {
-                cart.push({ product, price, quantity });
-            }
-
-            saveCart();
-            displayCart();
-        }
-
-        function saveCart() {
-            console.log('Saving cart:', cart);
-            localStorage.setItem('cart', JSON.stringify(cart));
-        }
-
-        function loadCart() {
-            const savedCart = localStorage.getItem('cart');
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
-                console.log('Loaded cart:', cart);
-                displayCart();
-            }
-        }
-
-        function displayCart() {
-            const cartItems = document.getElementById('cart-items');
-            const totalPrice = document.getElementById('total-price');
-
-            cartItems.innerHTML = '';
-            let total = 0;
-
-            cart.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
-
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'Remove';
-                removeButton.onclick = () => removeFromCart(item.product);
-                li.appendChild(removeButton);
-
-                cartItems.appendChild(li);
-
-                total += item.price * item.quantity;
-            });
-
-            totalPrice.textContent = `Total: ₱${total}`;
-        }
-
-        function removeFromCart(product) {
-            cart = cart.filter(item => item.product !== product);
-
-            saveCart();
-            displayCart();
-        }
-
-        function checkout() {
-            window.location.href = 'checkout.html';
-        }
-
-        document.addEventListener('DOMContentLoaded', loadCart);
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
-
-
 
