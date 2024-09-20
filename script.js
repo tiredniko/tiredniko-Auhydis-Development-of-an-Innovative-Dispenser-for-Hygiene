@@ -80,13 +80,33 @@ function removeFromCart(product) {
     displayCart();
 }
 
-function submitPayment() {
-    // Simulate payment processing (optional)
-    // You can add a message or logic to simulate processing time
-    // alert('Processing payment...');
+function checkout() {
+    // Retrieve the cart items from localStorage
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart);
 
-    // Redirect to success.html
-    window.location.href = 'success.html';
+        // Display the cart items on the checkout page
+        const cartItemsElement = document.getElementById('cart-items');
+        cartItemsElement.innerHTML = '';
+
+        cart.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.product} - ${item.quantity} pcs - ₱${item.price * item.quantity}`;
+            cartItemsElement.appendChild(li);
+        });
+
+        // Calculate and display the total price
+        const totalPriceElement = document.getElementById('total-price');
+        const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        totalPriceElement.textContent = `Total: ₱${total}`;
+
+        // Redirect to checkout.html
+        window.location.href = 'checkout.html';
+    } else {
+        // Handle the case where the cart is empty
+        alert('Your cart is empty.');
+    }
 }
 
 document.addEventListener('DOMContentLoaded', loadCart);
