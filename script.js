@@ -100,6 +100,9 @@ function checkout() {
         const totalPriceElement = document.getElementById('total-price');
         const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
         totalPriceElement.textContent = `Total: ₱${total}`;
+
+        // Redirect to checkout.html
+        window.location.href = 'checkout.html';
     } else {
         // Handle the case where the cart is empty
         alert('Your cart is empty.');
@@ -107,4 +110,3 @@ function checkout() {
 }
 
 document.addEventListener('DOMContentLoaded', loadCart);
-
