@@ -118,4 +118,10 @@ function submitPayment() {
   window.location.href = 'success.html';
 }
 
-document.addEventListener('DOMContentLoaded', loadCart);
+document.addEventListener('DOMContentLoaded', () => {
+  loadCart();
+
+  // Attach event listener to the submitPayment button
+  const submitButton = document.getElementById('submitPayment');
+  submitButton.addEventListener('click', submitPayment);
+});
