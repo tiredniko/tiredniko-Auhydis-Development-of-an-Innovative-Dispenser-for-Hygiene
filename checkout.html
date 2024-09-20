@@ -1,46 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <div class="top-bar" id="top-bar">
+        <a href="https://auhydis.com/">
+            <img src="images/logo.png" alt="Auhydis Logo">
+        </a>
+    </div>
+
     <header>
         <h1>Checkout</h1>
-        <a href="index.html">Back to Home</a>
     </header>
-    
+
     <main>
         <section>
             <h2>Cart Summary</h2>
-            <!-- Display cart items here -->
+            <ul id="cart-items"></ul>
+            <p id="total-price"></p>
         </section>
-        
+
         <section>
             <button id="submitPayment">Submit Payment</button>
         </section>
     </main>
-    
-    <script>
-        document.getElementById('submitPayment').addEventListener('click', function() {
-            // Send a signal to the Arduino
-            fetch('https://arduino-api.nikopaned-official.workers.dev/update?motor=on')
-                .then(response => response.text())
-                .then(data => {
-                    console.log('Arduino response:', data);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
 
-            // Redirect to success page after 5 seconds
-            setTimeout(() => {
-                window.location.href = 'success.html';
-            }, 5000);
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
 
