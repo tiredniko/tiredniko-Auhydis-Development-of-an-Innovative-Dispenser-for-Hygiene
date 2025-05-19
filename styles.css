@@ -1,8 +1,8 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e9ebee; /* Lighter, softer gray */
+    background-color: #e9ebee; 
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -11,8 +11,8 @@ body {
 }
 
 .top-bar {
-    background-color: #ffffff; /* White top bar */
-    padding: 10px 25px; /* Slightly more padding */
+    background-color: #ffffff; 
+    padding: 10px 25px; 
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -21,36 +21,36 @@ body {
     left: 0;
     right: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
     border-bottom: 1px solid #ddd;
 }
 
 .top-bar img {
-    height: 45px; /* Slightly larger logo */
+    height: 45px; 
     margin-right: 20px;
     cursor: pointer;
 }
 
 body > *:not(.top-bar) {
-    margin-top: 75px; /* Adjust for new top-bar height */
+    margin-top: 75px; 
 }
 
 header {
     text-align: center;
-    padding: 20px 20px 10px 20px; /* More vertical padding */
-    background-color: #f8f9fa; /* Light header background */
+    padding: 20px 20px 10px 20px; 
+    background-color: #f8f9fa; 
     border-bottom: 1px solid #dee2e6;
 }
 
 header h1 {
     margin: 10px 0;
     font-size: 2.2em;
-    color: #007bff; /* Brand color */
+    color: #007bff; 
     font-weight: 600;
 }
 header p {
     font-size: 1.1em;
-    color: #6c757d; /* Subdued text color */
+    color: #6c757d; 
     margin-bottom: 10px;
 }
 
@@ -68,15 +68,15 @@ section {
     text-align: center;
     margin-bottom: 35px;
     background-color: #ffffff;
-    padding: 25px; /* More padding within sections */
-    border-radius: 12px; /* More rounded corners */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* More pronounced shadow */
+    padding: 25px; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
 }
 
 section h2 {
     margin-top: 0;
     margin-bottom: 25px;
-    color: #343a40; /* Darker section headings */
+    color: #343a40; 
     font-size: 1.8em;
     font-weight: 600;
 }
@@ -84,9 +84,9 @@ section h2 {
 .machine-list,
 .product-list {
     display: flex;
-    justify-content: center; /* Center items if they don't fill the row */
+    justify-content: center; 
     flex-wrap: wrap;
-    gap: 25px; /* More space between items */
+    gap: 25px; 
 }
 
 .machine,
@@ -95,7 +95,7 @@ section h2 {
     border: 1px solid #e0e0e0;
     border-radius: 10px;
     padding: 20px;
-    width: 280px; /* Slightly wider cards */
+    width: 280px; 
     text-align: center;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     overflow: hidden;
@@ -107,56 +107,56 @@ section h2 {
 
 .machine:hover,
 .product:hover:not(.unavailable) {
-    transform: translateY(-8px) scale(1.02); /* More noticeable hover */
+    transform: translateY(-8px) scale(1.02); 
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
 }
 
 .machine img,
 .product img {
     max-width: 100%;
-    height: 160px; /* Slightly taller images */
+    height: 160px; 
     object-fit: contain;
     border-radius: 8px;
     display: block;
     margin: 0 auto 15px auto;
-    border: 1px solid #eee; /* Subtle border for images */
+    border: 1px solid #eee; 
 }
 
 .machine h3,
-.product h2 {
-    font-size: 1.3em; /* Larger product names */
+.product h2 { 
+    font-size: 1.3em; 
     font-weight: 600;
     margin: 0 0 10px 0;
     color: #333;
     min-height: 2.8em; 
 }
 
-.product p {
-    font-size: 0.9em;
+.product p { /* For description */
+    font-size: 0.90em; 
     color: #555;
-    margin: 5px 0 15px 0; /* More margin below description */
+    margin: 5px 0 10px 0; 
     flex-grow: 1;
     line-height: 1.5;
 }
-.product p.price {
+.product p.price { /* For price */
     font-weight: bold;
-    color: #28a745; /* Green price */
+    color: #28a745; 
     font-size: 1.2em;
     margin-bottom: 15px;
     flex-grow: 0;
 }
 
 .machine a,
-.product button.add-to-cart-btn {
+.product button.add-to-cart-btn { 
     display: inline-block;
     background-color: #007bff;
     color: white;
     padding: 12px 20px;
-    border-radius: 6px; /* Slightly more rounded buttons */
+    border-radius: 6px; 
     text-decoration: none;
     margin-top: 15px;
-    border: none;
-    cursor: pointer;
+    border: none; 
+    cursor: pointer; 
     font-size: 1em;
     font-weight: 500;
     transition: background-color 0.2s ease, transform 0.1s ease;
@@ -165,42 +165,37 @@ section h2 {
 }
 .machine a:active,
 .product button.add-to-cart-btn:active {
-    transform: scale(0.98); /* Click effect */
+    transform: scale(0.98); 
 }
 
-
-.machine a:hover:not(.offline), /* Hover effect only for non-offline links */
-.product button.add-to-cart-btn:hover:not([disabled]) { /* Hover effect only for non-disabled buttons */
+.machine a:hover:not(.offline), 
+.product button.add-to-cart-btn:hover:not([disabled]) { 
     background-color: #0056b3;
 }
 
-
-.machine a.offline,
-.product.unavailable button.add-to-cart-btn {
-    background-color: #6c757d !important;
+.machine a.offline {
+    background-color: #6c757d !important; 
     cursor: not-allowed !important;
 }
-.machine a.offline:hover,
-.product.unavailable button.add-to-cart-btn:hover {
+.machine a.offline:hover {
     background-color: #5a6268 !important;
 }
 
 .product.unavailable {
     opacity: 0.6;
-    background-color: #f1f1f1; /* Slightly different background for unavailable */
-    box-shadow: none; /* Remove hover shadow effect for unavailable */
-    transform: none !important; /* No hover transform */
+    background-color: #f1f1f1; 
+    box-shadow: none; 
+    transform: none !important; 
 }
 .product.unavailable img {
     filter: grayscale(100%);
 }
 .product.unavailable .quantity-control button,
 .product.unavailable button.add-to-cart-btn {
-    background-color: #adb5bd; /* Lighter gray for disabled buttons */
+    background-color: #adb5bd; 
     cursor: not-allowed;
-    pointer-events: all !important; /* Ensure cursor style applies */
+    pointer-events: all !important; 
 }
-
 
 .quantity-control {
     display: flex;
@@ -213,9 +208,9 @@ section h2 {
     color: white;
     border: none;
     padding: 8px 12px;
-    border-radius: 50%; /* Round quantity buttons */
-    width: 36px; /* Fixed width */
-    height: 36px; /* Fixed height */
+    border-radius: 50%; 
+    width: 36px; 
+    height: 36px; 
     font-size: 1.2em;
     cursor: pointer;
     line-height: 1;
@@ -230,10 +225,10 @@ section h2 {
 }
 .quantity-control span {
     display: inline-block;
-    width: 45px; /* Wider span for quantity */
+    width: 45px; 
     text-align: center;
-    font-size: 1.2em; /* Larger quantity display */
-    margin: 0 8px; /* Adjusted margin */
+    font-size: 1.2em; 
+    margin: 0 8px; 
     font-weight: 600;
     color: #333;
 }
@@ -243,10 +238,10 @@ section h2 {
 #checkout-summary {
     background-color: #ffffff;
     padding: 25px;
-    border-radius: 12px; /* More rounded */
+    border-radius: 12px; 
     margin-top: 30px;
-    border: 1px solid #ced4da; /* Softer border */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Slightly more shadow */
+    border: 1px solid #ced4da; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
 }
 
 .cart h2,
@@ -256,7 +251,7 @@ section h2 {
     border-bottom: 2px solid #007bff;
     padding-bottom: 12px;
     margin-bottom: 20px;
-    font-size: 1.6em; /* Larger heading */
+    font-size: 1.6em; 
 }
 
 #cart-items {
@@ -266,47 +261,46 @@ section h2 {
 }
 
 #cart-items li {
-    padding: 15px 10px; /* More vertical padding */
-    border-bottom: 1px solid #f1f1f1; /* Very light border */
+    padding: 12px 10px; 
+    border-bottom: 1px solid #f1f1f1; 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.05em; /* Slightly larger item text */
+    font-size: 1em; 
 }
 #cart-items li:last-child {
     border-bottom: none;
 }
-#cart-items li .item-details { /* New class for item name and quantity */
+#cart-items li .item-details { 
     flex-grow: 1;
 }
-#cart-items li .item-price { /* New class for item price */
-    min-width: 80px; /* Ensure price aligns */
+#cart-items li .item-price { 
+    min-width: 80px; 
     text-align: right;
     font-weight: 500;
 }
 
-
 #cart-items li button.remove-item {
-    background-color: #ff4d4d; /* Brighter red */
+    background-color: #ff4d4d; 
     color: white;
     border: none;
-    padding: 6px 12px;
+    padding: 6px 12px; 
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.85em;
-    margin-left: 15px;
+    margin-left: 15px; 
     transition: background-color 0.2s ease;
 }
 #cart-items li button.remove-item:hover {
-    background-color: #e60000; /* Darker red on hover */
+    background-color: #e60000; 
 }
 
 #total-price {
     font-weight: bold;
-    font-size: 1.4em; /* Larger total */
+    font-size: 1.4em; 
     text-align: right;
     margin-top: 20px;
-    color: #007bff; /* Blue total price */
+    color: #007bff; 
     padding-top: 15px;
     border-top: 2px solid #007bff;
 }
@@ -315,7 +309,7 @@ section h2 {
 #submitPayment {
     background-color: #28a745;
     color: white;
-    padding: 14px 30px; /* Larger buttons */
+    padding: 14px 30px; 
     border: none;
     border-radius: 6px;
     font-size: 1.15em;
@@ -331,7 +325,6 @@ section h2 {
     transform: scale(0.98);
 }
 
-
 .cart button[onclick="checkout()"]:hover,
 #submitPayment:hover:not([disabled]) {
     background-color: #218838;
@@ -345,9 +338,9 @@ section h2 {
 
 #statusMessage {
     margin-top: 20px;
-    font-weight: 500; /* Normal weight for status */
+    font-weight: 500; 
     font-size: 1em;
-    padding: 12px 15px; /* More padding */
+    padding: 12px 15px; 
     border-radius: 6px;
     text-align: center;
 }
@@ -368,12 +361,12 @@ section h2 {
 }
 
 footer {
-    background-color: #212529; /* Even darker footer */
-    padding: 25px 20px; /* More padding */
+    background-color: #212529; 
+    padding: 25px 20px; 
     width: 100%;
     text-align: center;
     margin-top: auto;
-    color: #adb5bd; /* Lighter gray text */
+    color: #adb5bd; 
     box-sizing: border-box;
 }
 .contact-info {
@@ -383,11 +376,10 @@ footer {
     padding: 0;
 }
 .contact-info p {
-    margin: 8px 0; /* More spacing */
+    margin: 8px 0; 
 }
 
-/* Offline page specific */
-.offline-message-section {
+.offline-message-section { 
     padding: 30px;
 }
 .offline-message-section p {
@@ -404,9 +396,4 @@ footer {
 }
 .offline-message-section a:hover {
     background-color: #0056b3;
-}
-
-}
-#card-details {
-    display: none; /* Hide if not used or reimplemented */
 }
