@@ -10,12 +10,14 @@
 
 <body>
     <div class="top-bar" id="top-bar">
-        <a href="index.html"> <img src="images/logo.png" alt="Auhydis Logo">
+        <a href="index.html">
+            <img src="images/logo.png" alt="Auhydis Logo">
         </a>
     </div>
 
     <header>
         <h1>Auhydis Machine 1</h1>
+        <p>Select an item to add to your cart. Only one type of item can be vended per transaction.</p>
     </header>
 
     <main>
@@ -32,7 +34,7 @@
                         <span id="tissue-quantity-display">1</span>
                         <button onclick="updateQuantity('tissue', 1)">+</button>
                     </div>
-                    <button onclick="addToCart('Tissue', 20.00, getQuantity('tissue'), 'motor1')">Add to Cart</button>
+                    <button class="add-to-cart-btn" onclick="addToCart('Tissue', 20.00, getQuantity('tissue'), 'motor1')">Add to Cart</button>
                 </div>
 
                 <div class="product" id="product-soap">
@@ -45,20 +47,20 @@
                         <span id="soap-quantity-display">1</span>
                         <button onclick="updateQuantity('soap', 1)">+</button>
                     </div>
-                    <button onclick="addToCart('Soap', 20.00, getQuantity('soap'), 'motor2')">Add to Cart</button>
+                    <button class="add-to-cart-btn" onclick="addToCart('Soap', 20.00, getQuantity('soap'), 'motor2')">Add to Cart</button>
                 </div>
 
                 <div class="product unavailable" id="product-sanitary-pad">
                     <img src="images/sanitary_pad.jpg" alt="Sanitary Pad">
                     <h2>Sanitary Pad</h2>
                     <p class="price">Price: ₱20.00</p>
-                    <p>Description: Comfortable and absorbent sanitary pads for women. (Currently Unavailable)</p>
+                    <p>Description: Comfortable and absorbent sanitary pads. (Currently Unavailable)</p>
                     <div class="quantity-control">
                         <button disabled>-</button>
                         <span id="sanitary-pad-quantity-display">0</span>
                         <button disabled>+</button>
                     </div>
-                    <button disabled>Unavailable</button>
+                    <button class="add-to-cart-btn" disabled>Unavailable</button>
                 </div>
             </div>
         </section>
@@ -66,7 +68,7 @@
         <div class="cart">
             <h2>Shopping Cart</h2>
             <ul id="cart-items">
-                </ul>
+                <li>Your cart is empty.</li> </ul>
             <p id="total-price">Total: ₱0.00</p>
             <button onclick="checkout()">Checkout</button>
         </div>
