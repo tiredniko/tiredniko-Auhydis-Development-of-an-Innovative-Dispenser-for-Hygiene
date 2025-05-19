@@ -4,64 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auhydis</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
+    <title>Auhydis - Your Hygiene Essentials</title> <link rel="stylesheet" href="styles.css">
+    </head>
 
 <body>
     <div class="top-bar" id="top-bar">
-        <a href="index.html" class="logo-link"> <img src="images/logo.png" alt="Auhydis Logo">
+        <a href="index.html" class="logo-link">
+            <img src="images/logo.png" alt="Auhydis Logo">
         </a>
-        <button id="theme-toggle-btn" title="Toggle theme">🌙</button>
-    </div>
+        <button id="theme-toggle-btn" title="Toggle theme">🌙</button> </div>
 
     <header>
-        <h1>Welcome to Auhydis Website</h1>
-        <p>Your one-stop shop for convenient sanitary products.</p>
+        <h1>Welcome to Auhydis</h1> <p>Your one-stop solution for convenient hygiene products.</p>
     </header>
 
     <main>
-        <section>
-            <h2>Select a Machine</h2>
+        <section id="machine-selection"> <h2>Select a Machine</h2>
             <div class="machine-list">
-                <div class="machine">
-                    <img src="images/machine1.jpg" alt="Machine 1">
+                <div class="machine" id="auhydis-machine-1">
+                    <img src="images/machine1.jpg" alt="Auhydis Machine 1">
                     <h3>AUHYDIS 1</h3>
-                    <a href="machine1.html">View Machine</a>
-                </div>
-                <div class="machine">
-                    <img src="images/machine2.jpg" alt="Machine 2">
+                    <a href="machine1.html">View Products</a> </div>
+                <div class="machine" id="auhydis-machine-2">
+                    <img src="images/machine2.jpg" alt="Auhydis Machine 2">
                     <h3>AUHYDIS 2</h3>
                     <a href="offline.html" class="offline">Machine Offline</a>
                 </div>
                 </div>
         </section>
 
-        <section>
-            <h2>About Auhydis</h2>
-            <p>Auhydis is created by Group 3 in CCT-401 to ensure easy access to hygiene essentials.</p>
-            <p>We believe in the importance of personal hygiene and aim to make it effortless for individuals to obtain the necessary products.</p>
+        <section id="about-auhydis"> <h2>About Auhydis</h2>
+            <p>Auhydis is committed to providing easy and accessible hygiene solutions for everyone. Our innovative dispensers ensure you have what you need, when you need it.</p>
+            <p>We believe in the importance of personal well-being and aim to make essential hygiene products effortlessly obtainable through modern technology.</p>
         </section>
     </main>
 
     <footer>
         <div class="contact-info">
-            <h2>Contact Information</h2>
-            <p>Phone: (63+)9266132050</p>
-            <p>Email: nikopaned.official@auhydis.com</p>
+            <p>&copy; 2025 auhydis.com - All Rights Reserved</p> <p>Phone: (63+)9266132050 | Email: nikopaned.official@auhydis.com</p>
         </div>
     </footer>
 
-    <script>
-        // JavaScript to hide the top bar on scroll
-        window.onscroll = function () {
-            const topBar = document.getElementById('top-bar');
-            if (window.scrollY > 100) {
-                topBar.style.display = 'none';
-            } else {
-                topBar.style.display = 'flex';
-            }
-        };
-    </script>
+    <script src="script.js"></script> 
 </body>
 </html>
