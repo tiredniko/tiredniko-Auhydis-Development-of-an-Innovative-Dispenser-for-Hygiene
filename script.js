@@ -1,4 +1,4 @@
-// script.js - Enhanced for multi-item/multi-quantity cart and better UX (v4)
+// script.js - Enhanced for multi-item/multi-quantity cart, cart clearing, and fixes (v5)
 
 let cart = []; // Initialize cart
 
@@ -15,7 +15,7 @@ window.onscroll = function () {
 
 function updateQuantity(productIdentifier, change) {
     const display = document.getElementById(`${productIdentifier}-quantity-display`);
-    const productCard = document.getElementById(`product-${productIdentifier}`); // Assuming product cards have id="product-tissue", etc.
+    const productCard = document.getElementById(`product-${productIdentifier}`);
     
     if (!display || (productCard && productCard.classList.contains('unavailable'))) {
         return; 
@@ -23,8 +23,9 @@ function updateQuantity(productIdentifier, change) {
 
     let currentQuantity = parseInt(display.textContent, 10);
     currentQuantity += change;
-    if (currentQuantity < 1) currentQuantity = 1; // Min quantity 1
-    if (currentQuantity > 5) { // Max quantity 5 per item type
+    
+    if (currentQuantity < 1) currentQuantity = 1; 
+    if (currentQuantity > 5) { 
         currentQuantity = 5;
         alert("You can add a maximum of 5 units for this item per transaction.");
     }
@@ -44,13 +45,9 @@ function addToCart(productName, price, quantity, productId) {
 
     if (existingProductIndex !== -1) {
         // If product already in cart, update its quantity
-        cart[existingProductIndex].quantity = quantity; // Set to new quantity from input
-        // Or, if you want to add to existing quantity:
-        // cart[existingProductIndex].quantity += quantity; 
-        // Ensure new total quantity doesn't exceed max (e.g., 5)
-        if (cart[existingProductIndex].quantity > 5) {
+        cart[existingProductIndex].quantity = quantity; 
+        if (cart[existingProductIndex].quantity > 5) { // Enforce max quantity again
             cart[existingProductIndex].quantity = 5;
-            alert(`Maximum quantity for ${productName} is 5. Quantity updated.`);
         }
         console.log(`Updated quantity for ${productName} (ID: ${productId}) to ${cart[existingProductIndex].quantity}`);
     } else {
@@ -65,7 +62,7 @@ function addToCart(productName, price, quantity, productId) {
 }
 
 function saveCart() {
-    console.log('Saving cart:', cart);
+    console.log('Saving cart to localStorage:', cart);
     localStorage.setItem('auhydisCart', JSON.stringify(cart));
 }
 
@@ -73,11 +70,12 @@ function loadCart() {
     const savedCart = localStorage.getItem('auhydisCart');
     if (savedCart) {
         cart = JSON.parse(savedCart);
-        console.log('Loaded cart:', cart);
+        console.log('Loaded cart from localStorage:', cart);
     } else {
-        cart = [];
+        cart = []; 
+        console.log('No cart in localStorage, initialized empty cart.');
     }
-    displayCart();
+    displayCart(); 
 }
 
 function displayCart() {
@@ -129,14 +127,12 @@ function removeFromCart(productIdToRemove) {
     displayCart();
 }
 
-function clearCartAndStorage() {
-    console.log("Clearing cart and localStorage.");
-    cart = [];
-    localStorage.removeItem('auhydisCart'); 
-    displayCart(); // Update display on current page
-    
-    // If on checkout page, its own displayCartOnCheckout will handle it.
-    // No need to explicitly target checkout elements from here if it has its own logic.
+// This function will be called from checkout.html after a successful dispense signal
+function clearCartAfterCheckout() {
+    console.log("Clearing cart from localStorage after checkout.");
+    cart = []; // Clear in-memory cart
+    localStorage.removeItem('auhydisCart'); // Clear stored cart
+    // displayCart(); // No need to call displayCart here, checkout.html handles its own UI update
 }
 
 function checkout() {
@@ -144,11 +140,14 @@ function checkout() {
         alert("Your cart is empty. Please add an item to proceed.");
         return;
     }
-    // Cart is saved to localStorage by addToCart/removeFromCart.
-    // checkout.html will load it.
+    // The cart is already saved in localStorage by addToCart/removeFromCart.
+    // checkout.html will load it from localStorage.
+    console.log("Proceeding to checkout with cart:", cart);
     window.location.href = 'checkout.html';
 }
 
+// Load cart when any page loads that includes this script
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded and parsed. Loading cart...");
     loadCart(); 
 });
