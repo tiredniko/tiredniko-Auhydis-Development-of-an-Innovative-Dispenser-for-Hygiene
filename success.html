@@ -3,63 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Successful!</title>
-    <style>
-        body {
-            background-color: #fef6e4;
-            font-family: 'Poppins', sans-serif;
-            color: #555555;
+    <title>Transaction Successful! - Auhydis</title>
+    <link rel="stylesheet" href="styles.css"> <style>
+        /* Additional styles specific to success page, can be moved to styles.css if preferred */
+        .success-container {
             text-align: center;
-            padding: 50px;
-        }
-        h1 {
-            font-size: 3rem;
-            color: #ff7b54;
-        }
-        p {
-            font-size: 1.5rem;
-            color: #7d5a50;
-            margin: 20px 0;
+            padding: 40px 20px;
+            margin-top: 20px; /* Adjust if needed below header */
+            background-color: var(--bg-card); /* Use theme variable */
+            border-radius: 12px;
+            box-shadow: var(--shadow-card);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         .success-icon {
-            font-size: 5rem;
-            color: #4CAF50;
+            font-size: 4rem; /* Adjusted size */
+            color: var(--accent-secondary); /* Use theme variable for success color */
             margin-bottom: 20px;
+            line-height: 1;
         }
-        .container {
-            background-color: #fff;
-            border-radius: 15px;
-            padding: 40px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .success-container h1 {
+            font-size: 2rem; /* Adjusted size */
+            color: var(--text-headings); /* Use theme variable */
+            margin-bottom: 15px;
+        }
+        .success-container p {
+            font-size: 1.1rem; /* Adjusted size */
+            color: var(--text-secondary); /* Use theme variable */
+            margin: 10px 0;
+        }
+        .cute-heart { /* Keeping your cute heart style */
+            color: #FF6F91; /* This color might need a dark theme alternative if it clashes */
+            font-size: 1.1rem;
+        }
+        body.dark-theme .cute-heart {
+            color: #f7a0b6; /* Lighter pink for dark theme */
+        }
+
+        .success-button { /* Renamed class for clarity */
             display: inline-block;
-        }
-        .cute-heart {
-            color: #FF6F91;
-            font-size: 1.5rem;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            margin-top: 20px;
-            background-color: #ff7b54;
-            color: white;
+            padding: 12px 25px;
+            margin-top: 25px;
+            background-color: var(--accent-primary); /* Use theme variable */
+            color: var(--text-on-accent); /* Use theme variable */
             text-decoration: none;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: 500;
+            transition: background-color 0.2s ease, transform 0.1s ease;
         }
-        .button:hover {
-            background-color: #ff855b;
+        .success-button:hover {
+            background-color: var(--accent-primary-hover); /* Use theme variable */
+            transform: translateY(-2px);
+        }
+        .success-button:active {
+            transform: scale(0.98);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="success-icon">✔️</div>
-        <h1>Transaction Successful!</h1>
-        <p>Your order has been placed<span class="cute-heart">❤️</span>.</p>
-        <p>Thank You for Purchasing at AUHYDIS</p>
-        <a href="index.html" class="button">Back to Home</a>
-    </div>
-</body>
-</html>
+    <div class="top-bar" id="top-bar">
+        <a href="index.html" class="logo-link">
+            <img src="images/logo.png" alt="Auhydis Logo">
+        </a>
+        <button id="theme-toggle-btn" title="Toggle theme">🌙</button> </div>
 
+    <header>
+        </header>
+
+    <main>
+        <div class="success-container">
+            <div class="success-icon">✔️</div> <h1>Transaction Successful!</h1>
+            <p>Your order has been processed<span class="cute-heart">❤️</span>.</p>
+            <p>Thank You for Purchasing at AUHYDIS!</p>
+            <a href="index.html" class="success-button">Back to Home</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="contact-info">
+            <p>&copy; 2025 auhydis.com</p>
+            </div>
+    </footer>
+
+    <script src="script.js"></script> </body>
+</html>
