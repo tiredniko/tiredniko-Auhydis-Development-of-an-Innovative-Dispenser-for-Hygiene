@@ -1,4 +1,4 @@
-// script.js - Enhanced for robust theme toggle, multi-item/multi-quantity cart (v8)
+// script.js - Enhanced for robust theme toggle, multi-item/multi-quantity cart (v9)
 
 let cart = []; // Initialize cart
 
@@ -14,7 +14,7 @@ function applyTheme(theme) {
         body.classList.remove("dark-theme");
         if (themeToggleButton) themeToggleButton.textContent = "🌙"; // Moon icon
     }
-    console.log(`Theme applied: ${theme}`);
+    // console.log(`Theme applied: ${theme}`); // For debugging
 }
 
 function toggleTheme() {
@@ -25,22 +25,22 @@ function toggleTheme() {
     } else {
         newTheme = "dark";
     }
-    localStorage.setItem('auhydisTheme', newTheme);
+    localStorage.setItem('auhydisTheme', newTheme); // Save preference
     applyTheme(newTheme);
-    console.log(`Theme toggled to: ${newTheme}`);
+    // console.log(`Theme toggled to: ${newTheme}`); // For debugging
 }
 
 function initializeTheme() {
     const savedTheme = localStorage.getItem('auhydisTheme');
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    console.log(`Saved theme: ${savedTheme}, System prefers dark: ${prefersDark}`);
+    // const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches; // Optional: system preference
+    
+    // console.log(`Initializing theme. Saved: ${savedTheme}`); // For debugging
 
     if (savedTheme) {
         applyTheme(savedTheme);
-    } else if (prefersDark) {
-        applyTheme("dark"); // Default to system dark mode if no preference saved
     } else {
-        applyTheme("light"); // Default to light
+        // Default to light theme if no preference is saved
+        applyTheme("light"); 
     }
 }
 // --- End Theme Toggle Logic ---
@@ -83,8 +83,6 @@ function getQuantity(productIdentifier) {
 }
 
 function addToCart(productName, price, quantity, productId) {
-    console.log(`Adding to cart: ${productName}, Price: ${price}, Quantity: ${quantity}, ProductID/Motor: ${productId}`);
-    
     const existingProductIndex = cart.findIndex(item => item.productId === productId);
 
     if (existingProductIndex !== -1) {
@@ -92,19 +90,15 @@ function addToCart(productName, price, quantity, productId) {
         if (cart[existingProductIndex].quantity > 5) {
             cart[existingProductIndex].quantity = 5;
         }
-        console.log(`Updated quantity for ${productName} (ID: ${productId}) to ${cart[existingProductIndex].quantity}`);
     } else {
         cart.push({ productName, price, quantity, productId });
-        console.log(`${productName} (ID: ${productId}) added to cart.`);
     }
-
     saveCart();
     displayCart(); 
     alert(`${productName} (${quantity}x) has been added/updated in your cart.`);
 }
 
 function saveCart() {
-    console.log('Saving cart to localStorage:', cart);
     localStorage.setItem('auhydisCart', JSON.stringify(cart));
 }
 
@@ -113,29 +107,29 @@ function loadCart() {
     if (savedCart) {
         try {
             cart = JSON.parse(savedCart);
-            if (!Array.isArray(cart)) { // Basic validation
-                console.warn('Loaded cart is not an array, resetting.');
-                cart = [];
-            }
+            if (!Array.isArray(cart)) cart = [];
         } catch (e) {
-            console.error('Error parsing saved cart from localStorage, resetting cart.', e);
+            console.error('Error parsing cart from localStorage:', e);
             cart = [];
         }
-        console.log('Loaded cart from localStorage:', cart);
     } else {
         cart = []; 
-        console.log('No cart in localStorage, initialized empty cart.');
     }
-    displayCart(); 
+    // displayCart() should only be called if the cart elements exist on the page
+    // It's called within DOMContentLoaded for pages that need it.
+    // Or, individual pages can call displayCart() if they have the elements.
+    // For checkout.html, its embedded script calls its own displayCartOnCheckout().
+    if (document.getElementById('cart-items') && document.getElementById('total-price')) {
+        displayCart();
+    }
 }
 
-function displayCart() {
+function displayCart() { // This is for machine1.html's cart display
     const cartItemsElement = document.getElementById('cart-items');
     const totalPriceElement = document.getElementById('total-price');
 
     if (!cartItemsElement || !totalPriceElement) {
-        // These elements might not exist on all pages (e.g., index.html might not have a visible cart)
-        // console.log("Cart display elements not found on this page. Skipping displayCart().");
+        // console.log("Cart display elements for general cart not found. Skipping displayCart().");
         return; 
     }
 
@@ -145,24 +139,19 @@ function displayCart() {
     if (cart.length > 0) {
         cart.forEach(item => {
             const li = document.createElement('li');
-            
             const itemDetailsSpan = document.createElement('span');
             itemDetailsSpan.className = 'item-details';
             itemDetailsSpan.textContent = `${item.productName} - ${item.quantity} pcs`;
-            
             const itemPriceSpan = document.createElement('span');
             itemPriceSpan.className = 'item-price';
             itemPriceSpan.textContent = `₱${(item.price * item.quantity).toFixed(2)}`;
-
             const removeButton = document.createElement('button');
             removeButton.textContent = 'Remove';
             removeButton.className = 'remove-item';
             removeButton.onclick = () => removeFromCart(item.productId); 
-            
             li.appendChild(itemDetailsSpan);
             li.appendChild(itemPriceSpan);
             li.appendChild(removeButton);
-
             cartItemsElement.appendChild(li);
             total += item.price * item.quantity;
         });
@@ -174,34 +163,23 @@ function displayCart() {
 }
 
 function removeFromCart(productIdToRemove) {
-    console.log(`Removing product with ID: ${productIdToRemove} from cart`);
     cart = cart.filter(item => item.productId !== productIdToRemove);
     saveCart();
-    displayCart();
+    displayCart(); // Update the cart display on the current page
 }
 
-function checkout() {
+function checkout() { // Called from machine1.html
     if (cart.length === 0) {
         alert("Your cart is empty. Please add an item to proceed.");
         return;
     }
-    console.log("Proceeding to checkout with cart:", cart);
+    // Cart is saved by addToCart/removeFromCart. checkout.html will load it.
     window.location.href = 'checkout.html';
-}
-
-// This function is now primarily called from checkout.html after a successful dispense signal
-// by directly removing the item from localStorage and then calling displayCartOnCheckout().
-// However, having it here might be useful for other contexts if needed.
-function clearCartAndStorage() {
-    console.log("Clearing cart and localStorage (called from script.js).");
-    cart = []; 
-    localStorage.removeItem('auhydisCart'); 
-    displayCart(); 
 }
 
 // --- Main Initialization on DOMContentLoaded ---
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded and parsed. Initializing script.js...");
+    console.log("Global script.js: DOM fully loaded and parsed.");
     
     initializeTheme(); // Apply theme on load
     
@@ -209,13 +187,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (themeToggleButton) {
         themeToggleButton.addEventListener('click', toggleTheme);
     } else {
-        console.warn("Theme toggle button not found on this page.");
+        console.warn("Theme toggle button ('theme-toggle-btn') not found by global script.js on this page.");
     }
 
-    // Load cart if cart elements are present (e.g., on machine1.html or checkout.html)
-    // The displayCart() function itself checks for the existence of cart-items and total-price elements.
-    loadCart(); 
-
-    // The submitPayment button logic is specific to checkout.html and handled by its embedded script.
-    // Other page-specific initializations could go here if needed.
+    // Load cart if cart display elements are present on the page (e.g., machine1.html)
+    // checkout.html handles its own cart display via its embedded script.
+    if (document.getElementById('cart-items') && document.getElementById('total-price') && !window.location.pathname.includes('checkout.html')) {
+        console.log("Global script.js: Loading cart for a non-checkout page.");
+        loadCart(); 
+    }
+    
+    const topBar = document.getElementById('top-bar');
+    if (topBar && window.scrollY <= 100) {
+        topBar.style.display = 'flex';
+    }
 });
