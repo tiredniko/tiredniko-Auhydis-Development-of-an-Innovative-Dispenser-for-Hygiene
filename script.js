@@ -1,8 +1,11 @@
-// script.js (Your original, with a note)
-let cart = [];
+// script.js - Enhanced for product identifiers and cart clearing
 
+let cart = []; // Initialize cart
+
+// Function to hide top bar on scroll (remains the same)
 window.onscroll = function () {
     const topBar = document.getElementById('top-bar');
+    if (!topBar) return; // Defensive check
     if (window.scrollY > 100) {
         topBar.style.display = 'none';
     } else {
@@ -10,114 +13,148 @@ window.onscroll = function () {
     }
 };
 
-function updateQuantity(product, change) {
-    const display = document.getElementById(`${product}-quantity-display`);
+function updateQuantity(productIdentifier, change) {
+    const display = document.getElementById(`${productIdentifier}-quantity-display`);
+    if (!display) return;
+
     let currentQuantity = parseInt(display.textContent, 10);
     currentQuantity += change;
-    if (currentQuantity < 1) currentQuantity = 1;
+    if (currentQuantity < 1) currentQuantity = 1; // Minimum quantity is 1
     display.textContent = currentQuantity;
 }
 
-function getQuantity(product) {
-    return parseInt(document.getElementById(`${product}-quantity-display`).textContent, 10);
+function getQuantity(productIdentifier) {
+    const display = document.getElementById(`${productIdentifier}-quantity-display`);
+    if (!display) return 1; // Default to 1 if not found
+    return parseInt(display.textContent, 10);
 }
 
-function addToCart(product, price, quantity) {
-    console.log(`Adding to cart: ${product}, ${price}, ${quantity}`);
-    const existingProductIndex = cart.findIndex(item => item.product === product);
+// Modified addToCart to include a productId (which will map to motor1, motor2, etc.)
+function addToCart(productName, price, quantity, productId) {
+    console.log(`Adding to cart: ${productName}, Price: ${price}, Quantity: ${quantity}, ProductID/Motor: ${productId}`);
+    
+    // For simplicity in a vending machine, let's assume one item type per transaction.
+    // If you want multiple different items, the logic here and in checkout needs to be more complex.
+    // For now, if a new item is added, it replaces the old one.
+    // Or, a better approach for vending: only allow one item in the cart at a time.
+    
+    // Simplification: Cart holds only one item type at a time for vending.
+    // If you want a multi-item cart that then dispenses one by one, this needs significant change.
+    // For now, let's assume the user selects one item, then checks out.
+    // So, adding to cart essentially means "this is the item I want to buy now".
+    
+    if (cart.length > 0 && cart[0].productId !== productId) {
+        // If a different item is already in the cart, ask to replace or clear.
+        // For now, let's just replace it for simplicity.
+        console.log("Replacing item in cart with new selection.");
+        cart = []; 
+    }
+
+    const existingProductIndex = cart.findIndex(item => item.productId === productId);
 
     if (existingProductIndex !== -1) {
-        cart[existingProductIndex].quantity += quantity;
+        // If same product, update quantity (though for vending, usually just one of an item)
+        cart[existingProductIndex].quantity = quantity; // Or += quantity if allowing multiple of same
+        console.log(`Updated quantity for ${productName}`);
     } else {
-        cart.push({ product, price, quantity });
+        // Add new product
+        cart.push({ productName, price, quantity, productId });
+        console.log(`${productName} added to cart.`);
     }
 
     saveCart();
-    displayCart(); // This should only run if on a page with cart display elements
+    displayCart(); // Update cart display on the current page (e.g., machine1.html)
 }
 
 function saveCart() {
     console.log('Saving cart:', cart);
-    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('auhydisCart', JSON.stringify(cart)); // Used a more specific key
 }
 
 function loadCart() {
-    const savedCart = localStorage.getItem('cart');
+    const savedCart = localStorage.getItem('auhydisCart');
     if (savedCart) {
         cart = JSON.parse(savedCart);
         console.log('Loaded cart:', cart);
-        displayCart(); // This should only run if on a page with cart display elements
+    } else {
+        cart = []; // Ensure cart is an empty array if nothing in localStorage
     }
+    displayCart(); // Always try to display, even if empty
 }
 
 function displayCart() {
-    const cartItems = document.getElementById('cart-items'); // Used on machine1.html and checkout.html
-    const totalPrice = document.getElementById('total-price'); // Used on machine1.html and checkout.html
+    const cartItemsElement = document.getElementById('cart-items');
+    const totalPriceElement = document.getElementById('total-price');
 
-    // Check if these elements exist before trying to modify them
-    if (!cartItems || !totalPrice) {
-        // console.warn("Cart display elements not found on this page. Skipping displayCart().");
+    // These elements might not exist on all pages (e.g., index.html)
+    if (!cartItemsElement || !totalPriceElement) {
         return; 
     }
 
-    cartItems.innerHTML = '';
+    cartItemsElement.innerHTML = ''; // Clear previous items
     let total = 0;
 
     if (cart.length > 0) {
         cart.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = `${item.product} - ${item.quantity} pcs - ₱${(item.price * item.quantity).toFixed(2)}`;
-
+            li.textContent = `${item.productName} - ${item.quantity} pcs - ₱${(item.price * item.quantity).toFixed(2)}`;
+            
             const removeButton = document.createElement('button');
             removeButton.textContent = 'Remove';
-            removeButton.onclick = () => removeFromCart(item.product);
+            removeButton.className = 'remove-item'; // Added class for styling
+            // Pass productId to removeFromCart to identify which item to remove if needed
+            removeButton.onclick = () => removeFromCart(item.productId); 
             li.appendChild(removeButton);
 
-            cartItems.appendChild(li);
+            cartItemsElement.appendChild(li);
             total += item.price * item.quantity;
         });
-        totalPrice.textContent = `Total: ₱${total.toFixed(2)}`;
+        totalPriceElement.textContent = `Total: ₱${total.toFixed(2)}`;
     } else {
-        cartItems.innerHTML = '<li>Your cart is empty.</li>';
-        totalPrice.textContent = `Total: ₱0.00`;
+        cartItemsElement.innerHTML = '<li>Your cart is empty.</li>';
+        totalPriceElement.textContent = 'Total: ₱0.00';
     }
 }
 
-function removeFromCart(product) {
-    cart = cart.filter(item => item.product !== product);
+// Modified removeFromCart to use productId if you have multiple distinct items
+function removeFromCart(productIdToRemove) {
+    console.log(`Removing product with ID: ${productIdToRemove}`);
+    cart = cart.filter(item => item.productId !== productIdToRemove);
     saveCart();
     displayCart();
 }
 
-function checkout() { // This function is called from machine1.html
-    // Save cart just before redirecting (though addToCart already does)
-    saveCart(); 
-    // Redirect to checkout.html
+// Function to clear the entire cart, e.g., after successful dispense
+function clearCart() {
+    console.log("Clearing cart.");
+    cart = [];
+    saveCart(); // This will save an empty array to localStorage
+    displayCart(); // Update display on current page if cart elements exist
+    
+    // If on checkout page, also clear its specific display if it's separate
+    const checkoutCartItems = document.getElementById('cart-items'); // Assuming same ID on checkout.html
+    const checkoutTotalPrice = document.getElementById('total-price');
+    if (checkoutCartItems) checkoutCartItems.innerHTML = '<li>Cart is now empty.</li>';
+    if (checkoutTotalPrice) checkoutTotalPrice.textContent = 'Total: ₱0.00';
+}
+
+
+function checkout() {
+    if (cart.length === 0) {
+        alert("Your cart is empty. Please add an item to proceed.");
+        return;
+    }
+    // The cart is already saved in localStorage by addToCart.
+    // The checkout.html page will load it from localStorage.
     window.location.href = 'checkout.html';
 }
 
-// This function was likely intended for a simpler checkout flow before Worker integration
-function submitPayment() { 
-    // This function in script.js might conflict with the embedded script in checkout.html
-    // if it's also attached to the same button.
-    // For the new flow, checkout.html's embedded script handles the dispense logic.
-    // This function might only be relevant if you had a scenario where payment submission
-    // *only* redirects without trying to trigger a motor.
-    // alert('Processing payment...'); // Simulate payment processing (optional)
-    // window.location.href = 'success.html';
-    console.warn("script.js submitPayment() called. If on checkout.html, this might be unintended if the embedded script is active.");
-}
 
+// Load cart when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    loadCart(); // Load and display cart on pages that have the cart elements (e.g., machine1.html)
+    loadCart();
 
-    // Be careful with this part if checkout.html ALSO links script.js:
-    // The embedded script in checkout.html now handles its own "submitPayment" button.
-    // This event listener in script.js might cause issues or be redundant on checkout.html.
-    const submitButton = document.getElementById('submitPayment');
-    // You could add a check: if (!document.querySelector('body#checkoutPage')) { /* then add listener */ }
-    // Or ensure checkout.html does not link this script, or its embedded script handles everything.
-    if (submitButton && !window.location.pathname.endsWith('checkout.html')) { // Example: only attach if NOT on checkout.html
-        submitButton.addEventListener('click', submitPayment);
-    }
+    // The submitPayment button and its logic are now primarily handled
+    // by the embedded script in checkout.html to avoid conflicts.
+    // If you had other global initializations, they would go here.
 });
