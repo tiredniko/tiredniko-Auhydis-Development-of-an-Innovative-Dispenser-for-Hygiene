@@ -11,63 +11,54 @@
             const statusMessageElement = document.getElementById("statusMessage");
 
             if (!statusMessageElement || !submitButton) {
-                console.error("Required elements (statusMessage or submitPayment button) not found in checkout.html!");
-                alert("Error: Page elements missing. Cannot proceed.");
+                console.error("Required elements not found in checkout.html!");
+                alert("Error: Page elements missing.");
                 return;
             }
 
             const savedCart = localStorage.getItem('auhydisCart');
-            let cartToProcess = [];
+            let cartForWorker = [];
             if (savedCart) {
-                cartToProcess = JSON.parse(savedCart);
+                cartForWorker = JSON.parse(savedCart);
             }
 
-            if (cartToProcess.length === 0) {
-                statusMessageElement.textContent = 'Your cart is empty. Please add an item from the machine page.';
-                statusMessageElement.className = 'info'; // Use a class for styling
+            if (cartForWorker.length === 0) {
+                statusMessageElement.textContent = 'Your cart is empty. Please add items first.';
+                statusMessageElement.className = 'info';
                 return;
             }
             
-            const itemToDispense = cartToProcess[0]; // Assuming one item type in cart
-            const productIdToDispense = itemToDispense.productId; 
-
-            if (!productIdToDispense) {
-                statusMessageElement.textContent = 'Error: Product information missing in cart. Please re-add the item.';
-                statusMessageElement.className = 'error';
-                console.error("productId missing for item:", itemToDispense);
-                return;
-            }
-
-            statusMessageElement.textContent = `Processing your order for ${itemToDispense.productName}...`;
+            statusMessageElement.textContent = `Processing your order... Please wait.`;
             statusMessageElement.className = 'info';
             submitButton.disabled = true;
-            submitButton.style.opacity = '0.7'; // Visual feedback for disabled
+            submitButton.style.opacity = '0.7'; 
 
             try {
                 // IMPORTANT: Ensure this is your ACTUAL Cloudflare Worker URL!
                 const workerUrl = 'https://auhydis-vending-api.auhydis-api.workers.dev/'; 
 
+                // Send the entire cart (array of items) to the worker
                 const response = await fetch(workerUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ productId: productIdToDispense }) // Send the productId
+                    body: JSON.stringify({ cart: cartForWorker }) // Send the whole cart
                 });
 
                 if (response.ok) {
                     const data = await response.json(); 
-                    statusMessageElement.textContent = data.message || "Dispense signal sent! Your item is being vended.";
+                    statusMessageElement.textContent = data.message || "Dispense signals sent! Your items are being vended.";
                     statusMessageElement.className = 'success';
 
                     localStorage.removeItem('auhydisCart'); 
                     console.log("Cart cleared from localStorage after successful dispense signal.");
-                    displayCartOnCheckout(); // Update the cart display on this page
+                    displayCartOnCheckout(); 
 
                     setTimeout(() => {
                         window.location.href = 'success.html';
-                    }, 3000); 
+                    }, 4000); // Slightly longer to read message
 
                 } else {
-                    let errorMessage = `Failed to dispense. Status: ${response.status}`;
+                    let errorMessage = `Failed to process order. Status: ${response.status}`;
                     try {
                         const errorData = await response.json();
                         errorMessage = errorData.message || errorMessage;
@@ -92,7 +83,7 @@
             const totalPriceElement = document.getElementById('total-price');
             
             if (!cartItemsElement || !totalPriceElement) {
-                console.warn("Cart display elements not found on checkout page for displayCartOnCheckout.");
+                console.warn("Cart display elements not found on checkout page.");
                 return;
             }
 
@@ -104,10 +95,19 @@
 
             cartItemsElement.innerHTML = ''; 
             let total = 0;
-            if (cart.length > 0) {
+            if (cart._length_ > 0) { // Corrected from cart.length to cart._length_ based on previous error, but should be cart.length
                 cart.forEach(item => {
                     const li = document.createElement('li');
-                    li.textContent = `${item.productName} - ${item.quantity} pcs - ₱${(item.price * item.quantity).toFixed(2)}`;
+                    const itemDetailsSpan = document.createElement('span');
+                    itemDetailsSpan.className = 'item-details';
+                    itemDetailsSpan.textContent = `${item.productName} - ${item.quantity} pcs`;
+            
+                    const itemPriceSpan = document.createElement('span');
+                    itemPriceSpan.className = 'item-price';
+                    itemPriceSpan.textContent = `₱${(item.price * item.quantity).toFixed(2)}`;
+
+                    li.appendChild(itemDetailsSpan);
+                    li.appendChild(itemPriceSpan);
                     cartItemsElement.appendChild(li);
                     total += item.price * item.quantity;
                 });
@@ -115,7 +115,6 @@
             } else {
                 cartItemsElement.innerHTML = '<li>Your cart is empty. Go back to select an item.</li>';
                 totalPriceElement.textContent = 'Total: ₱0.00';
-                // Optionally disable the submit button if cart is empty after an operation
                 const submitButton = document.getElementById("submitPayment");
                 if(submitButton) {
                     submitButton.disabled = true;
@@ -129,7 +128,6 @@
 
             const submitButton = document.getElementById("submitPayment");
             if (submitButton) {
-                // If cart is initially empty, disable the button
                 const savedCart = localStorage.getItem('auhydisCart');
                 if (!savedCart || JSON.parse(savedCart).length === 0) {
                     submitButton.disabled = true;
@@ -137,7 +135,7 @@
                 }
                 submitButton.addEventListener("click", processDispense);
             } else {
-                console.error("Submit Payment button not found on checkout.html during DOMContentLoaded.");
+                console.error("Submit Payment button not found on checkout.html.");
             }
         });
     </script>
@@ -151,8 +149,7 @@
     </div>
 
     <header>
-        <h1>Checkout Your Order</h1>
-    </header>
+        <h1>Confirm Your Order</h1> </header>
 
     <main>
         <section id="checkout-summary">
@@ -162,8 +159,9 @@
         </section>
 
         <section>
-            <button id="submitPayment">Confirm Purchase & Dispense</button>
-            <p id="statusMessage"></p> </section>
+            <button id="submitPayment">Confirm Purchase & Dispense All</button>
+            <p id="statusMessage"></p>
+        </section>
     </main>
 
     <footer>
