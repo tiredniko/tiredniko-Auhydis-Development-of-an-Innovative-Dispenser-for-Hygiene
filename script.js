@@ -1,4 +1,4 @@
-// script.js - Enhanced for product identifiers and cart clearing (v3)
+// script.js - Enhanced for multi-item/multi-quantity cart and better UX (v4)
 
 let cart = []; // Initialize cart
 
@@ -15,14 +15,19 @@ window.onscroll = function () {
 
 function updateQuantity(productIdentifier, change) {
     const display = document.getElementById(`${productIdentifier}-quantity-display`);
-    const productCard = document.getElementById(`product-${productIdentifier}`);
+    const productCard = document.getElementById(`product-${productIdentifier}`); // Assuming product cards have id="product-tissue", etc.
+    
     if (!display || (productCard && productCard.classList.contains('unavailable'))) {
-        return; // Do nothing if product is unavailable or display not found
+        return; 
     }
 
     let currentQuantity = parseInt(display.textContent, 10);
     currentQuantity += change;
-    if (currentQuantity < 1) currentQuantity = 1;
+    if (currentQuantity < 1) currentQuantity = 1; // Min quantity 1
+    if (currentQuantity > 5) { // Max quantity 5 per item type
+        currentQuantity = 5;
+        alert("You can add a maximum of 5 units for this item per transaction.");
+    }
     display.textContent = currentQuantity;
 }
 
@@ -32,18 +37,31 @@ function getQuantity(productIdentifier) {
     return parseInt(display.textContent, 10);
 }
 
-// Modified addToCart to include a productId (which will map to motor1, motor2, etc.)
-// For vending machine, we'll enforce only one type of item in the cart at a time.
 function addToCart(productName, price, quantity, productId) {
-    console.log(`Attempting to add to cart: ${productName}, Price: ${price}, Quantity: ${quantity}, ProductID/Motor: ${productId}`);
+    console.log(`Adding to cart: ${productName}, Price: ${price}, Quantity: ${quantity}, ProductID/Motor: ${productId}`);
     
-    // Clear the cart and add the new item. This enforces one item type per transaction.
-    cart = [{ productName, price, quantity, productId }];
-    console.log(`${productName} (ID: ${productId}) added to cart, replacing previous items.`);
-    
+    const existingProductIndex = cart.findIndex(item => item.productId === productId);
+
+    if (existingProductIndex !== -1) {
+        // If product already in cart, update its quantity
+        cart[existingProductIndex].quantity = quantity; // Set to new quantity from input
+        // Or, if you want to add to existing quantity:
+        // cart[existingProductIndex].quantity += quantity; 
+        // Ensure new total quantity doesn't exceed max (e.g., 5)
+        if (cart[existingProductIndex].quantity > 5) {
+            cart[existingProductIndex].quantity = 5;
+            alert(`Maximum quantity for ${productName} is 5. Quantity updated.`);
+        }
+        console.log(`Updated quantity for ${productName} (ID: ${productId}) to ${cart[existingProductIndex].quantity}`);
+    } else {
+        // Add new product to cart
+        cart.push({ productName, price, quantity, productId });
+        console.log(`${productName} (ID: ${productId}) added to cart.`);
+    }
+
     saveCart();
-    displayCart(); // Update cart display on the current page (e.g., machine1.html)
-    alert(`${productName} has been added to your cart.`); // User feedback
+    displayCart(); 
+    alert(`${productName} (${quantity}x) has been added/updated in your cart.`);
 }
 
 function saveCart() {
@@ -57,9 +75,9 @@ function loadCart() {
         cart = JSON.parse(savedCart);
         console.log('Loaded cart:', cart);
     } else {
-        cart = []; // Ensure cart is an empty array if nothing in localStorage
+        cart = [];
     }
-    displayCart(); // Always try to display, even if empty
+    displayCart();
 }
 
 function displayCart() {
@@ -67,22 +85,31 @@ function displayCart() {
     const totalPriceElement = document.getElementById('total-price');
 
     if (!cartItemsElement || !totalPriceElement) {
-        // These elements might not exist on all pages (e.g., index.html)
         return; 
     }
 
-    cartItemsElement.innerHTML = ''; // Clear previous items
+    cartItemsElement.innerHTML = ''; 
     let total = 0;
 
     if (cart.length > 0) {
         cart.forEach(item => {
             const li = document.createElement('li');
-            li.textContent = `${item.productName} - ${item.quantity} pcs - ₱${(item.price * item.quantity).toFixed(2)}`;
             
+            const itemDetailsSpan = document.createElement('span');
+            itemDetailsSpan.className = 'item-details';
+            itemDetailsSpan.textContent = `${item.productName} - ${item.quantity} pcs`;
+            
+            const itemPriceSpan = document.createElement('span');
+            itemPriceSpan.className = 'item-price';
+            itemPriceSpan.textContent = `₱${(item.price * item.quantity).toFixed(2)}`;
+
             const removeButton = document.createElement('button');
             removeButton.textContent = 'Remove';
             removeButton.className = 'remove-item';
             removeButton.onclick = () => removeFromCart(item.productId); 
+            
+            li.appendChild(itemDetailsSpan);
+            li.appendChild(itemPriceSpan);
             li.appendChild(removeButton);
 
             cartItemsElement.appendChild(li);
@@ -95,42 +122,33 @@ function displayCart() {
     }
 }
 
-// removeFromCart now effectively clears the cart since we only allow one item type.
-// If you later allow multiple distinct items, this would need to filter by productId.
-function removeFromCart(productIdToRemove) { 
-    console.log(`Removing item from cart (effectively clearing for single item type). Product ID was: ${productIdToRemove}`);
-    cart = []; // Clear the cart
+function removeFromCart(productIdToRemove) {
+    console.log(`Removing product with ID: ${productIdToRemove} from cart`);
+    cart = cart.filter(item => item.productId !== productIdToRemove);
     saveCart();
     displayCart();
 }
 
-// Function to clear the entire cart, e.g., after successful dispense
-// This is now also called from checkout.html after a successful dispense signal
 function clearCartAndStorage() {
     console.log("Clearing cart and localStorage.");
     cart = [];
-    localStorage.removeItem('auhydisCart'); // More explicit removal
-    displayCart(); // Update display on current page if cart elements exist
+    localStorage.removeItem('auhydisCart'); 
+    displayCart(); // Update display on current page
     
-    // If on checkout page, also clear its specific display if it's separate
-    // (checkout.html's embedded script now handles its own display update after clearing)
+    // If on checkout page, its own displayCartOnCheckout will handle it.
+    // No need to explicitly target checkout elements from here if it has its own logic.
 }
-
 
 function checkout() {
     if (cart.length === 0) {
         alert("Your cart is empty. Please add an item to proceed.");
         return;
     }
-    // The cart is already saved in localStorage by addToCart.
-    // The checkout.html page will load it from localStorage.
+    // Cart is saved to localStorage by addToCart/removeFromCart.
+    // checkout.html will load it.
     window.location.href = 'checkout.html';
 }
 
-
-// Load cart when the page loads
 document.addEventListener('DOMContentLoaded', () => {
-    loadCart();
-    // Event listeners for buttons not on checkout.html are handled by inline onclick or
-    // could be added here if preferred, but keep checkout.html's button logic separate.
+    loadCart(); 
 });
