@@ -1,35 +1,142 @@
+/* styles.css (v6 - Dark/Light Theme) */
+
+/* Define color variables for Light Theme (default) */
+:root {
+    --bg-primary: #e9ebee; /* Main background */
+    --bg-secondary: #f8f9fa; /* Header, lighter sections */
+    --bg-card: #ffffff; /* Product cards, cart */
+    --bg-top-bar: #ffffff;
+    --bg-footer: #212529;
+
+    --text-primary: #333333; /* Main text */
+    --text-secondary: #555555; /* Subdued text */
+    --text-headings: #343a40; /* Section headings */
+    --text-header-h1: #007bff; /* Main header H1 */
+    --text-header-p: #6c757d;
+    --text-footer: #adb5bd;
+    --text-on-dark-bg: #f8f9fa; /* Text for dark backgrounds like footer */
+
+    --accent-primary: #007bff; /* Primary buttons, links, highlights */
+    --accent-primary-hover: #0056b3;
+    --accent-secondary: #28a745; /* Success/checkout buttons */
+    --accent-secondary-hover: #218838;
+    --accent-danger: #dc3545; /* Remove buttons */
+    --accent-danger-hover: #c82333;
+    --accent-unavailable: #6c757d; /* Disabled/unavailable buttons */
+    --accent-unavailable-hover: #5a6268;
+
+    --border-primary: #ddd; /* Borders for cards, top bar */
+    --border-secondary: #dee2e6; /* Lighter borders */
+    --border-cart-item: #f1f1f1;
+
+    --shadow-color-light: rgba(0, 0, 0, 0.1);
+    --shadow-color-softer: rgba(0, 0, 0, 0.05);
+    --shadow-color-darker: rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 4px 12px var(--shadow-color-light);
+    --shadow-card-hover: 0 8px 16px rgba(0, 0, 0, 0.12);
+    --shadow-top-bar: 0 2px 5px var(--shadow-color-darker);
+
+    /* Theme Toggle Button Specific */
+    --theme-toggle-bg: #f0f0f0;
+    --theme-toggle-icon: #007bff;
+    --theme-toggle-bg-hover: #e0e0e0;
+}
+
+/* Define color variables for Dark Theme */
+body.dark-theme {
+    --bg-primary: #2c3e50; /* Dark blue-gray main background */
+    --bg-secondary: #34495e; /* Slightly lighter for header */
+    --bg-card: #4a6572; /* Darker cards */
+    --bg-top-bar: #232f34; /* Very dark top bar */
+    --bg-footer: #1a252f; /* Even darker footer */
+
+    --text-primary: #ecf0f1; /* Light gray/off-white text */
+    --text-secondary: #bdc3c7; /* Lighter subdued text */
+    --text-headings: #ffffff; /* White section headings */
+    --text-header-h1: #5dade2; /* Lighter blue for main header H1 */
+    --text-header-p: #95a5a6;
+    --text-footer: #95a5a6;
+    --text-on-dark-bg: #ecf0f1;
+
+    --accent-primary: #5dade2; /* Lighter blue */
+    --accent-primary-hover: #3498db;
+    --accent-secondary: #2ecc71; /* Lighter green */
+    --accent-secondary-hover: #27ae60;
+    --accent-danger: #e74c3c; /* Lighter red */
+    --accent-danger-hover: #c0392b;
+    --accent-unavailable: #7f8c8d; 
+    --accent-unavailable-hover: #95a5a6;
+
+    --border-primary: #4a6572; /* Darker borders */
+    --border-secondary: #566573;
+    --border-cart-item: #4a6572;
+
+    --shadow-color-light: rgba(0, 0, 0, 0.3);
+    --shadow-color-softer: rgba(0, 0, 0, 0.2);
+    --shadow-color-darker: rgba(0, 0, 0, 0.5);
+    /* Dark theme might have less pronounced shadows or different shadow colors */
+    --shadow-card: 0 4px 12px rgba(0,0,0,0.4);
+    --shadow-card-hover: 0 8px 16px rgba(0,0,0,0.5);
+    --shadow-top-bar: 0 2px 5px rgba(0,0,0,0.6);
+
+    --theme-toggle-bg: #4a6572;
+    --theme-toggle-icon: #f1c40f; /* Sun icon color */
+    --theme-toggle-bg-hover: #5dade2;
+}
+
+/* Apply variables */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e9ebee; 
+    background-color: var(--bg-primary);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    color: #333;
+    color: var(--text-primary);
     line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .top-bar {
-    background-color: #ffffff; 
-    padding: 10px 25px; 
+    background-color: var(--bg-top-bar);
+    padding: 10px 25px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between; /* Changed to space-between for toggle */
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    border-bottom: 1px solid #ddd;
+    box-shadow: var(--shadow-top-bar);
+    border-bottom: 1px solid var(--border-primary);
+    transition: background-color 0.3s ease;
 }
 
-.top-bar img {
-    height: 45px; 
-    margin-right: 20px;
+.top-bar .logo-link img { /* Target image within logo-link */
+    height: 45px;
     cursor: pointer;
+    vertical-align: middle; /* Align logo nicely if next to text/button */
 }
+
+#theme-toggle-btn {
+    background-color: var(--theme-toggle-bg);
+    color: var(--theme-toggle-icon);
+    border: 1px solid var(--border-secondary);
+    padding: 8px 12px;
+    border-radius: 50%; /* Circular button */
+    cursor: pointer;
+    font-size: 1.2em; /* Adjust icon size */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    line-height: 1;
+}
+
+#theme-toggle-btn:hover {
+    background-color: var(--theme-toggle-bg-hover);
+    transform: scale(1.1);
+}
+
 
 body > *:not(.top-bar) {
     margin-top: 75px; 
@@ -37,21 +144,24 @@ body > *:not(.top-bar) {
 
 header {
     text-align: center;
-    padding: 20px 20px 10px 20px; 
-    background-color: #f8f9fa; 
-    border-bottom: 1px solid #dee2e6;
+    padding: 20px 20px 10px 20px;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-secondary);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 header h1 {
     margin: 10px 0;
     font-size: 2.2em;
-    color: #007bff; 
+    color: var(--text-header-h1);
     font-weight: 600;
+    transition: color 0.3s ease;
 }
 header p {
     font-size: 1.1em;
-    color: #6c757d; 
+    color: var(--text-header-p);
     margin-bottom: 10px;
+    transition: color 0.3s ease;
 }
 
 main {
@@ -67,134 +177,147 @@ main {
 section {
     text-align: center;
     margin-bottom: 35px;
-    background-color: #ffffff;
-    padding: 25px; 
-    border-radius: 12px; 
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+    background-color: var(--bg-card); /* Use card background for sections */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-card);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 section h2 {
     margin-top: 0;
     margin-bottom: 25px;
-    color: #343a40; 
+    color: var(--text-headings);
     font-size: 1.8em;
     font-weight: 600;
+    transition: color 0.3s ease;
 }
 
 .machine-list,
 .product-list {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 25px; 
+    gap: 25px;
 }
 
 .machine,
 .product {
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-primary);
     border-radius: 10px;
     padding: 20px;
-    width: 280px; 
+    width: 280px;
     text-align: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-card);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .machine:hover,
 .product:hover:not(.unavailable) {
-    transform: translateY(-8px) scale(1.02); 
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-card-hover);
 }
 
 .machine img,
 .product img {
     max-width: 100%;
-    height: 160px; 
+    height: 160px;
     object-fit: contain;
     border-radius: 8px;
     display: block;
     margin: 0 auto 15px auto;
-    border: 1px solid #eee; 
+    border: 1px solid var(--border-secondary); /* Use secondary border color */
+    transition: border-color 0.3s ease;
 }
 
 .machine h3,
-.product h2 { 
-    font-size: 1.3em; 
+.product h2 {
+    font-size: 1.3em;
     font-weight: 600;
     margin: 0 0 10px 0;
-    color: #333;
-    min-height: 2.8em; 
+    color: var(--text-primary); /* Use primary text color */
+    min-height: 2.8em;
+    transition: color 0.3s ease;
 }
 
-.product p { /* For description */
-    font-size: 0.90em; 
-    color: #555;
-    margin: 5px 0 10px 0; 
+.product p {
+    font-size: 0.90em;
+    color: var(--text-secondary);
+    margin: 5px 0 10px 0;
     flex-grow: 1;
     line-height: 1.5;
+    transition: color 0.3s ease;
 }
-.product p.price { /* For price */
+.product p.price {
     font-weight: bold;
-    color: #28a745; 
+    color: var(--accent-secondary); /* Use secondary accent for price */
     font-size: 1.2em;
     margin-bottom: 15px;
     flex-grow: 0;
+    transition: color 0.3s ease;
 }
 
 .machine a,
-.product button.add-to-cart-btn { 
+.product button.add-to-cart-btn {
     display: inline-block;
-    background-color: #007bff;
-    color: white;
+    background-color: var(--accent-primary);
+    color: var(--text-on-dark-bg); /* Ensure text is readable on button */
     padding: 12px 20px;
-    border-radius: 6px; 
+    border-radius: 6px;
     text-decoration: none;
     margin-top: 15px;
-    border: none; 
-    cursor: pointer; 
+    border: none;
+    cursor: pointer;
     font-size: 1em;
     font-weight: 500;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    transition: background-color 0.2s ease, transform 0.1s ease, color 0.3s ease;
     width: 100%;
     box-sizing: border-box;
 }
+body.dark-theme .product button.add-to-cart-btn { /* Specific for dark theme button text if needed */
+    color: #fff; /* Or var(--text-primary) if that's light enough */
+}
+
+
 .machine a:active,
 .product button.add-to-cart-btn:active {
-    transform: scale(0.98); 
+    transform: scale(0.98);
 }
 
-.machine a:hover:not(.offline), 
-.product button.add-to-cart-btn:hover:not([disabled]) { 
-    background-color: #0056b3;
+.machine a:hover:not(.offline),
+.product button.add-to-cart-btn:hover:not([disabled]) {
+    background-color: var(--accent-primary-hover);
 }
 
-.machine a.offline {
-    background-color: #6c757d !important; 
+.machine a.offline,
+.product.unavailable button.add-to-cart-btn {
+    background-color: var(--accent-unavailable) !important;
     cursor: not-allowed !important;
 }
-.machine a.offline:hover {
-    background-color: #5a6268 !important;
+.machine a.offline:hover,
+.product.unavailable button.add-to-cart-btn:hover {
+    background-color: var(--accent-unavailable-hover) !important;
 }
 
 .product.unavailable {
     opacity: 0.6;
-    background-color: #f1f1f1; 
-    box-shadow: none; 
-    transform: none !important; 
+    background-color: var(--bg-secondary); /* Use secondary bg for unavailable */
+    box-shadow: none;
+    transform: none !important;
 }
 .product.unavailable img {
     filter: grayscale(100%);
 }
 .product.unavailable .quantity-control button,
 .product.unavailable button.add-to-cart-btn {
-    background-color: #adb5bd; 
+    background-color: var(--accent-unavailable); /* Use unavailable accent */
     cursor: not-allowed;
-    pointer-events: all !important; 
+    pointer-events: all !important;
 }
 
 .quantity-control {
@@ -204,54 +327,60 @@ section h2 {
     margin: 15px 0;
 }
 .quantity-control button {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--accent-primary);
+    color: var(--text-on-dark-bg); /* Ensure text is readable */
     border: none;
     padding: 8px 12px;
-    border-radius: 50%; 
-    width: 36px; 
-    height: 36px; 
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
     font-size: 1.2em;
     cursor: pointer;
     line-height: 1;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.3s ease;
 }
+body.dark-theme .quantity-control button {
+    color: #fff;
+}
+
 .product.unavailable .quantity-control button {
-    background-color: #adb5bd;
+    background-color: var(--accent-unavailable);
 }
 
 .quantity-control button:hover:not([disabled]) {
-    background-color: #0056b3;
+    background-color: var(--accent-primary-hover);
 }
 .quantity-control span {
     display: inline-block;
-    width: 45px; 
+    width: 45px;
     text-align: center;
-    font-size: 1.2em; 
-    margin: 0 8px; 
+    font-size: 1.2em;
+    margin: 0 8px;
     font-weight: 600;
-    color: #333;
+    color: var(--text-primary); /* Use primary text color */
+    transition: color 0.3s ease;
 }
 
-/* Shopping Cart & Checkout Summary Styles */
 .cart, 
 #checkout-summary {
-    background-color: #ffffff;
+    background-color: var(--bg-card); /* Use card background */
     padding: 25px;
-    border-radius: 12px; 
+    border-radius: 12px;
     margin-top: 30px;
-    border: 1px solid #ced4da; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+    border: 1px solid var(--border-secondary); /* Use secondary border */
+    box-shadow: var(--shadow-card); /* Use card shadow */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .cart h2,
 #checkout-summary h2 {
     margin-top: 0;
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
+    color: var(--accent-primary); /* Use primary accent for these headings */
+    border-bottom: 2px solid var(--accent-primary);
     padding-bottom: 12px;
     margin-bottom: 20px;
-    font-size: 1.6em; 
+    font-size: 1.6em;
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 #cart-items {
@@ -261,55 +390,60 @@ section h2 {
 }
 
 #cart-items li {
-    padding: 12px 10px; 
-    border-bottom: 1px solid #f1f1f1; 
+    padding: 12px 10px;
+    border-bottom: 1px solid var(--border-cart-item); /* Use cart item border */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1em; 
+    font-size: 1em;
+    color: var(--text-primary); /* Use primary text color */
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 #cart-items li:last-child {
     border-bottom: none;
 }
-#cart-items li .item-details { 
+#cart-items li .item-details {
     flex-grow: 1;
 }
-#cart-items li .item-price { 
-    min-width: 80px; 
+#cart-items li .item-price {
+    min-width: 80px;
     text-align: right;
     font-weight: 500;
+    color: var(--text-secondary); /* Use secondary text for price part */
+    transition: color 0.3s ease;
 }
 
 #cart-items li button.remove-item {
-    background-color: #ff4d4d; 
-    color: white;
+    background-color: var(--accent-danger);
+    color: white; /* Assuming white text is good on danger color */
     border: none;
-    padding: 6px 12px; 
+    padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.85em;
-    margin-left: 15px; 
+    margin-left: 15px;
     transition: background-color 0.2s ease;
 }
 #cart-items li button.remove-item:hover {
-    background-color: #e60000; 
+    background-color: var(--accent-danger-hover);
 }
 
 #total-price {
     font-weight: bold;
-    font-size: 1.4em; 
+    font-size: 1.4em;
     text-align: right;
     margin-top: 20px;
-    color: #007bff; 
+    color: var(--accent-primary); /* Use primary accent for total */
     padding-top: 15px;
-    border-top: 2px solid #007bff;
+    border-top: 2px solid var(--accent-primary);
+    transition: color 0.3s ease, border-color 0.3s ease;
 }
 
 .cart button[onclick="checkout()"], 
 #submitPayment {
-    background-color: #28a745;
+    background-color: var(--accent-secondary); /* Use secondary accent */
     color: white;
-    padding: 14px 30px; 
+    padding: 14px 30px;
     border: none;
     border-radius: 6px;
     font-size: 1.15em;
@@ -327,47 +461,54 @@ section h2 {
 
 .cart button[onclick="checkout()"]:hover,
 #submitPayment:hover:not([disabled]) {
-    background-color: #218838;
+    background-color: var(--accent-secondary-hover);
 }
 
 #submitPayment:disabled {
-    background-color: #6c757d;
+    background-color: var(--accent-unavailable); /* Use unavailable accent */
     cursor: not-allowed;
     opacity: 0.7;
 }
 
-#statusMessage {
+#statusMessage { /* Base class for status messages */
     margin-top: 20px;
-    font-weight: 500; 
+    font-weight: 500;
     font-size: 1em;
-    padding: 12px 15px; 
+    padding: 12px 15px;
     border-radius: 6px;
     text-align: center;
+    border: 1px solid transparent; /* Base border */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 #statusMessage.success {
-    color: #155724;
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
+    color: #155724; background-color: #d4edda; border-color: #c3e6cb;
+}
+body.dark-theme #statusMessage.success {
+    color: #d4edda; background-color: #155724; border-color: #2b6432;
 }
 #statusMessage.error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
+    color: #721c24; background-color: #f8d7da; border-color: #f5c6cb;
+}
+body.dark-theme #statusMessage.error {
+    color: #f8d7da; background-color: #721c24; border-color: #8b2c36;
 }
 #statusMessage.info {
-    color: #004085;
-    background-color: #cce5ff;
-    border: 1px solid #b8daff;
+    color: #004085; background-color: #cce5ff; border-color: #b8daff;
+}
+body.dark-theme #statusMessage.info {
+    color: #cce5ff; background-color: #004085; border-color: #005cbf;
 }
 
+
 footer {
-    background-color: #212529; 
-    padding: 25px 20px; 
+    background-color: var(--bg-footer);
+    padding: 25px 20px;
     width: 100%;
     text-align: center;
     margin-top: auto;
-    color: #adb5bd; 
+    color: var(--text-footer);
     box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 .contact-info {
     font-size: 0.9em;
@@ -376,24 +517,26 @@ footer {
     padding: 0;
 }
 .contact-info p {
-    margin: 8px 0; 
+    margin: 8px 0;
 }
 
-.offline-message-section { 
+.offline-message-section {
     padding: 30px;
+    background-color: var(--bg-card); /* Ensure it themes */
 }
 .offline-message-section p {
     font-size: 1.2em;
     margin-bottom: 20px;
+    color: var(--text-primary);
 }
 .offline-message-section a {
-    background-color: #007bff;
-    color: white;
+    background-color: var(--accent-primary);
+    color: white; /* Assuming white text is good on accent color */
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.2s ease;
 }
 .offline-message-section a:hover {
-    background-color: #0056b3;
+    background-color: var(--accent-primary-hover);
 }
