@@ -1,253 +1,262 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0; /* Slightly lighter gray for main background */
+    background-color: #e9ebee; /* Lighter, softer gray */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    color: #333; /* Default text color */
+    color: #333;
+    line-height: 1.6;
 }
 
-/* Dark gray bar at the top for the logo */
 .top-bar {
-    background-color: #333333; /* Dark gray color */
-    padding: 10px 20px;
+    background-color: #ffffff; /* White top bar */
+    padding: 10px 25px; /* Slightly more padding */
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    position: fixed; /* Fixed position to keep it always on top */
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Darker shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Softer shadow */
+    border-bottom: 1px solid #ddd;
 }
 
 .top-bar img {
-    height: 40px; 
+    height: 45px; /* Slightly larger logo */
     margin-right: 20px;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
-/* Push the content down to accommodate the fixed top-bar */
 body > *:not(.top-bar) {
-    margin-top: 70px; /* Increased slightly to ensure no overlap */
+    margin-top: 75px; /* Adjust for new top-bar height */
 }
 
 header {
     text-align: center;
-    padding: 10px 20px; 
+    padding: 20px 20px 10px 20px; /* More vertical padding */
+    background-color: #f8f9fa; /* Light header background */
+    border-bottom: 1px solid #dee2e6;
 }
 
 header h1 {
-    margin: 20px 0 10px 0; 
-    font-size: 2em; 
-    color: #333; 
+    margin: 10px 0;
+    font-size: 2.2em;
+    color: #007bff; /* Brand color */
+    font-weight: 600;
 }
 header p {
-    font-size: 1em;
-    color: #555;
+    font-size: 1.1em;
+    color: #6c757d; /* Subdued text color */
+    margin-bottom: 10px;
 }
 
-
 main {
-    flex: 1; 
-    padding: 0 20px 20px 20px; 
-    max-width: 1200px; 
-    margin-left: auto; 
-    margin-right: auto; 
+    flex: 1;
+    padding: 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
     width: 100%;
     box-sizing: border-box;
 }
 
 section {
     text-align: center;
-    margin-bottom: 30px; 
-    background-color: #ffffff; 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 35px;
+    background-color: #ffffff;
+    padding: 25px; /* More padding within sections */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* More pronounced shadow */
 }
 
 section h2 {
     margin-top: 0;
-    margin-bottom: 20px;
-    color: #333;
+    margin-bottom: 25px;
+    color: #343a40; /* Darker section headings */
+    font-size: 1.8em;
+    font-weight: 600;
 }
 
-
-/* Machine List & Product List (Shared Styles) */
 .machine-list,
 .product-list {
     display: flex;
-    justify-content: space-around; /* Distributes space around items */
+    justify-content: center; /* Center items if they don't fill the row */
     flex-wrap: wrap;
-    gap: 20px; /* Adds space between items */
+    gap: 25px; /* More space between items */
 }
 
 .machine,
 .product {
     background-color: #ffffff;
-    border: 1px solid #e0e0e0; 
-    border-radius: 10px; 
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
     padding: 20px;
-    margin: 0; /* gap handles spacing */
-    width: 250px; /* Fixed width for product cards */
+    width: 280px; /* Slightly wider cards */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); 
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Pushes button to bottom */
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .machine:hover,
-.product:hover:not(.unavailable) { /* Hover effect only for available products */
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+.product:hover:not(.unavailable) {
+    transform: translateY(-8px) scale(1.02); /* More noticeable hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
 }
 
 .machine img,
 .product img {
     max-width: 100%;
-    height: 150px; 
-    object-fit: contain; 
-    border-radius: 8px; 
+    height: 160px; /* Slightly taller images */
+    object-fit: contain;
+    border-radius: 8px;
     display: block;
-    margin: 0 auto 15px auto; 
+    margin: 0 auto 15px auto;
+    border: 1px solid #eee; /* Subtle border for images */
 }
 
 .machine h3,
-.product h2 { 
-    font-size: 1.25em;
+.product h2 {
+    font-size: 1.3em; /* Larger product names */
+    font-weight: 600;
     margin: 0 0 10px 0;
     color: #333;
-    min-height: 2.5em; /* Ensure space for two lines for product names */
+    min-height: 2.8em; 
 }
 
-.product p { /* For description */
-    font-size: 0.90em; /* Slightly smaller description */
+.product p {
+    font-size: 0.9em;
     color: #555;
-    margin: 5px 0 10px 0; /* Add margin below description */
-    flex-grow: 1; 
-    line-height: 1.4;
+    margin: 5px 0 15px 0; /* More margin below description */
+    flex-grow: 1;
+    line-height: 1.5;
 }
-.product p.price { /* For price */
+.product p.price {
     font-weight: bold;
-    color: #007bff;
-    font-size: 1.1em;
-    margin-bottom: 10px;
-    flex-grow: 0; /* Price should not grow */
+    color: #28a745; /* Green price */
+    font-size: 1.2em;
+    margin-bottom: 15px;
+    flex-grow: 0;
 }
 
-
-.machine a, /* For "View Machine" / "Machine Offline" */
-.product button.add-to-cart-btn { /* Specific class for "Add to Cart" */
+.machine a,
+.product button.add-to-cart-btn {
     display: inline-block;
     background-color: #007bff;
     color: white;
-    padding: 12px 15px; 
-    border-radius: 5px;
+    padding: 12px 20px;
+    border-radius: 6px; /* Slightly more rounded buttons */
     text-decoration: none;
-    margin-top: 15px; 
-    border: none; 
-    cursor: pointer; 
+    margin-top: 15px;
+    border: none;
+    cursor: pointer;
     font-size: 1em;
-    transition: background-color 0.2s ease;
-    width: 100%; /* Make button full width of its container */
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    width: 100%;
     box-sizing: border-box;
 }
+.machine a:active,
+.product button.add-to-cart-btn:active {
+    transform: scale(0.98); /* Click effect */
+}
 
-.machine a:hover,
-.product button.add-to-cart-btn:hover {
+
+.machine a:hover:not(.offline), /* Hover effect only for non-offline links */
+.product button.add-to-cart-btn:hover:not([disabled]) { /* Hover effect only for non-disabled buttons */
     background-color: #0056b3;
 }
 
-.machine a.offline {
-    background-color: #6c757d !important; 
+
+.machine a.offline,
+.product.unavailable button.add-to-cart-btn {
+    background-color: #6c757d !important;
     cursor: not-allowed !important;
 }
-.machine a.offline:hover {
+.machine a.offline:hover,
+.product.unavailable button.add-to-cart-btn:hover {
     background-color: #5a6268 !important;
 }
 
-/* Styles for unavailable products */
 .product.unavailable {
-    opacity: 0.5; /* Darken out more */
-    background-color: #f8f9fa; /* Slightly different background */
+    opacity: 0.6;
+    background-color: #f1f1f1; /* Slightly different background for unavailable */
+    box-shadow: none; /* Remove hover shadow effect for unavailable */
+    transform: none !important; /* No hover transform */
 }
 .product.unavailable img {
-    filter: grayscale(100%); /* Fully grayscale */
+    filter: grayscale(100%);
 }
 .product.unavailable .quantity-control button,
 .product.unavailable button.add-to-cart-btn {
-    background-color: #6c757d;
+    background-color: #adb5bd; /* Lighter gray for disabled buttons */
     cursor: not-allowed;
-    pointer-events: none; 
-}
-.product.unavailable button.add-to-cart-btn { /* For the main button */
-    content: "Unavailable"; /* This won't work directly, button text needs to be changed in HTML */
+    pointer-events: all !important; /* Ensure cursor style applies */
 }
 
 
-/* Quantity control styles */
 .quantity-control {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 15px 0; /* Increased margin */
+    margin: 15px 0;
 }
-
 .quantity-control button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 8px 12px; 
-    border-radius: 5px;
-    font-size: 1.1em; 
+    padding: 8px 12px;
+    border-radius: 50%; /* Round quantity buttons */
+    width: 36px; /* Fixed width */
+    height: 36px; /* Fixed height */
+    font-size: 1.2em;
     cursor: pointer;
-    line-height: 1; 
+    line-height: 1;
+    transition: background-color 0.2s ease;
 }
-.product.unavailable .quantity-control button { /* Ensure unavailable quantity buttons are also styled */
+.product.unavailable .quantity-control button {
     background-color: #adb5bd;
-    cursor: not-allowed;
 }
 
-
-.quantity-control button:hover:not([disabled]) { /* Hover only if not disabled */
+.quantity-control button:hover:not([disabled]) {
     background-color: #0056b3;
 }
-
 .quantity-control span {
     display: inline-block;
-    width: 40px;
+    width: 45px; /* Wider span for quantity */
     text-align: center;
-    font-size: 1.1em;
-    margin: 0 10px;
-    font-weight: bold;
+    font-size: 1.2em; /* Larger quantity display */
+    margin: 0 8px; /* Adjusted margin */
+    font-weight: 600;
+    color: #333;
 }
 
 /* Shopping Cart & Checkout Summary Styles */
 .cart, 
-#checkout-summary { 
-    background-color: #ffffff; /* White background for better contrast */
-    padding: 25px; /* Increased padding */
-    border-radius: 8px;
+#checkout-summary {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px; /* More rounded */
     margin-top: 30px;
-    border: 1px solid #dee2e6;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Softer shadow */
+    border: 1px solid #ced4da; /* Softer border */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Slightly more shadow */
 }
 
 .cart h2,
 #checkout-summary h2 {
     margin-top: 0;
-    color: #007bff; /* Blue heading for cart/summary */
+    color: #007bff;
     border-bottom: 2px solid #007bff;
-    padding-bottom: 10px;
-    margin-bottom: 20px; /* More space below heading */
-    font-size: 1.5em;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    font-size: 1.6em; /* Larger heading */
 }
 
 #cart-items {
@@ -257,61 +266,74 @@ section h2 {
 }
 
 #cart-items li {
-    padding: 12px 5px; /* Increased padding, less horizontal */
-    border-bottom: 1px solid #e9ecef; /* Lighter dashed border */
+    padding: 15px 10px; /* More vertical padding */
+    border-bottom: 1px solid #f1f1f1; /* Very light border */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1em; /* Slightly larger font */
+    font-size: 1.05em; /* Slightly larger item text */
 }
-
 #cart-items li:last-child {
     border-bottom: none;
 }
+#cart-items li .item-details { /* New class for item name and quantity */
+    flex-grow: 1;
+}
+#cart-items li .item-price { /* New class for item price */
+    min-width: 80px; /* Ensure price aligns */
+    text-align: right;
+    font-weight: 500;
+}
 
-#cart-items li button.remove-item { 
-    background-color: #dc3545;
+
+#cart-items li button.remove-item {
+    background-color: #ff4d4d; /* Brighter red */
     color: white;
     border: none;
-    padding: 6px 12px; /* Adjusted padding */
+    padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.85em;
-    margin-left: 15px; /* More space */
+    margin-left: 15px;
     transition: background-color 0.2s ease;
 }
 #cart-items li button.remove-item:hover {
-    background-color: #c82333;
+    background-color: #e60000; /* Darker red on hover */
 }
-
 
 #total-price {
     font-weight: bold;
-    font-size: 1.3em; /* Larger total price */
+    font-size: 1.4em; /* Larger total */
     text-align: right;
     margin-top: 20px;
-    color: #333;
-    padding-top: 10px;
+    color: #007bff; /* Blue total price */
+    padding-top: 15px;
     border-top: 2px solid #007bff;
 }
 
 .cart button[onclick="checkout()"], 
-#submitPayment { 
-    background-color: #28a745; 
+#submitPayment {
+    background-color: #28a745;
     color: white;
-    padding: 12px 25px;
+    padding: 14px 30px; /* Larger buttons */
     border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
+    border-radius: 6px;
+    font-size: 1.15em;
+    font-weight: 500;
     cursor: pointer;
-    margin-top: 20px;
-    width: auto; 
+    margin-top: 25px;
+    width: auto;
     display: inline-block;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.cart button[onclick="checkout()"]:active,
+#submitPayment:active {
+    transform: scale(0.98);
 }
 
+
 .cart button[onclick="checkout()"]:hover,
-#submitPayment:hover:not([disabled]) { /* Hover only if not disabled */
+#submitPayment:hover:not([disabled]) {
     background-color: #218838;
 }
 
@@ -323,51 +345,49 @@ section h2 {
 
 #statusMessage {
     margin-top: 20px;
-    font-weight: bold;
+    font-weight: 500; /* Normal weight for status */
     font-size: 1em;
-    padding: 10px;
-    border-radius: 5px;
-}
-#statusMessage.success { /* Example class for success messages */
-    color: green;
-    background-color: #e6ffed;
-    border: 1px solid #5cb85c;
-}
-#statusMessage.error { /* Example class for error messages */
-    color: red;
-    background-color: #fdeded;
-    border: 1px solid #dc3545;
-}
-#statusMessage.info { /* Example class for info messages */
-    color: blue;
-    background-color: #e7f3fe;
-    border: 1px solid #007bff;
-}
-
-
-/* Footer Styles */
-footer {
-    background-color: #343a40; 
-    padding: 20px; 
-    width: 100%; 
+    padding: 12px 15px; /* More padding */
+    border-radius: 6px;
     text-align: center;
-    margin-top: auto; 
-    color: #f8f9fa; 
+}
+#statusMessage.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+#statusMessage.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+#statusMessage.info {
+    color: #004085;
+    background-color: #cce5ff;
+    border: 1px solid #b8daff;
+}
+
+footer {
+    background-color: #212529; /* Even darker footer */
+    padding: 25px 20px; /* More padding */
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+    color: #adb5bd; /* Lighter gray text */
     box-sizing: border-box;
 }
-
 .contact-info {
-    font-size: 0.9em; 
-    margin: 0 auto; 
-    max-width: 800px; 
-    padding: 0; 
+    font-size: 0.9em;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0;
 }
 .contact-info p {
-    margin: 5px 0;
+    margin: 8px 0; /* More spacing */
 }
 
 /* Offline page specific */
-.offline-message-section { /* Added class to section for better targeting */
+.offline-message-section {
     padding: 30px;
 }
 .offline-message-section p {
