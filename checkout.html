@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout</title>
+    <title>Checkout - Auhydis</title>
     <link rel="stylesheet" href="styles.css">
     <script>
-        // This function will handle the logic after payment (or simulated payment for now)
         async function processDispense() {
             const submitButton = document.getElementById("submitPayment");
             const statusMessageElement = document.getElementById("statusMessage");
@@ -17,39 +16,36 @@
                 return;
             }
 
-            // Get the current cart from localStorage
-            const savedCart = localStorage.getItem('auhydisCart'); // Using the specific key from script.js
-            let cartToDispense = [];
+            const savedCart = localStorage.getItem('auhydisCart');
+            let cartToProcess = [];
             if (savedCart) {
-                cartToDispense = JSON.parse(savedCart);
+                cartToProcess = JSON.parse(savedCart);
             }
 
-            if (cartToDispense.length === 0) {
-                statusMessageElement.textContent = 'Your cart is empty. Please add an item first.';
-                statusMessageElement.style.color = 'orange';
+            if (cartToProcess.length === 0) {
+                statusMessageElement.textContent = 'Your cart is empty. Please add an item from the machine page.';
+                statusMessageElement.className = 'info'; // Use a class for styling
                 return;
             }
             
-            // For a vending machine, typically dispense one item type at a time.
-            // We'll take the first item in the cart for this example.
-            const itemToDispense = cartToDispense[0]; 
-            const productIdToDispense = itemToDispense.productId; // e.g., "motor1" or "motor2"
+            const itemToDispense = cartToProcess[0]; // Assuming one item type in cart
+            const productIdToDispense = itemToDispense.productId; 
 
             if (!productIdToDispense) {
-                statusMessageElement.textContent = 'Error: Product ID missing in cart. Cannot dispense.';
-                statusMessageElement.style.color = 'red';
+                statusMessageElement.textContent = 'Error: Product information missing in cart. Please re-add the item.';
+                statusMessageElement.className = 'error';
                 console.error("productId missing for item:", itemToDispense);
                 return;
             }
 
-            statusMessageElement.textContent = `Processing request for ${itemToDispense.productName}... Please wait.`;
-            statusMessageElement.style.color = 'blue';
+            statusMessageElement.textContent = `Processing your order for ${itemToDispense.productName}...`;
+            statusMessageElement.className = 'info';
             submitButton.disabled = true;
-            submitButton.style.backgroundColor = '#ccc'; 
+            submitButton.style.opacity = '0.7'; // Visual feedback for disabled
 
             try {
-                // IMPORTANT: Replace this with your ACTUAL Cloudflare Worker URL!
-                const workerUrl = 'https://auhydis-vending-api.auhydis-api.workers.dev/'; // YOUR WORKER URL
+                // IMPORTANT: Ensure this is your ACTUAL Cloudflare Worker URL!
+                const workerUrl = 'https://auhydis-vending-api.auhydis-api.workers.dev/'; 
 
                 const response = await fetch(workerUrl, {
                     method: 'POST',
@@ -60,35 +56,34 @@
                 if (response.ok) {
                     const data = await response.json(); 
                     statusMessageElement.textContent = data.message || "Dispense signal sent! Your item is being vended.";
-                    statusMessageElement.style.color = 'green';
+                    statusMessageElement.className = 'success';
 
-                    // Clear the cart from localStorage after successful signal to Worker
                     localStorage.removeItem('auhydisCart'); 
                     console.log("Cart cleared from localStorage after successful dispense signal.");
-                    displayCartOnCheckout(); // Update the cart display on this page to show it's empty
+                    displayCartOnCheckout(); // Update the cart display on this page
 
                     setTimeout(() => {
                         window.location.href = 'success.html';
                     }, 3000); 
 
                 } else {
-                    let errorMessage = `Failed to trigger motor. Status: ${response.status}`;
+                    let errorMessage = `Failed to dispense. Status: ${response.status}`;
                     try {
                         const errorData = await response.json();
                         errorMessage = errorData.message || errorMessage;
                     } catch (e) { /* Ignore if response is not JSON */ }
                     
                     statusMessageElement.textContent = errorMessage;
-                    statusMessageElement.style.color = 'red';
+                    statusMessageElement.className = 'error';
                     submitButton.disabled = false; 
-                    submitButton.style.backgroundColor = ''; 
+                    submitButton.style.opacity = '1'; 
                 }
             } catch (error) {
-                console.error("Error triggering motor:", error);
-                statusMessageElement.textContent = "Error: Could not connect to the dispense service. Please check your internet connection.";
-                statusMessageElement.style.color = 'red';
+                console.error("Error during dispense process:", error);
+                statusMessageElement.textContent = "Error: Could not connect to service. Please check your internet and try again.";
+                statusMessageElement.className = 'error';
                 submitButton.disabled = false; 
-                submitButton.style.backgroundColor = ''; 
+                submitButton.style.opacity = '1'; 
             }
         }
 
@@ -101,7 +96,7 @@
                 return;
             }
 
-            const savedCart = localStorage.getItem('auhydisCart'); // Use the specific key
+            const savedCart = localStorage.getItem('auhydisCart'); 
             let cart = [];
             if (savedCart) {
                 cart = JSON.parse(savedCart);
@@ -118,16 +113,28 @@
                 });
                 totalPriceElement.textContent = `Total: ₱${total.toFixed(2)}`;
             } else {
-                cartItemsElement.innerHTML = '<li>Your cart is now empty.</li>'; // Updated message
+                cartItemsElement.innerHTML = '<li>Your cart is empty. Go back to select an item.</li>';
                 totalPriceElement.textContent = 'Total: ₱0.00';
+                // Optionally disable the submit button if cart is empty after an operation
+                const submitButton = document.getElementById("submitPayment");
+                if(submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.style.opacity = '0.7';
+                }
             }
         }
 
         document.addEventListener("DOMContentLoaded", function() {
-            displayCartOnCheckout(); // Display cart items when checkout page loads
+            displayCartOnCheckout(); 
 
             const submitButton = document.getElementById("submitPayment");
             if (submitButton) {
+                // If cart is initially empty, disable the button
+                const savedCart = localStorage.getItem('auhydisCart');
+                if (!savedCart || JSON.parse(savedCart).length === 0) {
+                    submitButton.disabled = true;
+                    submitButton.style.opacity = '0.7';
+                }
                 submitButton.addEventListener("click", processDispense);
             } else {
                 console.error("Submit Payment button not found on checkout.html during DOMContentLoaded.");
@@ -138,12 +145,13 @@
 
 <body>
     <div class="top-bar" id="top-bar">
-        <a href="index.html"> <img src="images/logo.png" alt="Auhydis Logo">
+        <a href="index.html"> 
+            <img src="images/logo.png" alt="Auhydis Logo">
         </a>
     </div>
 
     <header>
-        <h1>Checkout</h1>
+        <h1>Checkout Your Order</h1>
     </header>
 
     <main>
@@ -155,8 +163,7 @@
 
         <section>
             <button id="submitPayment">Confirm Purchase & Dispense</button>
-            <p id="statusMessage" style="margin-top: 15px; font-weight: bold;"></p>
-        </section>
+            <p id="statusMessage"></p> </section>
     </main>
 
     <footer>
@@ -166,6 +173,5 @@
             <p>Email: nikopaned.official@auhydis.com</p>
         </div>
     </footer>
-    
-    </body>
+</body>
 </html>
