@@ -6,24 +6,31 @@
     <title>Checkout - Auhydis</title>
     <link rel="stylesheet" href="styles.css">
     <script>
+        // This function will handle the logic for processing the dispense
         async function processDispense() {
             const submitButton = document.getElementById("submitPayment");
             const statusMessageElement = document.getElementById("statusMessage");
 
             if (!statusMessageElement || !submitButton) {
-                console.error("Required elements not found in checkout.html!");
-                alert("Error: Page elements missing.");
+                console.error("Required elements (statusMessage or submitPayment button) not found in checkout.html!");
+                alert("Error: Page elements missing. Cannot proceed.");
                 return;
             }
 
             const savedCart = localStorage.getItem('auhydisCart');
             let cartForWorker = [];
             if (savedCart) {
-                cartForWorker = JSON.parse(savedCart);
+                try {
+                    cartForWorker = JSON.parse(savedCart);
+                    if (!Array.isArray(cartForWorker)) cartForWorker = [];
+                } catch (e) {
+                    console.error("Error parsing cart from localStorage for dispense:", e);
+                    cartForWorker = [];
+                }
             }
 
             if (cartForWorker.length === 0) {
-                statusMessageElement.textContent = 'Your cart is empty. Please add items from the machine page.';
+                statusMessageElement.textContent = 'Your cart is empty. Please add items first.';
                 statusMessageElement.className = 'info status-message'; // Added base class
                 return;
             }
@@ -78,20 +85,26 @@
             }
         }
 
+        // This function specifically displays the cart on the checkout page
         function displayCartOnCheckout() {
             const cartItemsElement = document.getElementById('cart-items');
             const totalPriceElement = document.getElementById('total-price');
             
             if (!cartItemsElement || !totalPriceElement) {
-                console.warn("Cart display elements not found on checkout page.");
+                console.warn("Cart display elements not found on checkout page for displayCartOnCheckout.");
                 return;
             }
 
             const savedCart = localStorage.getItem('auhydisCart'); 
-            let cart = []; // Local cart variable for this function
+            let cart = []; 
             if (savedCart) {
-                cart = JSON.parse(savedCart);
-                console.log("Displaying cart on checkout:", cart);
+                try {
+                    cart = JSON.parse(savedCart);
+                    if (!Array.isArray(cart)) cart = []; // Ensure it's an array
+                } catch (e) {
+                    console.error("Error parsing cart from localStorage on checkout:", e);
+                    cart = [];
+                }
             } else {
                 console.log("No cart in localStorage for checkout page display.");
             }
@@ -101,20 +114,21 @@
             if (cart.length > 0) {
                 cart.forEach(item => {
                     const li = document.createElement('li');
-                    
                     const itemDetailsSpan = document.createElement('span');
                     itemDetailsSpan.className = 'item-details';
-                    itemDetailsSpan.textContent = `${item.productName} - ${item.quantity} pcs`;
+                    // Ensure item.productName and item.quantity exist
+                    itemDetailsSpan.textContent = `${item.productName || 'Unknown Item'} - ${item.quantity || 0} pcs`;
             
                     const itemPriceSpan = document.createElement('span');
                     itemPriceSpan.className = 'item-price';
-                    itemPriceSpan.textContent = `₱${(item.price * item.quantity).toFixed(2)}`;
+                    // Ensure item.price and item.quantity are numbers
+                    const itemTotal = (Number(item.price) || 0) * (Number(item.quantity) || 0);
+                    itemPriceSpan.textContent = `₱${itemTotal.toFixed(2)}`;
 
                     li.appendChild(itemDetailsSpan);
                     li.appendChild(itemPriceSpan);
-                    // No remove button on checkout summary, cart is finalized here
                     cartItemsElement.appendChild(li);
-                    total += item.price * item.quantity;
+                    total += itemTotal;
                 });
                 totalPriceElement.textContent = `Total: ₱${total.toFixed(2)}`;
             } else {
@@ -128,14 +142,27 @@
             }
         }
 
+        // This specific DOMContentLoaded listener is for checkout.html's own logic
         document.addEventListener("DOMContentLoaded", function() {
-            console.log("Checkout page DOM loaded. Displaying cart...");
+            console.log("Checkout page DOM loaded. Initializing checkout specific scripts...");
             displayCartOnCheckout(); 
 
             const submitButton = document.getElementById("submitPayment");
             if (submitButton) {
                 const savedCart = localStorage.getItem('auhydisCart');
-                if (!savedCart || JSON.parse(savedCart).length === 0) {
+                let cartIsEmpty = true;
+                if (savedCart) {
+                    try {
+                        if (JSON.parse(savedCart).length === 0) {
+                            cartIsEmpty = true;
+                        } else {
+                            cartIsEmpty = false;
+                        }
+                    } catch (e) {
+                        cartIsEmpty = true;
+                    }
+                }
+                if (cartIsEmpty) {
                     submitButton.disabled = true;
                     submitButton.style.opacity = '0.7';
                 }
@@ -143,17 +170,17 @@
             } else {
                 console.error("Submit Payment button not found on checkout.html.");
             }
+            // The global script.js will handle theme initialization and its button listener.
         });
     </script>
 </head>
 
 <body>
     <div class="top-bar" id="top-bar">
-        <a href="index.html" class="logo-link"> <img src="images/logo.png" alt="Auhydis Logo">
+        <a href="index.html" class="logo-link"> 
+            <img src="images/logo.png" alt="Auhydis Logo">
         </a>
-        <button id="theme-toggle-btn" title="Toggle theme">🌙</button>
-        </a>
-    </div>
+        <button id="theme-toggle-btn" title="Toggle theme">🌙</button> </div>
 
     <header>
         <h1>Confirm Your Order</h1>
@@ -178,5 +205,7 @@
             <p>Email: nikopaned.official@auhydis.com</p>
         </div>
     </footer>
+    
+    <script src="script.js"></script> 
 </body>
 </html>
