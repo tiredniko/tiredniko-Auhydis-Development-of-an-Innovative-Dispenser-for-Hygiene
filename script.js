@@ -1,6 +1,67 @@
-// script.js - Enhanced for multi-item/multi-quantity cart, cart clearing, and fixes (v5)
+// script.js - Enhanced for theme toggle, multi-item/multi-quantity cart, and fixes (v7)
 
 let cart = []; // Initialize cart
+
+// --- Theme Toggle Logic ---
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleButton = document.getElementById('theme-toggle-btn');
+    const body = document.body;
+
+    // Function to apply the saved or preferred theme
+    function applyTheme(theme) {
+        if (theme === "dark") {
+            body.classList.add("dark-theme");
+            if (themeToggleButton) themeToggleButton.textContent = "☀️"; // Sun icon
+        } else {
+            body.classList.remove("dark-theme");
+            if (themeToggleButton) themeToggleButton.textContent = "🌙"; // Moon icon
+        }
+    }
+
+    // Function to toggle the theme
+    function toggleTheme() {
+        let newTheme;
+        if (body.classList.contains("dark-theme")) {
+            newTheme = "light";
+        } else {
+            newTheme = "dark";
+        }
+        localStorage.setItem('auhydisTheme', newTheme);
+        applyTheme(newTheme);
+    }
+
+    // Initialize theme on page load
+    const savedTheme = localStorage.getItem('auhydisTheme');
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    } else {
+        // Optional: Check system preference if no theme is saved
+        // const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        // if (prefersDark) {
+        //     applyTheme("dark");
+        // } else {
+        //     applyTheme("light");
+        // }
+        applyTheme("light"); // Default to light if no preference saved and not checking system
+    }
+
+    // Add event listener to the toggle button
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', toggleTheme);
+    }
+
+    // --- End Theme Toggle Logic ---
+
+    // --- Existing Cart and Scroll Logic ---
+    loadCart(); // Load cart on page load
+
+    const topBar = document.getElementById('top-bar'); // Define topBar here for scroll function
+    if (topBar && window.scrollY <= 100) { // Ensure it's visible on load if not scrolled
+        topBar.style.display = 'flex';
+    }
+    // --- End Existing Cart and Scroll Logic ---
+});
+
 
 // Function to hide top bar on scroll
 window.onscroll = function () {
@@ -9,7 +70,7 @@ window.onscroll = function () {
     if (window.scrollY > 100) {
         topBar.style.display = 'none';
     } else {
-        topBar.style.display = 'flex';
+        topBar.style.display = 'flex'; 
     }
 };
 
@@ -44,14 +105,12 @@ function addToCart(productName, price, quantity, productId) {
     const existingProductIndex = cart.findIndex(item => item.productId === productId);
 
     if (existingProductIndex !== -1) {
-        // If product already in cart, update its quantity
         cart[existingProductIndex].quantity = quantity; 
-        if (cart[existingProductIndex].quantity > 5) { // Enforce max quantity again
+        if (cart[existingProductIndex].quantity > 5) {
             cart[existingProductIndex].quantity = 5;
         }
         console.log(`Updated quantity for ${productName} (ID: ${productId}) to ${cart[existingProductIndex].quantity}`);
     } else {
-        // Add new product to cart
         cart.push({ productName, price, quantity, productId });
         console.log(`${productName} (ID: ${productId}) added to cart.`);
     }
@@ -127,27 +186,14 @@ function removeFromCart(productIdToRemove) {
     displayCart();
 }
 
-// This function will be called from checkout.html after a successful dispense signal
-function clearCartAfterCheckout() {
-    console.log("Clearing cart from localStorage after checkout.");
-    cart = []; // Clear in-memory cart
-    localStorage.removeItem('auhydisCart'); // Clear stored cart
-    // displayCart(); // No need to call displayCart here, checkout.html handles its own UI update
-}
-
 function checkout() {
     if (cart.length === 0) {
         alert("Your cart is empty. Please add an item to proceed.");
         return;
     }
-    // The cart is already saved in localStorage by addToCart/removeFromCart.
-    // checkout.html will load it from localStorage.
     console.log("Proceeding to checkout with cart:", cart);
     window.location.href = 'checkout.html';
 }
 
-// Load cart when any page loads that includes this script
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded and parsed. Loading cart...");
-    loadCart(); 
-});
+// Note: The DOMContentLoaded listener now also initializes the theme.
+// The `submitPayment` logic specific to checkout.html is embedded in that file.
