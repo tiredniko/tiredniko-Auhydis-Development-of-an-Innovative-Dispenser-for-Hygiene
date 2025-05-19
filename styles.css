@@ -37,12 +37,12 @@ body > *:not(.top-bar) {
 
 header {
     text-align: center;
-    padding: 10px 20px; /* Added some padding */
+    padding: 10px 20px; 
 }
 
 header h1 {
     margin: 20px 0 10px 0; 
-    font-size: 2em; /* Responsive font size */
+    font-size: 2em; 
     color: #333; 
 }
 header p {
@@ -53,18 +53,18 @@ header p {
 
 main {
     flex: 1; 
-    padding: 0 20px 20px 20px; /* Consistent padding */
-    max-width: 1200px; /* Max width for content */
-    margin-left: auto; /* Center content */
-    margin-right: auto; /* Center content */
+    padding: 0 20px 20px 20px; 
+    max-width: 1200px; 
+    margin-left: auto; 
+    margin-right: auto; 
     width: 100%;
     box-sizing: border-box;
 }
 
 section {
     text-align: center;
-    margin-bottom: 30px; /* Increased margin between sections */
-    background-color: #ffffff; /* White background for sections */
+    margin-bottom: 30px; 
+    background-color: #ffffff; 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -81,7 +81,7 @@ section h2 {
 .machine-list,
 .product-list {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-around; /* Distributes space around items */
     flex-wrap: wrap;
     gap: 20px; /* Adds space between items */
 }
@@ -89,22 +89,22 @@ section h2 {
 .machine,
 .product {
     background-color: #ffffff;
-    border: 1px solid #e0e0e0; /* Lighter border */
-    border-radius: 10px; /* Softer radius */
+    border: 1px solid #e0e0e0; 
+    border-radius: 10px; 
     padding: 20px;
-    margin: 0; /* Removed margin as gap handles spacing */
-    width: 250px; /* Slightly wider */
+    margin: 0; /* gap handles spacing */
+    width: 250px; /* Fixed width for product cards */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); 
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* Pushes button to bottom */
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .machine:hover,
-.product:hover {
+.product:hover:not(.unavailable) { /* Hover effect only for available products */
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
@@ -112,83 +112,83 @@ section h2 {
 .machine img,
 .product img {
     max-width: 100%;
-    height: 150px; /* Fixed height for images */
-    object-fit: contain; /* Ensures image fits well, use 'cover' if you prefer cropping */
-    border-radius: 8px; /* Softer radius for images */
+    height: 150px; 
+    object-fit: contain; 
+    border-radius: 8px; 
     display: block;
-    margin: 0 auto 15px auto; /* Center image and add margin below */
+    margin: 0 auto 15px auto; 
 }
 
 .machine h3,
-.product h2 { /* Product uses h2, machine h3 */
+.product h2 { 
     font-size: 1.25em;
     margin: 0 0 10px 0;
     color: #333;
-}
-.product h2 { /* Specific for product name */
-    min-height: 2.5em; /* Ensure space for two lines */
+    min-height: 2.5em; /* Ensure space for two lines for product names */
 }
 
-
-.machine p, /* For machine status if any */
-.product p { /* For price and description */
-    font-size: 0.95em;
+.product p { /* For description */
+    font-size: 0.90em; /* Slightly smaller description */
     color: #555;
-    margin: 5px 0;
-    flex-grow: 1; /* Allows description to take available space */
+    margin: 5px 0 10px 0; /* Add margin below description */
+    flex-grow: 1; 
+    line-height: 1.4;
 }
-.product p.price {
+.product p.price { /* For price */
     font-weight: bold;
     color: #007bff;
     font-size: 1.1em;
     margin-bottom: 10px;
+    flex-grow: 0; /* Price should not grow */
 }
 
 
 .machine a, /* For "View Machine" / "Machine Offline" */
-.product button { /* For "Add to Cart" */
+.product button.add-to-cart-btn { /* Specific class for "Add to Cart" */
     display: inline-block;
     background-color: #007bff;
     color: white;
-    padding: 12px 15px; /* Slightly more padding */
+    padding: 12px 15px; 
     border-radius: 5px;
     text-decoration: none;
-    margin-top: 15px; /* More space above button */
-    border: none; /* For buttons */
-    cursor: pointer; /* For buttons */
+    margin-top: 15px; 
+    border: none; 
+    cursor: pointer; 
     font-size: 1em;
     transition: background-color 0.2s ease;
+    width: 100%; /* Make button full width of its container */
+    box-sizing: border-box;
 }
 
 .machine a:hover,
-.product button:hover {
+.product button.add-to-cart-btn:hover {
     background-color: #0056b3;
 }
 
-.machine a.offline,
-.product.unavailable button { /* Style for unavailable product button */
-    background-color: #6c757d !important; /* Gray for offline/unavailable */
+.machine a.offline {
+    background-color: #6c757d !important; 
     cursor: not-allowed !important;
 }
-.machine a.offline:hover,
-.product.unavailable button:hover {
+.machine a.offline:hover {
     background-color: #5a6268 !important;
 }
 
 /* Styles for unavailable products */
 .product.unavailable {
-    opacity: 0.6; /* Darken out */
-    pointer-events: none; /* Disable clicks on the whole card */
-}
-
-.product.unavailable .quantity-control button,
-.product.unavailable button[onclick^="addToCart"] {
-    background-color: #6c757d;
-    cursor: not-allowed;
-    pointer-events: none; /* Explicitly disable pointer events on buttons inside */
+    opacity: 0.5; /* Darken out more */
+    background-color: #f8f9fa; /* Slightly different background */
 }
 .product.unavailable img {
-    filter: grayscale(80%);
+    filter: grayscale(100%); /* Fully grayscale */
+}
+.product.unavailable .quantity-control button,
+.product.unavailable button.add-to-cart-btn {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    pointer-events: none; 
+}
+.product.unavailable button.add-to-cart-btn { /* For the main button */
+    content: "Unavailable"; /* This won't work directly, button text needs to be changed in HTML */
 }
 
 
@@ -197,21 +197,26 @@ section h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 10px 0;
+    margin: 15px 0; /* Increased margin */
 }
 
 .quantity-control button {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 8px 12px; /* Adjusted padding */
+    padding: 8px 12px; 
     border-radius: 5px;
-    font-size: 1.1em; /* Slightly larger font */
+    font-size: 1.1em; 
     cursor: pointer;
-    line-height: 1; /* Ensure consistent button height */
+    line-height: 1; 
+}
+.product.unavailable .quantity-control button { /* Ensure unavailable quantity buttons are also styled */
+    background-color: #adb5bd;
+    cursor: not-allowed;
 }
 
-.quantity-control button:hover {
+
+.quantity-control button:hover:not([disabled]) { /* Hover only if not disabled */
     background-color: #0056b3;
 }
 
@@ -226,21 +231,23 @@ section h2 {
 
 /* Shopping Cart & Checkout Summary Styles */
 .cart, 
-#checkout-summary { /* Added ID for checkout summary section if needed */
-    background-color: #f8f9fa; /* Light background for cart/summary */
-    padding: 20px;
+#checkout-summary { 
+    background-color: #ffffff; /* White background for better contrast */
+    padding: 25px; /* Increased padding */
     border-radius: 8px;
     margin-top: 30px;
     border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Softer shadow */
 }
 
 .cart h2,
 #checkout-summary h2 {
     margin-top: 0;
-    color: #333;
+    color: #007bff; /* Blue heading for cart/summary */
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* More space below heading */
+    font-size: 1.5em;
 }
 
 #cart-items {
@@ -250,27 +257,28 @@ section h2 {
 }
 
 #cart-items li {
-    padding: 10px 0;
-    border-bottom: 1px dashed #ccc;
+    padding: 12px 5px; /* Increased padding, less horizontal */
+    border-bottom: 1px solid #e9ecef; /* Lighter dashed border */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.95em;
+    font-size: 1em; /* Slightly larger font */
 }
 
 #cart-items li:last-child {
     border-bottom: none;
 }
 
-#cart-items li button.remove-item { /* Specific class for remove button */
+#cart-items li button.remove-item { 
     background-color: #dc3545;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 6px 12px; /* Adjusted padding */
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.8em;
-    margin-left: 10px;
+    font-size: 0.85em;
+    margin-left: 15px; /* More space */
+    transition: background-color 0.2s ease;
 }
 #cart-items li button.remove-item:hover {
     background-color: #c82333;
@@ -279,15 +287,17 @@ section h2 {
 
 #total-price {
     font-weight: bold;
-    font-size: 1.2em;
+    font-size: 1.3em; /* Larger total price */
     text-align: right;
-    margin-top: 15px;
+    margin-top: 20px;
     color: #333;
+    padding-top: 10px;
+    border-top: 2px solid #007bff;
 }
 
-.cart button[onclick="checkout()"], /* Cart checkout button */
-#submitPayment { /* Checkout page submit button */
-    background-color: #28a745; /* Green for checkout/submit */
+.cart button[onclick="checkout()"], 
+#submitPayment { 
+    background-color: #28a745; 
     color: white;
     padding: 12px 25px;
     border: none;
@@ -295,35 +305,54 @@ section h2 {
     font-size: 1.1em;
     cursor: pointer;
     margin-top: 20px;
-    width: auto; /* Or 100% if you want full width */
+    width: auto; 
     display: inline-block;
+    transition: background-color 0.2s ease;
 }
 
 .cart button[onclick="checkout()"]:hover,
-#submitPayment:hover {
+#submitPayment:hover:not([disabled]) { /* Hover only if not disabled */
     background-color: #218838;
 }
 
 #submitPayment:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
+    opacity: 0.7;
 }
 
 #statusMessage {
     margin-top: 20px;
     font-weight: bold;
     font-size: 1em;
+    padding: 10px;
+    border-radius: 5px;
+}
+#statusMessage.success { /* Example class for success messages */
+    color: green;
+    background-color: #e6ffed;
+    border: 1px solid #5cb85c;
+}
+#statusMessage.error { /* Example class for error messages */
+    color: red;
+    background-color: #fdeded;
+    border: 1px solid #dc3545;
+}
+#statusMessage.info { /* Example class for info messages */
+    color: blue;
+    background-color: #e7f3fe;
+    border: 1px solid #007bff;
 }
 
 
 /* Footer Styles */
 footer {
-    background-color: #343a40; /* Darker footer */
+    background-color: #343a40; 
     padding: 20px; 
     width: 100%; 
     text-align: center;
     margin-top: auto; 
-    color: #f8f9fa; /* Lighter text for contrast */
+    color: #f8f9fa; 
     box-sizing: border-box;
 }
 
@@ -331,13 +360,16 @@ footer {
     font-size: 0.9em; 
     margin: 0 auto; 
     max-width: 800px; 
-    padding: 0; /* Removed extra padding */
+    padding: 0; 
 }
 .contact-info p {
     margin: 5px 0;
 }
 
 /* Offline page specific */
+.offline-message-section { /* Added class to section for better targeting */
+    padding: 30px;
+}
 .offline-message-section p {
     font-size: 1.2em;
     margin-bottom: 20px;
@@ -348,14 +380,12 @@ footer {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
+    transition: background-color 0.2s ease;
 }
 .offline-message-section a:hover {
     background-color: #0056b3;
 }
 
-/* Ensure no conflicting styles for payment buttons from previous versions if they existed */
-.payment-buttons {
-    display: none; /* Hide if not used or reimplemented */
 }
 #card-details {
     display: none; /* Hide if not used or reimplemented */
