@@ -1,69 +1,52 @@
-// script.js - Enhanced for theme toggle, multi-item/multi-quantity cart, and fixes (v7)
+// script.js - Enhanced for robust theme toggle, multi-item/multi-quantity cart (v8)
 
 let cart = []; // Initialize cart
 
 // --- Theme Toggle Logic ---
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggleButton = document.getElementById('theme-toggle-btn');
+function applyTheme(theme) {
     const body = document.body;
+    const themeToggleButton = document.getElementById('theme-toggle-btn');
 
-    // Function to apply the saved or preferred theme
-    function applyTheme(theme) {
-        if (theme === "dark") {
-            body.classList.add("dark-theme");
-            if (themeToggleButton) themeToggleButton.textContent = "☀️"; // Sun icon
-        } else {
-            body.classList.remove("dark-theme");
-            if (themeToggleButton) themeToggleButton.textContent = "🌙"; // Moon icon
-        }
+    if (theme === "dark") {
+        body.classList.add("dark-theme");
+        if (themeToggleButton) themeToggleButton.textContent = "☀️"; // Sun icon
+    } else {
+        body.classList.remove("dark-theme");
+        if (themeToggleButton) themeToggleButton.textContent = "🌙"; // Moon icon
     }
+    console.log(`Theme applied: ${theme}`);
+}
 
-    // Function to toggle the theme
-    function toggleTheme() {
-        let newTheme;
-        if (body.classList.contains("dark-theme")) {
-            newTheme = "light";
-        } else {
-            newTheme = "dark";
-        }
-        localStorage.setItem('auhydisTheme', newTheme);
-        applyTheme(newTheme);
+function toggleTheme() {
+    const body = document.body;
+    let newTheme;
+    if (body.classList.contains("dark-theme")) {
+        newTheme = "light";
+    } else {
+        newTheme = "dark";
     }
+    localStorage.setItem('auhydisTheme', newTheme);
+    applyTheme(newTheme);
+    console.log(`Theme toggled to: ${newTheme}`);
+}
 
-    // Initialize theme on page load
+function initializeTheme() {
     const savedTheme = localStorage.getItem('auhydisTheme');
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    console.log(`Saved theme: ${savedTheme}, System prefers dark: ${prefersDark}`);
+
     if (savedTheme) {
         applyTheme(savedTheme);
+    } else if (prefersDark) {
+        applyTheme("dark"); // Default to system dark mode if no preference saved
     } else {
-        // Optional: Check system preference if no theme is saved
-        // const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        // if (prefersDark) {
-        //     applyTheme("dark");
-        // } else {
-        //     applyTheme("light");
-        // }
-        applyTheme("light"); // Default to light if no preference saved and not checking system
+        applyTheme("light"); // Default to light
     }
-
-    // Add event listener to the toggle button
-    if (themeToggleButton) {
-        themeToggleButton.addEventListener('click', toggleTheme);
-    }
-
-    // --- End Theme Toggle Logic ---
-
-    // --- Existing Cart and Scroll Logic ---
-    loadCart(); // Load cart on page load
-
-    const topBar = document.getElementById('top-bar'); // Define topBar here for scroll function
-    if (topBar && window.scrollY <= 100) { // Ensure it's visible on load if not scrolled
-        topBar.style.display = 'flex';
-    }
-    // --- End Existing Cart and Scroll Logic ---
-});
+}
+// --- End Theme Toggle Logic ---
 
 
-// Function to hide top bar on scroll
+// --- Scroll and Cart Logic ---
 window.onscroll = function () {
     const topBar = document.getElementById('top-bar');
     if (!topBar) return;
@@ -128,7 +111,16 @@ function saveCart() {
 function loadCart() {
     const savedCart = localStorage.getItem('auhydisCart');
     if (savedCart) {
-        cart = JSON.parse(savedCart);
+        try {
+            cart = JSON.parse(savedCart);
+            if (!Array.isArray(cart)) { // Basic validation
+                console.warn('Loaded cart is not an array, resetting.');
+                cart = [];
+            }
+        } catch (e) {
+            console.error('Error parsing saved cart from localStorage, resetting cart.', e);
+            cart = [];
+        }
         console.log('Loaded cart from localStorage:', cart);
     } else {
         cart = []; 
@@ -142,6 +134,8 @@ function displayCart() {
     const totalPriceElement = document.getElementById('total-price');
 
     if (!cartItemsElement || !totalPriceElement) {
+        // These elements might not exist on all pages (e.g., index.html might not have a visible cart)
+        // console.log("Cart display elements not found on this page. Skipping displayCart().");
         return; 
     }
 
@@ -195,5 +189,33 @@ function checkout() {
     window.location.href = 'checkout.html';
 }
 
-// Note: The DOMContentLoaded listener now also initializes the theme.
-// The `submitPayment` logic specific to checkout.html is embedded in that file.
+// This function is now primarily called from checkout.html after a successful dispense signal
+// by directly removing the item from localStorage and then calling displayCartOnCheckout().
+// However, having it here might be useful for other contexts if needed.
+function clearCartAndStorage() {
+    console.log("Clearing cart and localStorage (called from script.js).");
+    cart = []; 
+    localStorage.removeItem('auhydisCart'); 
+    displayCart(); 
+}
+
+// --- Main Initialization on DOMContentLoaded ---
+document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM fully loaded and parsed. Initializing script.js...");
+    
+    initializeTheme(); // Apply theme on load
+    
+    const themeToggleButton = document.getElementById('theme-toggle-btn');
+    if (themeToggleButton) {
+        themeToggleButton.addEventListener('click', toggleTheme);
+    } else {
+        console.warn("Theme toggle button not found on this page.");
+    }
+
+    // Load cart if cart elements are present (e.g., on machine1.html or checkout.html)
+    // The displayCart() function itself checks for the existence of cart-items and total-price elements.
+    loadCart(); 
+
+    // The submitPayment button logic is specific to checkout.html and handled by its embedded script.
+    // Other page-specific initializations could go here if needed.
+});
