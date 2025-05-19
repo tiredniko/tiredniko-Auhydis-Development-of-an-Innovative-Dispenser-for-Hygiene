@@ -23,13 +23,13 @@
             }
 
             if (cartForWorker.length === 0) {
-                statusMessageElement.textContent = 'Your cart is empty. Please add items first.';
-                statusMessageElement.className = 'info';
+                statusMessageElement.textContent = 'Your cart is empty. Please add items from the machine page.';
+                statusMessageElement.className = 'info status-message'; // Added base class
                 return;
             }
             
             statusMessageElement.textContent = `Processing your order... Please wait.`;
-            statusMessageElement.className = 'info';
+            statusMessageElement.className = 'info status-message';
             submitButton.disabled = true;
             submitButton.style.opacity = '0.7'; 
 
@@ -37,25 +37,25 @@
                 // IMPORTANT: Ensure this is your ACTUAL Cloudflare Worker URL!
                 const workerUrl = 'https://auhydis-vending-api.auhydis-api.workers.dev/'; 
 
-                // Send the entire cart (array of items) to the worker
+                console.log("Sending cart to worker:", cartForWorker);
                 const response = await fetch(workerUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ cart: cartForWorker }) // Send the whole cart
+                    body: JSON.stringify({ cart: cartForWorker }) // Send the whole cart array
                 });
 
                 if (response.ok) {
                     const data = await response.json(); 
                     statusMessageElement.textContent = data.message || "Dispense signals sent! Your items are being vended.";
-                    statusMessageElement.className = 'success';
+                    statusMessageElement.className = 'success status-message';
 
                     localStorage.removeItem('auhydisCart'); 
                     console.log("Cart cleared from localStorage after successful dispense signal.");
-                    displayCartOnCheckout(); 
+                    displayCartOnCheckout(); // Update the cart display on this page
 
                     setTimeout(() => {
                         window.location.href = 'success.html';
-                    }, 4000); // Slightly longer to read message
+                    }, 4000); 
 
                 } else {
                     let errorMessage = `Failed to process order. Status: ${response.status}`;
@@ -65,14 +65,14 @@
                     } catch (e) { /* Ignore if response is not JSON */ }
                     
                     statusMessageElement.textContent = errorMessage;
-                    statusMessageElement.className = 'error';
+                    statusMessageElement.className = 'error status-message';
                     submitButton.disabled = false; 
                     submitButton.style.opacity = '1'; 
                 }
             } catch (error) {
                 console.error("Error during dispense process:", error);
                 statusMessageElement.textContent = "Error: Could not connect to service. Please check your internet and try again.";
-                statusMessageElement.className = 'error';
+                statusMessageElement.className = 'error status-message';
                 submitButton.disabled = false; 
                 submitButton.style.opacity = '1'; 
             }
@@ -88,16 +88,20 @@
             }
 
             const savedCart = localStorage.getItem('auhydisCart'); 
-            let cart = [];
+            let cart = []; // Local cart variable for this function
             if (savedCart) {
                 cart = JSON.parse(savedCart);
+                console.log("Displaying cart on checkout:", cart);
+            } else {
+                console.log("No cart in localStorage for checkout page display.");
             }
 
             cartItemsElement.innerHTML = ''; 
             let total = 0;
-            if (cart._length_ > 0) { // Corrected from cart.length to cart._length_ based on previous error, but should be cart.length
+            if (cart.length > 0) {
                 cart.forEach(item => {
                     const li = document.createElement('li');
+                    
                     const itemDetailsSpan = document.createElement('span');
                     itemDetailsSpan.className = 'item-details';
                     itemDetailsSpan.textContent = `${item.productName} - ${item.quantity} pcs`;
@@ -108,6 +112,7 @@
 
                     li.appendChild(itemDetailsSpan);
                     li.appendChild(itemPriceSpan);
+                    // No remove button on checkout summary, cart is finalized here
                     cartItemsElement.appendChild(li);
                     total += item.price * item.quantity;
                 });
@@ -124,6 +129,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", function() {
+            console.log("Checkout page DOM loaded. Displaying cart...");
             displayCartOnCheckout(); 
 
             const submitButton = document.getElementById("submitPayment");
@@ -149,7 +155,8 @@
     </div>
 
     <header>
-        <h1>Confirm Your Order</h1> </header>
+        <h1>Confirm Your Order</h1>
+    </header>
 
     <main>
         <section id="checkout-summary">
@@ -160,8 +167,7 @@
 
         <section>
             <button id="submitPayment">Confirm Purchase & Dispense All</button>
-            <p id="statusMessage"></p>
-        </section>
+            <p id="statusMessage" class="status-message"></p> </section>
     </main>
 
     <footer>
