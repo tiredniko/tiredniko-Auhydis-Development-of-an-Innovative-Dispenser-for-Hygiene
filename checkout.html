@@ -6,7 +6,6 @@
     <title>Checkout - Auhydis</title>
     <link rel="stylesheet" href="styles.css">
     <script>
-        // This function will handle the logic for processing the dispense
         async function processDispense() {
             const submitButton = document.getElementById("submitPayment");
             const statusMessageElement = document.getElementById("statusMessage");
@@ -31,24 +30,28 @@
 
             if (cartForWorker.length === 0) {
                 statusMessageElement.textContent = 'Your cart is empty. Please add items first.';
-                statusMessageElement.className = 'info status-message'; // Added base class
+                statusMessageElement.className = 'info status-message'; 
                 return;
             }
             
+            // Assuming one item type in cart for current vending logic, send its productId
+            // If you have multiple items, the worker and Arduino need to handle a list.
+            // For now, let's assume the `cartForWorker` is what the Worker expects (e.g., an array of items)
+            // const productIdToDispense = cartForWorker[0].productId; 
+
             statusMessageElement.textContent = `Processing your order... Please wait.`;
             statusMessageElement.className = 'info status-message';
             submitButton.disabled = true;
             submitButton.style.opacity = '0.7'; 
 
             try {
-                // IMPORTANT: Ensure this is your ACTUAL Cloudflare Worker URL!
-                const workerUrl = 'https://auhydis-vending-api.auhydis-api.workers.dev/'; 
+                const workerUrl = 'https://auhydis-vending-api.auhydis-api.workers.dev/'; // YOUR WORKER URL
 
                 console.log("Sending cart to worker:", cartForWorker);
                 const response = await fetch(workerUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ cart: cartForWorker }) // Send the whole cart array
+                    body: JSON.stringify({ cart: cartForWorker }) // Sending the whole cart as per latest Worker
                 });
 
                 if (response.ok) {
@@ -58,7 +61,7 @@
 
                     localStorage.removeItem('auhydisCart'); 
                     console.log("Cart cleared from localStorage after successful dispense signal.");
-                    displayCartOnCheckout(); // Update the cart display on this page
+                    displayCartOnCheckout(); 
 
                     setTimeout(() => {
                         window.location.href = 'success.html';
@@ -85,13 +88,13 @@
             }
         }
 
-        // This function specifically displays the cart on the checkout page
         function displayCartOnCheckout() {
             const cartItemsElement = document.getElementById('cart-items');
             const totalPriceElement = document.getElementById('total-price');
+            const paymentInstructionElement = document.getElementById('payment-instruction'); // Get the new element
             
-            if (!cartItemsElement || !totalPriceElement) {
-                console.warn("Cart display elements not found on checkout page for displayCartOnCheckout.");
+            if (!cartItemsElement || !totalPriceElement || !paymentInstructionElement) {
+                console.warn("Cart display or payment instruction elements not found on checkout page.");
                 return;
             }
 
@@ -100,13 +103,11 @@
             if (savedCart) {
                 try {
                     cart = JSON.parse(savedCart);
-                    if (!Array.isArray(cart)) cart = []; // Ensure it's an array
+                    if (!Array.isArray(cart)) cart = []; 
                 } catch (e) {
                     console.error("Error parsing cart from localStorage on checkout:", e);
                     cart = [];
                 }
-            } else {
-                console.log("No cart in localStorage for checkout page display.");
             }
 
             cartItemsElement.innerHTML = ''; 
@@ -116,12 +117,10 @@
                     const li = document.createElement('li');
                     const itemDetailsSpan = document.createElement('span');
                     itemDetailsSpan.className = 'item-details';
-                    // Ensure item.productName and item.quantity exist
                     itemDetailsSpan.textContent = `${item.productName || 'Unknown Item'} - ${item.quantity || 0} pcs`;
             
                     const itemPriceSpan = document.createElement('span');
                     itemPriceSpan.className = 'item-price';
-                    // Ensure item.price and item.quantity are numbers
                     const itemTotal = (Number(item.price) || 0) * (Number(item.quantity) || 0);
                     itemPriceSpan.textContent = `₱${itemTotal.toFixed(2)}`;
 
@@ -131,9 +130,16 @@
                     total += itemTotal;
                 });
                 totalPriceElement.textContent = `Total: ₱${total.toFixed(2)}`;
+                paymentInstructionElement.textContent = "(Please pay at the counter)"; // Show payment instruction
+                const submitButton = document.getElementById("submitPayment");
+                if(submitButton) { // Re-enable button if cart has items
+                    submitButton.disabled = false;
+                    submitButton.style.opacity = '1';
+                }
             } else {
                 cartItemsElement.innerHTML = '<li>Your cart is empty. Go back to select an item.</li>';
                 totalPriceElement.textContent = 'Total: ₱0.00';
+                paymentInstructionElement.textContent = ""; // Clear payment instruction if cart is empty
                 const submitButton = document.getElementById("submitPayment");
                 if(submitButton) {
                     submitButton.disabled = true;
@@ -142,35 +148,17 @@
             }
         }
 
-        // This specific DOMContentLoaded listener is for checkout.html's own logic
         document.addEventListener("DOMContentLoaded", function() {
             console.log("Checkout page DOM loaded. Initializing checkout specific scripts...");
             displayCartOnCheckout(); 
 
             const submitButton = document.getElementById("submitPayment");
             if (submitButton) {
-                const savedCart = localStorage.getItem('auhydisCart');
-                let cartIsEmpty = true;
-                if (savedCart) {
-                    try {
-                        if (JSON.parse(savedCart).length === 0) {
-                            cartIsEmpty = true;
-                        } else {
-                            cartIsEmpty = false;
-                        }
-                    } catch (e) {
-                        cartIsEmpty = true;
-                    }
-                }
-                if (cartIsEmpty) {
-                    submitButton.disabled = true;
-                    submitButton.style.opacity = '0.7';
-                }
+                // Initial check for button state is handled by displayCartOnCheckout
                 submitButton.addEventListener("click", processDispense);
             } else {
                 console.error("Submit Payment button not found on checkout.html.");
             }
-            // The global script.js will handle theme initialization and its button listener.
         });
     </script>
 </head>
@@ -180,7 +168,8 @@
         <a href="index.html" class="logo-link"> 
             <img src="images/logo.png" alt="Auhydis Logo">
         </a>
-        <button id="theme-toggle-btn" title="Toggle theme">🌙</button> </div>
+        <button id="theme-toggle-btn" title="Toggle theme">🌙</button>
+    </div>
 
     <header>
         <h1>Confirm Your Order</h1>
@@ -190,12 +179,14 @@
         <section id="checkout-summary">
             <h2>Order Summary</h2>
             <ul id="cart-items"></ul> 
-            <p id="total-price"></p> 
+            <div class="total-section"> <p id="total-price">Total: ₱0.00</p> 
+                <p id="payment-instruction" class="payment-instruction-text">(Please pay at the counter)</p> </div>
         </section>
 
         <section>
             <button id="submitPayment">Confirm Purchase & Dispense All</button>
-            <p id="statusMessage" class="status-message"></p> </section>
+            <p id="statusMessage" class="status-message"></p>
+        </section>
     </main>
 
     <footer>
