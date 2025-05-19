@@ -1,4 +1,4 @@
-/* styles.css (v7 - Dark/Light Theme) */
+/* styles.css (v7.3 - Dark/Light Theme) */
 
 /* Define color variables for Light Theme (default) */
 :root {
@@ -534,3 +534,44 @@ footer {
 .offline-message-section a:hover {
     background-color: var(--accent-primary-hover);
 }
+/* Add these new styles to your existing styles.css */
+
+/* ... (all your existing styles.css content) ... */
+
+/* Styles for the total and payment instruction section in checkout */
+.total-section {
+    text-align: right; /* Aligns both total and instruction to the right */
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid var(--accent-primary); /* Use existing variable */
+}
+
+#total-price {
+    font-weight: bold;
+    font-size: 1.4em; 
+    color: var(--accent-primary); 
+    margin-bottom: 5px; /* Add some space below the total */
+    /* Removed margin-top and border-top as they are on .total-section now */
+}
+
+.payment-instruction-text {
+    font-size: 0.9em;
+    font-style: italic;
+    color: var(--text-secondary); /* Use existing variable */
+    margin-top: 0; /* Remove default p margin if needed */
+}
+
+/* Ensure status message styling is applied */
+#statusMessage.status-message { /* Ensure base class is targeted if you added it */
+    margin-top: 20px;
+    font-weight: 500;
+    font-size: 1em;
+    padding: 12px 15px;
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid transparent; 
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+/* You should already have the .success, .error, .info styles for statusMessage */
+
+
