@@ -2,10 +2,11 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #d0d0d0; /* Gray background for the middle section */
+    background-color: #f0f0f0; /* Slightly lighter gray for main background */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    color: #333; /* Default text color */
 }
 
 /* Dark gray bar at the top for the logo */
@@ -24,214 +25,172 @@ body {
 }
 
 .top-bar img {
-    height: 40px; /* Adjust this size according to your logo's proportions */
+    height: 40px; 
     margin-right: 20px;
-    cursor: pointer; /* Add pointer cursor to indicate it's clickable */
+    cursor: pointer; 
 }
 
 /* Push the content down to accommodate the fixed top-bar */
 body > *:not(.top-bar) {
-    margin-top: 60px; /* Adjust according to the height of the top-bar */
+    margin-top: 70px; /* Increased slightly to ensure no overlap */
 }
 
 header {
     text-align: center;
+    padding: 10px 20px; /* Added some padding */
 }
 
 header h1 {
-    margin: 20px 0; /* Adjust margin to position heading correctly */
-    font-size: 32px;
-    color: #333; /* Dark gray color for the heading */
+    margin: 20px 0 10px 0; 
+    font-size: 2em; /* Responsive font size */
+    color: #333; 
+}
+header p {
+    font-size: 1em;
+    color: #555;
 }
 
+
 main {
-    flex: 1; /* Allow main content to expand and fill space between header and footer */
+    flex: 1; 
+    padding: 0 20px 20px 20px; /* Consistent padding */
+    max-width: 1200px; /* Max width for content */
+    margin-left: auto; /* Center content */
+    margin-right: auto; /* Center content */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 section {
     text-align: center;
-    margin: 20px;
-}
-
-/* Payment Method Buttons */
-.payment-buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px; /* Space below the buttons */
-}
-
-.payment-button {
-    background-color: #007bff; /* Blue background */
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    margin: 0 10px;
-    cursor: pointer;
-    font-size: 16px;
-    position: relative; /* Ensure tooltip positioning works */
-}
-
-.payment-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-}
-
-.payment-button::after {
-    content: "Offline";
-    position: absolute;
-    bottom: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 12px;
-    white-space: nowrap;
-    display: none; /* Hide by default */
-    opacity: 0.8;
-}
-
-.payment-button:hover::after {
-    display: block; /* Show on hover */
-}
-
-/* Style for the card details section */
-#card-details {
-    display: none; /* Initially hidden */
-    margin: 20px auto;
-    max-width: 600px;
-    background-color: #fff;
+    margin-bottom: 30px; /* Increased margin between sections */
+    background-color: #ffffff; /* White background for sections */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-#card-details h2 {
-    margin: 0 0 20px;
-    font-size: 24px;
+section h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
     color: #333;
 }
 
-#card-details label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
 
-#card-details input,
-#card-details textarea {
-    width: calc(100% - 16px);
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-#card-details button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#card-details button:hover {
-    background-color: #0056b3;
-}
-
-/* Machine List */
-.machine-list {
+/* Machine List & Product List (Shared Styles) */
+.machine-list,
+.product-list {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin: 20px;
+    gap: 20px; /* Adds space between items */
 }
 
-.machine {
+.machine,
+.product {
     background-color: #ffffff;
-    border: 1px solid #d0d0d0;
-    border-radius: 15px;
-    padding: 15px;
-    margin: 10px;
-    width: 220px;
+    border: 1px solid #e0e0e0; /* Lighter border */
+    border-radius: 10px; /* Softer radius */
+    padding: 20px;
+    margin: 0; /* Removed margin as gap handles spacing */
+    width: 250px; /* Slightly wider */
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05); /* Softer shadow */
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.machine img {
+.machine:hover,
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.machine img,
+.product img {
     max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+    height: 150px; /* Fixed height for images */
+    object-fit: contain; /* Ensures image fits well, use 'cover' if you prefer cropping */
+    border-radius: 8px; /* Softer radius for images */
     display: block;
-    margin: 0 auto;
-    max-height: 150px;
+    margin: 0 auto 15px auto; /* Center image and add margin below */
 }
 
-.machine h3 {
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-.machine p {
-    font-size: 16px;
+.machine h3,
+.product h2 { /* Product uses h2, machine h3 */
+    font-size: 1.25em;
+    margin: 0 0 10px 0;
     color: #333;
 }
+.product h2 { /* Specific for product name */
+    min-height: 2.5em; /* Ensure space for two lines */
+}
 
-.machine a {
+
+.machine p, /* For machine status if any */
+.product p { /* For price and description */
+    font-size: 0.95em;
+    color: #555;
+    margin: 5px 0;
+    flex-grow: 1; /* Allows description to take available space */
+}
+.product p.price {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+
+.machine a, /* For "View Machine" / "Machine Offline" */
+.product button { /* For "Add to Cart" */
     display: inline-block;
     background-color: #007bff;
     color: white;
-    padding: 10px;
+    padding: 12px 15px; /* Slightly more padding */
     border-radius: 5px;
     text-decoration: none;
-    margin-top: 10px;
+    margin-top: 15px; /* More space above button */
+    border: none; /* For buttons */
+    cursor: pointer; /* For buttons */
+    font-size: 1em;
+    transition: background-color 0.2s ease;
 }
 
-.machine a:hover {
+.machine a:hover,
+.product button:hover {
     background-color: #0056b3;
 }
 
-/* Increased specificity to ensure offline styling */
-.machine-list .machine a.offline {
-    background-color: #ff4d4d !important; /* Red background for offline machines */
-    color: white !important; /* White text color for better contrast */
+.machine a.offline,
+.product.unavailable button { /* Style for unavailable product button */
+    background-color: #6c757d !important; /* Gray for offline/unavailable */
+    cursor: not-allowed !important;
+}
+.machine a.offline:hover,
+.product.unavailable button:hover {
+    background-color: #5a6268 !important;
 }
 
-.machine-list .machine a.offline:hover {
-    background-color: #cc0000 !important; /* Darker red on hover */
+/* Styles for unavailable products */
+.product.unavailable {
+    opacity: 0.6; /* Darken out */
+    pointer-events: none; /* Disable clicks on the whole card */
 }
 
-.product-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 20px;
+.product.unavailable .quantity-control button,
+.product.unavailable button[onclick^="addToCart"] {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    pointer-events: none; /* Explicitly disable pointer events on buttons inside */
+}
+.product.unavailable img {
+    filter: grayscale(80%);
 }
 
-.product {
-    background-color: #ffffff;
-    border: 1px solid #d0d0d0;
-    border-radius: 15px;
-    padding: 15px;
-    margin: 10px;
-    width: 220px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.product img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    display: block;
-    margin: 0 auto;
-    max-height: 150px;
-}
 
 /* Quantity control styles */
 .quantity-control {
@@ -245,10 +204,11 @@ section {
     background-color: #007bff;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 12px; /* Adjusted padding */
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 1.1em; /* Slightly larger font */
     cursor: pointer;
+    line-height: 1; /* Ensure consistent button height */
 }
 
 .quantity-control button:hover {
@@ -259,30 +219,144 @@ section {
     display: inline-block;
     width: 40px;
     text-align: center;
-    font-size: 18px;
+    font-size: 1.1em;
     margin: 0 10px;
+    font-weight: bold;
 }
 
-/* Style for the footer */
-footer {
-    background-color: #000000; /* Black background for the footer */
-    padding: 10px; /* Reduced padding */
-    width: 100%; /* Ensure full width */
-    text-align: center;
-    margin-top: auto; /* Pushes footer to the bottom */
-    color: #ffffff; /* White text color for contrast */
+/* Shopping Cart & Checkout Summary Styles */
+.cart, 
+#checkout-summary { /* Added ID for checkout summary section if needed */
+    background-color: #f8f9fa; /* Light background for cart/summary */
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+    border: 1px solid #dee2e6;
 }
 
-/* Ensure contact-info is centered in the footer */
-.contact-info {
-    font-size: 12px; /* Smaller font size for contact info */
-    margin: 0 auto; /* Center the contact info box */
-    max-width: 800px; /* Max width for better alignment */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px; /* Reduced padding */
+.cart h2,
+#checkout-summary h2 {
+    margin-top: 0;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
 }
 
-.payment-button.offline {
-    background-color: red;
+#cart-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#cart-items li {
+    padding: 10px 0;
+    border-bottom: 1px dashed #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+#cart-items li:last-child {
+    border-bottom: none;
+}
+
+#cart-items li button.remove-item { /* Specific class for remove button */
+    background-color: #dc3545;
     color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+#cart-items li button.remove-item:hover {
+    background-color: #c82333;
+}
+
+
+#total-price {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: right;
+    margin-top: 15px;
+    color: #333;
+}
+
+.cart button[onclick="checkout()"], /* Cart checkout button */
+#submitPayment { /* Checkout page submit button */
+    background-color: #28a745; /* Green for checkout/submit */
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 20px;
+    width: auto; /* Or 100% if you want full width */
+    display: inline-block;
+}
+
+.cart button[onclick="checkout()"]:hover,
+#submitPayment:hover {
+    background-color: #218838;
+}
+
+#submitPayment:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+}
+
+#statusMessage {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+
+/* Footer Styles */
+footer {
+    background-color: #343a40; /* Darker footer */
+    padding: 20px; 
+    width: 100%; 
+    text-align: center;
+    margin-top: auto; 
+    color: #f8f9fa; /* Lighter text for contrast */
+    box-sizing: border-box;
+}
+
+.contact-info {
+    font-size: 0.9em; 
+    margin: 0 auto; 
+    max-width: 800px; 
+    padding: 0; /* Removed extra padding */
+}
+.contact-info p {
+    margin: 5px 0;
+}
+
+/* Offline page specific */
+.offline-message-section p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+.offline-message-section a {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.offline-message-section a:hover {
+    background-color: #0056b3;
+}
+
+/* Ensure no conflicting styles for payment buttons from previous versions if they existed */
+.payment-buttons {
+    display: none; /* Hide if not used or reimplemented */
+}
+#card-details {
+    display: none; /* Hide if not used or reimplemented */
 }
