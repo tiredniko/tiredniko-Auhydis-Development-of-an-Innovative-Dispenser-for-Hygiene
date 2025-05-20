@@ -2,7 +2,7 @@
 
 **Project Auhydis** is an IoT-enabled vending machine system designed to provide easy and convenient access to hygiene essentials. Users can interact with the system via a web interface, accessible by scanning a QR code on the physical machine or using a provided tablet, to select products and (in future implementations) make payments.
 
-**Live Website:** [https://auhydis.com](https://auhydis.com) (Note: This link is based on your provided domain; ensure it points to the live deployment).
+**Live Website:** [https://auhydis.com](https://auhydis.com) 
 
 ## 🌟 Features
 
