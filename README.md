@@ -127,6 +127,14 @@ This project involves distinct parts: the website frontend, the Cloudflare Worke
 
 This project is currently under development by Group 3 for CCT-401. For contributions, please contact the repository owner or open an issue/pull request.
 
+## Donations
+
+gcash - 09266132050
+maya - 09266132050
+seabank - 09266132050
+GoTyme - 09266132050
+CIMB - 09266132050
+
 ## 📝 License
 
 All Rights Reserved
