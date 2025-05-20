@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use - Auhydis</title>
+    <link rel="stylesheet" href="styles.css"> <style>
+        /* Additional styles specific to the instructions page for better readability */
+        .instructions-container {
+            text-align: left; /* Align text to the left for instructions */
+            max-width: 800px; /* Comfortable reading width */
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+        }
+        .instructions-container h2 {
+            text-align: center; /* Center the main heading of this section */
+            margin-bottom: 25px;
+        }
+        .instructions-container ul {
+            list-style-type: decimal; /* Numbered list for steps */
+            padding-left: 30px; /* Indent list items */
+        }
+        .instructions-container li {
+            margin-bottom: 15px; /* Space between instruction steps */
+            font-size: 1.1em; /* Slightly larger font for instructions */
+            line-height: 1.7;
+        }
+        .payment-methods {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--bg-secondary); /* Use theme variable */
+            border-radius: 8px;
+            border: 1px solid var(--border-secondary);
+        }
+        .payment-methods h3 {
+            margin-top: 0;
+            color: var(--accent-primary);
+        }
+        .payment-methods p {
+            margin-bottom: 5px;
+        }
+        .qr-info {
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar" id="top-bar">
+        <a href="index.html" class="logo-link">
+            <img src="images/logo.png" alt="Auhydis Logo">
+        </a>
+        <button id="theme-toggle-btn" title="Toggle theme">🌙</button> </div>
+
+    <header>
+        <h1>How to Use Auhydis</h1>
+        <p>Simple steps to get your hygiene essentials!</p>
+    </header>
+
+    <main>
+        <section class="instructions-container">
+            <h2>Follow these easy steps:</h2>
+            <ul>
+                <li>
+                    <strong>Access Our Menu:</strong>
+                    <ul>
+                        <li>Scan the QR code displayed on the vending machine using your smartphone.</li>
+                        <li>Alternatively, you can use the tablet provided at the table/counter to browse products.</li>
+                    </ul>
+                    <p class="qr-info">This will take you to our website: <a href="https://auhydis.com" target="_blank">auhydis.com</a></p>
+                </li>
+                <li>
+                    <strong>Select Your Products:</strong>
+                    <ul>
+                        <li>On the website, choose the "View Machine" option for the machine in front of you.</li>
+                        <li>Browse the available items, select the quantity you need, and add them to your cart.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Proceed to Checkout:</strong>
+                    <ul>
+                        <li>Once you've added all desired items to your cart, click the "Checkout" button.</li>
+                        <li>Review your order summary on the checkout page.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Payment:</strong>
+                    <div class="payment-methods">
+                        <h3>We Accept:</h3>
+                        <p>✔️ **Cash:** Please pay at the counter.</p>
+                        <p>✔️ **GCash:** Please pay at the counter using the provided GCash QR code or number.</p>
+                        <p class="qr-info">(Online payment gateway coming soon!)</p>
+                    </div>
+                </li>
+                <li>
+                    <strong>Dispense Your Items:</strong>
+                    <ul>
+                        <li>After confirming your order on the website (and making payment at the counter), your selected items will be dispensed from the machine.</li>
+                        <li>Please collect your items promptly.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p style="text-align: center; margin-top: 30px;">Thank you for using Auhydis!</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contact-info">
+            <p>&copy; 2025 auhydis.com - All Rights Reserved</p>
+            <p>Phone: (63+)9266132050 | Email: nikopaned.official@auhydis.com</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script> 
+</body>
+</html>
