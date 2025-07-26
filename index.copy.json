@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auhydis - Your Hygiene Essentials</title> <link rel="stylesheet" href="styles.css">
+    </head>
+
+<body>
+    <div class="top-bar" id="top-bar">
+        <a href="index.html" class="logo-link">
+            <img src="images/logo.png" alt="Auhydis Logo">
+        </a>
+        <button id="theme-toggle-btn" title="Toggle theme">🌙</button> </div>
+
+    <header>
+        <h1>Welcome to Auhydis</h1> <p>Your one-stop solution for convenient hygiene products.</p>
+    </header>
+
+    <main>
+        <section id="machine-selection"> <h2>Select a Machine</h2>
+            <div class="machine-list">
+                <div class="machine" id="auhydis-machine-1">
+                    <img src="images/machine1.jpg" alt="Auhydis Machine 1">
+                    <h3>AUHYDIS 1</h3>
+                    <a href="machine1.html">View Products</a> </div>
+                <div class="machine" id="auhydis-machine-2">
+                    <img src="images/machine2.jpg" alt="Auhydis Machine 2">
+                    <h3>AUHYDIS 2</h3>
+                    <a href="offline.html" class="offline">Machine Offline</a>
+                </div>
+                </div>
+        </section>
+
+        <section id="about-auhydis"> <h2>About Auhydis</h2>
+            <p>Auhydis is committed to providing easy and accessible hygiene solutions for everyone. Our innovative dispensers ensure you have what you need, when you need it.</p>
+            <p>We believe in the importance of personal well-being and aim to make essential hygiene products effortlessly obtainable through modern technology.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="contact-info">
+            <p>&copy; 2025 auhydis.com - All Rights Reserved</p> <p>Phone: (63+)9266132050 | Email: nikopaned@auhydis.com</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script> 
+</body>
+</html>
